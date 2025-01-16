@@ -1,0 +1,60 @@
+[
+    {
+      "id": "card1",
+      "image": "card numbers (1).png",
+      "shortText": "Lorem ipsum dolor card1  sit amet, consectetur adipiscing elit.",
+      "detailedText": "Detailed card1 information about card 1, including examples, insights, and elaboration."
+    },
+    {
+      "id": "card2",
+      "image": "card numbers (2).png",
+      "shortText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "detailedText": "Detailed information about card 2, including examples, insights, and elaboration."
+    },
+    {
+      "id": "card3",
+      "image": "card numbers (3).png",
+      "shortText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "detailedText": "Detailed information about card 3, including examples, insights, and elaboration."
+    },
+  
+    {
+      "id": "card4",
+      "image": "card numbers (1).png",
+      "shortText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. card4",
+      "detailedText": "Detailed information about card 4, including examples, insights, and elaboration."
+    },
+    {
+      "id": "card5",
+      "image": "card numbers (2).png",
+      "shortText": "card5 Lorem card5 ipsum dolor sit amet, consectetur adipiscing elit.",
+      "detailedText": " card5 Detailed information about card 5, including examples, insights, and elaboration."
+    },
+    {
+      "id": "card6",
+      "image": "card numbers (3).png",
+      "shortText": "Lorem ipsum dolor sit amet, card6 consectetur adipiscing elit.",
+      "detailedText": "Detailed information about card 6, including examples, insights, and elaboration."
+    },
+  
+  
+    {
+      "id": "card7",
+      "image": "card numbers (1).png",
+      "shortText": "Lorem ipsum  card7 dolor sit amet, card7 onsectetur adipiscing elit.",
+      "detailedText": "Detailed information about card 7, including examples, insights, and elaboration."
+    },
+    {
+      "id": "card8",
+      "image": "card numbers (2).png",
+      "shortText": "Lorem card8 ipsum dolor sit amet, consectetur adipiscing elit.",
+      "detailedText": "Detailed information about card 8, including examples, insights, and elaboration."
+    },
+    {
+      "id": "card9",
+      "image": "card numbers (3).png",
+      "shortText": "Lorem card9 ipsum dolor sit amet, consectetur adipiscing elit.",
+      "detailedText": "Detailed information about card 9, including examples, insights, and elaboration."
+    }
+  ]
+  
