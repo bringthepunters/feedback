@@ -14,9 +14,7 @@
       margin: 0;
       padding-left: 15%;
       background-color: #0d6238;
-
-
-    background-image: url("https://www.transparenttextures.com/patterns/classy-fabric.png");
+      background-image: url('https://www.transparenttextures.com/patterns/green-fabric.png');
       font-family: Arial, sans-serif;
     }
 
@@ -72,15 +70,15 @@
     }
 
     .card-inner {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        transform-style: preserve-3d;
-        transition: transform 0.6s;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.6s;
     }
-    
+
     .card.flipped .card-inner {
-        transform: rotateY(180deg);
+      transform: rotateY(180deg);
     }
 
     .card-front, .card-back {
@@ -122,19 +120,21 @@
     }
 
     .popup {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 80%;
-        height: 50%;
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        z-index: 1000;
-        overflow: hidden;
-      }    .popup-image {
+      display: none; /* Ensure popup is hidden on page load */
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 50%;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      overflow: hidden;
+    }
+
+    .popup-image {
       width: 50%;
       background-size: cover;
       background-position: center;
@@ -186,18 +186,38 @@
     let originalPositions = {}; // Store original positions of cards
 
     // Fetch card data and populate the grid
-    function flipCard(event) {
-        // Don't flip if clicking the "more" button
-        if (event.target.classList.contains('more')) {
-            return;
-        }
-        
-        // Find the card element (might be clicking a child element)
-        const card = event.target.closest('.card');
-        if (card) {
-            card.classList.toggle('flipped');
-        }
+    async function loadCards() {
+      const response = await fetch(cardDataUrl);
+      const cardData = await response.json();
+      const grid = document.getElementById('card-grid');
+
+      cardData.forEach(card => {
+        const cardElement = document.createElement('div');
+        cardElement.className = 'card';
+        cardElement.id = card.id;
+        cardElement.setAttribute('draggable', 'true');
+        cardElement.setAttribute('ondragstart', 'drag(event)');
+        cardElement.setAttribute('ondragend', 'dragEnd(event)');
+
+        cardElement.innerHTML = `
+          <div class="card-inner">
+            <div class="card-front" style="background-image: url('${card.image}');"></div>
+            <div class="card-back">
+              ${card.shortText}
+              <div class="more" onclick="event.stopPropagation(); showPopup('${card.image}', '${card.detailedText.replace(/'/g, "\'")}')">... more</div>
+            </div>
+          </div>
+        `;
+
+        // Add click event for flipping
+        cardElement.addEventListener('click', function () {
+          cardElement.classList.toggle('flipped');
+        });
+
+        grid.appendChild(cardElement);
+      });
     }
+
     function showPopup(image, content) {
       const popup = document.getElementById('popup');
       const popupImage = document.getElementById('popup-image');
@@ -223,7 +243,7 @@
     });
 
     function drag(event) {
-      const card = event.target;
+      const card = event.target.closest('.card');
       originalPositions[card.id] = card.getBoundingClientRect();
       const isFlipped = card.classList.contains('flipped');
       event.dataTransfer.setData('cardId', card.id);
@@ -234,55 +254,14 @@
         card.style.visibility = 'hidden';
       }, 0);
     }
-    async function loadCards() {
-        const response = await fetch(cardDataUrl);
-        const cardData = await response.json();
-        const grid = document.getElementById('card-grid');
-    
-        cardData.forEach(card => {
-            const cardElement = document.createElement('div');
-            cardElement.className = 'card';
-            cardElement.id = card.id;
-            cardElement.setAttribute('draggable', 'true');
-            cardElement.setAttribute('ondragstart', 'drag(event)');
-            cardElement.setAttribute('ondragend', 'dragEnd(event)');
-            // Add click handler for flipping
-            cardElement.addEventListener('click', flipCard);
-    
-            cardElement.innerHTML = `
-                <div class="card-inner">
-                    <div class="card-front" style="background-image: url('${card.image}');"></div>
-                    <div class="card-back">
-                        ${card.shortText}
-                        <div class="more" onclick="showPopup('${card.image}', '${card.detailedText.replace(/'/g, "\'")}')">... more</div>
-                    </div>
-                </div>
-            `;
-    
-            grid.appendChild(cardElement);
-        });
-    }
 
     function dragEnd(event) {
-      const card = event.target;
+      const card = event.target.closest('.card');
       card.style.visibility = 'visible';
     }
 
     function allowDrop(event) {
       event.preventDefault();
-    }
-
-    function flipCard(event) {
-        // Don't flip if clicking the "more" button
-        if (event.target.classList.contains('more')) {
-            return;
-        }
-        
-        // Find the card element (might be clicking a child element)
-        const card = event.target.closest('.card');
-        if (card) {
-            card.classList.toggle('flipped');
-        }
     }
 
     function drop(event, zone) {
@@ -299,6 +278,9 @@
 
       // Add card to drop zone
       const clonedCard = card.cloneNode(true);
+      clonedCard.addEventListener('click', function () {
+        clonedCard.classList.toggle('flipped');
+      });
       if (flipped) {
         clonedCard.classList.add('flipped');
       } else {
