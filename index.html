@@ -6,6 +6,7 @@
   <title>Feedback Styles</title>
   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
   <style>
+    /* Styling for the overall page */
     body {
       display: flex;
       flex-direction: column;
@@ -18,6 +19,7 @@
       font-family: Arial, sans-serif;
     }
 
+    /* Grid layout for the cards */
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -25,6 +27,7 @@
       margin-top: 20px;
     }
 
+    /* Container for drop zones */
     .drop-zones {
       display: flex;
       flex-direction: column;
@@ -33,6 +36,7 @@
       margin-left: 50px;
     }
 
+    /* Styling for individual drop zones */
     .drop-zone {
       width: 170px;
       height: 270px;
@@ -47,8 +51,16 @@
       margin-bottom: 20px;
       position: relative;
       z-index: 0;
+      transition: all 0.3s ease;
     }
 
+    /* Drop zone highlight effect */
+    .drop-zone.dragover {
+      border-color: #fff;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Labels for the drop zones */
     .drop-zone-label {
       position: relative;
       margin-bottom: 10px;
@@ -59,6 +71,7 @@
       text-align: center;
     }
 
+    /* Styling for individual cards */
     .card {
       width: 150px;
       height: 250px;
@@ -69,6 +82,7 @@
       transition: transform 0.5s ease;
     }
 
+    /* Inner container for the card (3D rotation effect) */
     .card-inner {
       position: relative;
       width: 100%;
@@ -77,10 +91,12 @@
       transition: transform 0.6s;
     }
 
+    /* Add rotation effect when the card is flipped */
     .card.flipped .card-inner {
       transform: rotateY(180deg);
     }
 
+    /* Common styles for front and back of the card */
     .card-front, .card-back {
       position: absolute;
       width: calc(100% - 4px);
@@ -110,6 +126,7 @@
       position: relative;
     }
 
+    /* "More" link on the card back */
     .more {
       position: absolute;
       bottom: 10px;
@@ -119,8 +136,9 @@
       text-decoration: underline;
     }
 
+    /* Popup styling */
     .popup {
-      display: none; /* Ensure popup is hidden on page load */
+      display: none;
       position: fixed;
       top: 50%;
       left: 50%;
@@ -134,12 +152,14 @@
       overflow: hidden;
     }
 
+    /* Popup left image section */
     .popup-image {
       width: 50%;
       background-size: cover;
       background-position: center;
     }
 
+    /* Popup right content section */
     .popup-content {
       width: 50%;
       padding: 20px;
@@ -148,6 +168,7 @@
       line-height: 1.5;
     }
 
+    /* Close button for the popup */
     .popup-close {
       position: absolute;
       top: 10px;
@@ -166,11 +187,27 @@
     <div class="drop-zones">
       <div>
         <div class="drop-zone-label">Giving Feedback</div>
-        <div class="drop-zone" ondragover="allowDrop(event)" ondrop="drop(event, 'Giving Feedback')"></div>
+        <div class="drop-zone" 
+             ondragover="allowDrop(event)" 
+             ondrop="drop(event, 'Giving Feedback')"
+             ondragenter="dragEnter(event)"
+             ondragleave="dragLeave(event)"></div>
       </div>
       <div>
         <div class="drop-zone-label">Receiving Feedback</div>
-        <div class="drop-zone" ondragover="allowDrop(event)" ondrop="drop(event, 'Receiving Feedback')"></div>
+        <div class="drop-zone" 
+             ondragover="allowDrop(event)" 
+             ondrop="drop(event, 'Receiving Feedback')"
+             ondragenter="dragEnter(event)"
+             ondragleave="dragLeave(event)"></div>
+      </div>
+      <div>
+        <div class="drop-zone-label">I aspire to...</div>
+        <div class="drop-zone" 
+             ondragover="allowDrop(event)" 
+             ondrop="drop(event, 'I aspire to...')"
+             ondragenter="dragEnter(event)"
+             ondragleave="dragLeave(event)"></div>
       </div>
     </div>
   </div>
@@ -182,10 +219,9 @@
   </div>
 
   <script>
-    const cardDataUrl = 'cardtext.json'; // Path to the JSON file
-    let originalPositions = {}; // Store original positions of cards
+    const cardDataUrl = 'cardtext.json';
+    let originalPositions = {};
 
-    // Fetch card data and populate the grid
     async function loadCards() {
       const response = await fetch(cardDataUrl);
       const cardData = await response.json();
@@ -209,8 +245,7 @@
           </div>
         `;
 
-        // Add click event for flipping
-        cardElement.addEventListener('click', function () {
+        cardElement.addEventListener('click', function() {
           cardElement.classList.toggle('flipped');
         });
 
@@ -234,8 +269,7 @@
       popup.style.display = 'none';
     }
 
-    // Close popup when clicking outside of it
-    window.addEventListener('click', function (event) {
+    window.addEventListener('click', function(event) {
       const popup = document.getElementById('popup');
       if (event.target === popup) {
         popup.style.display = 'none';
@@ -246,10 +280,14 @@
       const card = event.target.closest('.card');
       originalPositions[card.id] = card.getBoundingClientRect();
       const isFlipped = card.classList.contains('flipped');
-      event.dataTransfer.setData('cardId', card.id);
-      event.dataTransfer.setData('flipped', isFlipped);
+      
+      // Set data transfer with proper format
+      event.dataTransfer.setData('text/plain', JSON.stringify({
+        cardId: card.id,
+        flipped: isFlipped,
+        html: card.innerHTML
+      }));
 
-      // Temporarily hide card
       setTimeout(() => {
         card.style.visibility = 'hidden';
       }, 0);
@@ -258,40 +296,84 @@
     function dragEnd(event) {
       const card = event.target.closest('.card');
       card.style.visibility = 'visible';
+      
+      // Clean up any stuck highlights
+      document.querySelectorAll('.drop-zone').forEach(zone => {
+        zone.classList.remove('dragover');
+      });
     }
 
     function allowDrop(event) {
       event.preventDefault();
+      event.dataTransfer.dropEffect = 'copy';
+    }
+
+    function dragEnter(event) {
+      event.preventDefault();
+      const dropZone = event.target.closest('.drop-zone');
+      if (dropZone) {
+        dropZone.classList.add('dragover');
+      }
+    }
+    
+    function dragLeave(event) {
+      event.preventDefault();
+      const dropZone = event.target.closest('.drop-zone');
+      if (dropZone) {
+        dropZone.classList.remove('dragover');
+      }
     }
 
     function drop(event, zone) {
       event.preventDefault();
-      const cardId = event.dataTransfer.getData('cardId');
-      const flipped = event.dataTransfer.getData('flipped') === 'true';
-      const card = document.getElementById(cardId);
       const dropZone = event.target.closest('.drop-zone');
+      dropZone.classList.remove('dragover');
 
-      // Ensure only one card per drop zone
-      if (dropZone.children.length > 0) {
-        return;
+      try {
+        const data = JSON.parse(event.dataTransfer.getData('text/plain'));
+        const { cardId, flipped, html } = data;
+        const originalCard = document.getElementById(cardId);
+
+        if (!originalCard || !dropZone) return;
+
+        // Clear existing cards
+        while (dropZone.firstChild) {
+          dropZone.removeChild(dropZone.firstChild);
+        }
+
+        // Create new card
+        const clonedCard = document.createElement('div');
+        clonedCard.className = 'card';
+        clonedCard.innerHTML = html;
+
+        // Set up click listener for flip
+        clonedCard.addEventListener('click', function() {
+          clonedCard.classList.toggle('flipped');
+        });
+
+        // Set up more info click handler
+        const moreLink = clonedCard.querySelector('.more');
+        if (moreLink) {
+          const originalMore = originalCard.querySelector('.more');
+          moreLink.onclick = originalMore.onclick;
+        }
+
+        // Set flip state
+        if (flipped) {
+          clonedCard.classList.add('flipped');
+        }
+
+        // Add to drop zone
+        dropZone.appendChild(clonedCard);
+        
+        // Make original card visible
+        originalCard.style.visibility = 'visible';
+      } catch (error) {
+        console.error('Error in drop handler:', error);
       }
-
-      // Add card to drop zone
-      const clonedCard = card.cloneNode(true);
-      clonedCard.addEventListener('click', function () {
-        clonedCard.classList.toggle('flipped');
-      });
-      if (flipped) {
-        clonedCard.classList.add('flipped');
-      } else {
-        clonedCard.classList.remove('flipped');
-      }
-      dropZone.appendChild(clonedCard);
-
-      // Return the original card
-      card.style.visibility = 'visible';
     }
 
+    // Load cards on page load
     loadCards();
   </script>
 </body>
