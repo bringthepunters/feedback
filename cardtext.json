@@ -1,60 +1,148 @@
-[
-    {
-      "id": "card1",
-      "image": "card numbers (1).png",
-      "shortText": "Lorem ipsum dolor card1  sit amet, consectetur adipiscing elit.",
-      "detailedText": "Detailed card1 information about card 1, including examples, insights, and elaboration."
-    },
-    {
-      "id": "card2",
-      "image": "card numbers (2).png",
-      "shortText": "Lorem ipsum card 2 dolor sit amet, consectetur adipiscing elit.",
-      "detailedText": "Detailed information about card 2, including examples, insights, and elaboration."
-    },
-    {
-      "id": "card3",
-      "image": "card numbers (3).png",
-      "shortText": "Lorem ipsum dolor sit amet, ccard 3 onsectetur adipiscing elit.",
-      "detailedText": "Detailed information about card 3, including examples, insights, and elaboration."
-    },
-  
-    {
-      "id": "card4",
-      "image": "card numbers (4).png",
-      "shortText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. card4",
-      "detailedText": "Detailed information about card 4, including examples, insights, and elaboration."
-    },
-    {
-      "id": "card5",
-      "image": "card numbers (5).png",
-      "shortText": "card5 Lorem card5 ipsum dolor sit amet, consectetur adipiscing elit.",
-      "detailedText": " card5 Detailed information about card 5, including examples, insights, and elaboration."
-    },
-    {
-      "id": "card6",
-      "image": "card numbers (6).png",
-      "shortText": "Lorem ipsum dolor sit amet, card6 consectetur adipiscing elit.",
-      "detailedText": "Detailed information about card 6, including examples, insights, and elaboration."
-    },
-  
-  
-    {
-      "id": "card7",
-      "image": "card numbers (7).png",
-      "shortText": "Lorem ipsum  card7 dolor sit amet, card7 onsectetur adipiscing elit.",
-      "detailedText": "Detailed information about card 7, including examples, insights, and elaboration."
-    },
-    {
-      "id": "card8",
-      "image": "card numbers (8).png",
-      "shortText": "Lorem card8 ipsum dolor sit amet, consectetur adipiscing elit.",
-      "detailedText": "Detailed information about card 8, including examples, insights, and elaboration."
-    },
-    {
-      "id": "card9",
-      "image": "card numbers (9).png",
-      "shortText": "Lorem card9 ipsum dolor sit amet, consectetur adipiscing elit.",
-      "detailedText": "Detailed information about card 9, including examples, insights, and elaboration."
-    }
-  ]
-  
+{
+    "cards": [
+      {
+        "id": "card1",
+        "image": "card numbers (1).png",
+        "shortText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "cardName": "Card One",
+        "cardSummary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
+        "prosReceivers": [
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          "Sed do eiusmod tempor incididunt ut labore."
+        ],
+        "consReceivers": [
+          "Ut enim ad minim veniam, quis nostrud.",
+          "Duis aute irure dolor in reprehenderit.",
+          "Excepteur sint occaecat cupidatat non proident."
+        ]
+      },
+      {
+        "id": "catalyst",
+        "image": "card numbers (2).png",
+        "shortText": "The Catalyst style of feedback feels like discovery...",
+        "cardName": "The Catalyst",
+        "cardSummary": "The Catalyst style of feedback feels like discovery. It helps us find potential we didn't know we had. We have been coached towards it, but we know we arrived at our conclusion by ourselves and we own the action we take.",
+        "prosReceivers": [
+          "We understand the action we're going to take, and why, and we can apply the reasoning again in similar situations.",
+          "We feel personal achievement!"
+        ],
+        "consReceivers": [
+          "Can be frustrating and time consuming for practical minds.",
+          "This feedback might be useless in the moment.",
+          "It won't quickly tell you what action to take next."
+        ]
+      },
+      {
+        "id": "card3",
+        "image": "card numbers (3).png",
+        "shortText": "Suspendisse potenti integer vitae justo eget magna.",
+        "cardName": "Card Three",
+        "cardSummary": "Suspendisse potenti integer vitae justo eget magna fermentum iaculis. Vivamus arcu felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida.",
+        "prosReceivers": [
+          "Vivamus arcu felis bibendum ut tristique.",
+          "Egestas quis ipsum suspendisse ultrices."
+        ],
+        "consReceivers": [
+          "Gravida in fermentum et sollicitudin.",
+          "Habitant morbi tristique senectus.",
+          "Pharetra magna ac placerat vestibulum."
+        ]
+      },
+      {
+        "id": "card4",
+        "image": "card numbers (4).png",
+        "shortText": "Nulla facilisi etiam dignissim diam quis enim.",
+        "cardName": "Card Four",
+        "cardSummary": "Nulla facilisi etiam dignissim diam quis enim lobortis scelerisque. Habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas integer.",
+        "prosReceivers": [
+          "Habitant morbi tristique senectus et netus.",
+          "Malesuada fames ac turpis egestas."
+        ],
+        "consReceivers": [
+          "Integer vitae justo eget magna.",
+          "Vivamus arcu felis bibendum tristique.",
+          "Suspendisse potenti integer vitae."
+        ]
+      },
+      {
+        "id": "card5",
+        "image": "card numbers (5).png",
+        "shortText": "Massa tempor nec feugiat nisl pretium fusce.",
+        "cardName": "Card Five",
+        "cardSummary": "Massa tempor nec feugiat nisl pretium fusce id. Sit amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus et netus et malesuada.",
+        "prosReceivers": [
+          "Sit amet consectetur adipiscing elit.",
+          "Pellentesque habitant morbi tristique."
+        ],
+        "consReceivers": [
+          "Massa tempor nec feugiat nisl.",
+          "Pretium fusce id velit ut.",
+          "Tortor dignissim convallis aenean."
+        ]
+      },
+      {
+        "id": "card6",
+        "image": "card numbers (6).png",
+        "shortText": "Tortor dignissim convallis aenean et tortor at risus.",
+        "cardName": "Card Six",
+        "cardSummary": "Tortor dignissim convallis aenean et tortor at risus viverra adipiscing. At augue eget arcu dictum varius duis at consectetur lorem donec massa.",
+        "prosReceivers": [
+          "At augue eget arcu dictum varius.",
+          "Duis at consectetur lorem donec."
+        ],
+        "consReceivers": [
+          "Viverra adipiscing at in tellus.",
+          "Integer feugiat scelerisque varius.",
+          "Morbi enim nunc faucibus a."
+        ]
+      },
+      {
+        "id": "card7",
+        "image": "card numbers (7).png",
+        "shortText": "Viverra adipiscing at in tellus integer feugiat.",
+        "cardName": "Card Seven",
+        "cardSummary": "Viverra adipiscing at in tellus integer feugiat scelerisque varius morbi. Enim nunc faucibus a pellentesque sit amet porttitor eget dolor morbi non.",
+        "prosReceivers": [
+          "Enim nunc faucibus a pellentesque.",
+          "Sit amet porttitor eget dolor."
+        ],
+        "consReceivers": [
+          "Scelerisque varius morbi enim.",
+          "Faucibus a pellentesque sit.",
+          "Porttitor eget dolor morbi."
+        ]
+      },
+      {
+        "id": "card8",
+        "image": "card numbers (8).png",
+        "shortText": "Morbi enim nunc faucibus a pellentesque sit amet.",
+        "cardName": "Card Eight",
+        "cardSummary": "Morbi enim nunc faucibus a pellentesque sit amet porttitor. Eget dolor morbi non arcu risus quis varius quam quisque id diam vel quam elementum.",
+        "prosReceivers": [
+          "Eget dolor morbi non arcu risus.",
+          "Quis varius quam quisque id."
+        ],
+        "consReceivers": [
+          "Diam quis enim lobortis scelerisque.",
+          "Habitant morbi tristique senectus.",
+          "Netus et malesuada fames ac."
+        ]
+      },
+      {
+        "id": "card9",
+        "image": "card numbers (9).png",
+        "shortText": "Eget dolor morbi non arcu risus quis varius.",
+        "cardName": "Card Nine",
+        "cardSummary": "Eget dolor morbi non arcu risus quis varius quam quisque. Id diam vel quam elementum pulvinar etiam non quam lacus suspendisse faucibus interdum.",
+        "prosReceivers": [
+          "Id diam vel quam elementum pulvinar.",
+          "Etiam non quam lacus suspendisse."
+        ],
+        "consReceivers": [
+          "Faucibus pulvinar elementum integer.",
+          "Enim sed faucibus turpis in.",
+          "Eu mi bibendum neque egestas."
+        ]
+      }
+    ]
+  }

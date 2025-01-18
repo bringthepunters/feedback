@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Feedback Styles</title>
   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
   <style>
     /* Styling for the overall page */
     body {
@@ -19,12 +20,13 @@
       font-family: Arial, sans-serif;
     }
 
-    /* Grid layout for the cards */
+    /* Grid layout for the cards - updated spacing */
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-top: 20px;
+      gap: 25px;
+      row-gap: 15px;  /* Added reduced vertical gap */
+      margin: 25px 25px 25px 0;
     }
 
     /* Container for drop zones */
@@ -54,10 +56,31 @@
       transition: all 0.3s ease;
     }
 
-    /* Drop zone highlight effect */
+    /* Enhanced drop zone highlight effect */
     .drop-zone.dragover {
       border-color: #fff;
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      transform: scale(1.02);
+    }
+
+    /* Drop animation keyframes */
+    @keyframes dropAnimation {
+      0% {
+        transform: scale(0.8);
+        opacity: 0.5;
+      }
+      70% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .card-drop-animation {
+      animation: dropAnimation 0.4s ease-out forwards;
     }
 
     /* Labels for the drop zones */
@@ -79,7 +102,7 @@
       cursor: grab;
       z-index: 2;
       position: relative;
-      transition: transform 0.5s ease;
+      transition: transform 0.5s ease, opacity 0.3s ease;  /* Added opacity transition */
     }
 
     /* Inner container for the card (3D rotation effect) */
@@ -137,45 +160,85 @@
     }
 
     /* Popup styling */
-    .popup {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 80%;
-      height: 50%;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-      z-index: 1000;
-      overflow: hidden;
-    }
+  /* Popup styling */
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;  /* Made taller to accommodate content */
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  overflow: hidden;
+}
 
-    /* Popup left image section */
-    .popup-image {
-      width: 50%;
-      background-size: cover;
-      background-position: center;
-    }
 
-    /* Popup right content section */
-    .popup-content {
-      width: 50%;
-      padding: 20px;
-      overflow-y: auto;
-      font-size: 16px;
-      line-height: 1.5;
-    }
 
-    /* Close button for the popup */
-    .popup-close {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 20px;
-      cursor: pointer;
-    }
+.popup-image {
+  width: 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+  min-height: 100%;  /* Ensure full height */
+}
+
+/* Popup right content section */
+.popup-content {
+  width: 50%;
+  padding: 40px;
+  overflow-y: auto;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.card-title {
+  font-family: 'Cinzel', serif;
+  color: #8B6B3D;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.card-summary {
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.section-title {
+  font-family: 'Cinzel', serif;
+  color: #8B6B3D;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.pros-list, .cons-list {
+  list-style: disc;
+  padding-left: 20px;
+  margin-bottom: 25px;
+}
+
+.pros-list li, .cons-list li {
+  margin-bottom: 10px;
+  color: #444;
+}
+
+/* Close button for the popup */
+.popup-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  z-index: 1001;
+}
   </style>
 </head>
 <body>
@@ -212,58 +275,97 @@
     </div>
   </div>
 
-  <div class="popup" id="popup">
+  <div class="popup" id="popup" style="display: none;">
     <div class="popup-image" id="popup-image"></div>
-    <div class="popup-content" id="popup-content"></div>
+    <div class="popup-content">
+        <div class="card-title"></div>
+        <div class="card-summary"></div>
+        <div class="pros-section">
+            <div class="section-title">Pros for receivers:</div>
+            <ul class="pros-list"></ul>
+        </div>
+        <div class="cons-section">
+            <div class="section-title">Cons for receivers:</div>
+            <ul class="cons-list"></ul>
+        </div>
+    </div>
     <div class="popup-close" onclick="closePopup()">&times;</div>
-  </div>
+</div>
 
   <script>
     const cardDataUrl = 'cardtext.json';
     let originalPositions = {};
-
     async function loadCards() {
       const response = await fetch(cardDataUrl);
-      const cardData = await response.json();
+      const data = await response.json();
       const grid = document.getElementById('card-grid');
-
-      cardData.forEach(card => {
-        const cardElement = document.createElement('div');
-        cardElement.className = 'card';
-        cardElement.id = card.id;
-        cardElement.setAttribute('draggable', 'true');
-        cardElement.setAttribute('ondragstart', 'drag(event)');
-        cardElement.setAttribute('ondragend', 'dragEnd(event)');
-
-        cardElement.innerHTML = `
+  
+      data.cards.forEach(card => {
+          const cardElement = document.createElement('div');
+          cardElement.className = 'card';
+          cardElement.id = card.id;
+          cardElement.setAttribute('draggable', 'true');
+          cardElement.setAttribute('ondragstart', 'drag(event)');
+          cardElement.setAttribute('ondragend', 'dragEnd(event)');
+  
+          const cardForOnclick = encodeURIComponent(JSON.stringify(card));
+          
+          cardElement.innerHTML = `
           <div class="card-inner">
-            <div class="card-front" style="background-image: url('${card.image}');"></div>
-            <div class="card-back">
-              ${card.shortText}
-              <div class="more" onclick="event.stopPropagation(); showPopup('${card.image}', '${card.detailedText.replace(/'/g, "\'")}')">... more</div>
-            </div>
+              <div class="card-front" style="background-image: url('${card.image}');"></div>
+              <div class="card-back">
+                  ${card.shortText}
+                  <div class="more" onclick="event.stopPropagation(); showPopup(${JSON.stringify(card)})">... more</div>
+              </div>
           </div>
-        `;
+      `;
 
-        cardElement.addEventListener('click', function() {
-          cardElement.classList.toggle('flipped');
-        });
-
-        grid.appendChild(cardElement);
+          cardElement.addEventListener('click', function() {
+              cardElement.classList.toggle('flipped');
+          });
+  
+          grid.appendChild(cardElement);
       });
+  }
+  
+  function showPopup(cardData) {
+    const card = typeof cardData === 'string' ? JSON.parse(cardData) : cardData;
+    const popup = document.getElementById('popup');
+
+    if (!popup) {
+        console.error('Popup element not found');
+        return;
     }
 
-    function showPopup(image, content) {
-      const popup = document.getElementById('popup');
-      const popupImage = document.getElementById('popup-image');
-      const popupContent = document.getElementById('popup-content');
+    // Get references to elements within popup
+    const popupImage = popup.querySelector('.popup-image');
+    const cardTitle = popup.querySelector('.card-title');
+    const cardSummary = popup.querySelector('.card-summary');
+    const prosList = popup.querySelector('.pros-list');
+    const consList = popup.querySelector('.cons-list');
 
-      popupImage.style.backgroundImage = `url(${image})`;
-      popupContent.textContent = content;
+    // Update image
+    popupImage.style.backgroundImage = `url(${card.image})`;
+    
+    // Update title and summary
+    cardTitle.textContent = card.cardName;
+    cardSummary.textContent = card.cardSummary;
 
+    // Update pros list
+    prosList.innerHTML = card.prosReceivers
+        .map(pro => `<li>${pro}</li>`)
+        .join('');
+
+    // Update cons list
+    consList.innerHTML = card.consReceivers
+        .map(con => `<li>${con}</li>`)
+        .join('');
+
+    // Show popup
       popup.style.display = 'flex';
-    }
-
+}
+      popup.style.display = 'flex';
+  
     function closePopup() {
       const popup = document.getElementById('popup');
       popup.style.display = 'none';
@@ -281,21 +383,33 @@
       originalPositions[card.id] = card.getBoundingClientRect();
       const isFlipped = card.classList.contains('flipped');
       
-      // Set data transfer with proper format
+      // Create proper drag image
+      const dragImage = card.cloneNode(true);
+      dragImage.style.position = 'absolute';
+      dragImage.style.top = '-1000px';
+      document.body.appendChild(dragImage);
+      
+      if (isFlipped) {
+        dragImage.classList.add('flipped');
+      }
+      
+      event.dataTransfer.setDragImage(dragImage, 75, 125);
       event.dataTransfer.setData('text/plain', JSON.stringify({
         cardId: card.id,
         flipped: isFlipped,
         html: card.innerHTML
       }));
 
+      card.style.opacity = '0.6';  // Changed from visibility: hidden
+
       setTimeout(() => {
-        card.style.visibility = 'hidden';
+        document.body.removeChild(dragImage);
       }, 0);
     }
 
     function dragEnd(event) {
       const card = event.target.closest('.card');
-      card.style.visibility = 'visible';
+      card.style.opacity = '1';  // Changed from visibility: visible
       
       // Clean up any stuck highlights
       document.querySelectorAll('.drop-zone').forEach(zone => {
@@ -343,7 +457,7 @@
 
         // Create new card
         const clonedCard = document.createElement('div');
-        clonedCard.className = 'card';
+        clonedCard.className = 'card card-drop-animation';
         clonedCard.innerHTML = html;
 
         // Set up click listener for flip
@@ -366,8 +480,13 @@
         // Add to drop zone
         dropZone.appendChild(clonedCard);
         
+        // Remove animation class after animation completes
+        setTimeout(() => {
+          clonedCard.classList.remove('card-drop-animation');
+        }, 400);
+
         // Make original card visible
-        originalCard.style.visibility = 'visible';
+        originalCard.style.opacity = '1';  // Updated to match new opacity approach
       } catch (error) {
         console.error('Error in drop handler:', error);
       }
