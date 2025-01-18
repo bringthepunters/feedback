@@ -176,17 +176,30 @@
   overflow: hidden;
 }
 
+#badge {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Adjust size as needed */
+  background-image: url('badge.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 1001;
+}
 
 
 .popup-image {
   width: 50%;
-  background-size: contain;
+  height: 100%; /* Ensure full height is utilized */
+  background-size: contain; /* Ensure the image fits */
   background-repeat: no-repeat;
   background-position: center;
   background-color: #f8f9fa;
   border-right: 1px solid #dee2e6;
-  min-height: 100%;  /* Ensure full height */
 }
+
 
 /* Popup right content section */
 .popup-content {
@@ -292,6 +305,8 @@
     <div class="popup-close" onclick="closePopup()">&times;</div>
 </div>
 
+<div id="badge"></div>
+
   <script>
     const cardDataUrl = 'cardtext.json';
     let originalPositions = {};
@@ -308,18 +323,24 @@
           cardElement.setAttribute('ondragstart', 'drag(event)');
           cardElement.setAttribute('ondragend', 'dragEnd(event)');
   
-          const cardForOnclick = encodeURIComponent(JSON.stringify(card));
-          
           cardElement.innerHTML = `
-          <div class="card-inner">
-              <div class="card-front" style="background-image: url('${card.image}');"></div>
-              <div class="card-back">
-                  ${card.shortText}
-                  <div class="more" onclick="event.stopPropagation(); showPopup(${JSON.stringify(card)})">... more</div>
+              <div class="card-inner">
+                  <div class="card-front" style="background-image: url('${card.image}');"></div>
+                  <div class="card-back">
+                      ${card.shortText}
+                      <div class="more">... more</div>
+                  </div>
               </div>
-          </div>
-      `;
-
+          `;
+  
+          // Attach event listener for "more"
+          const moreLink = cardElement.querySelector('.more');
+          moreLink.addEventListener('click', (event) => {
+              event.stopPropagation(); // Prevent card flipping
+              showPopup(card); // Trigger popup only when "more" is clicked
+          });
+  
+          // Enable card flipping
           cardElement.addEventListener('click', function() {
               cardElement.classList.toggle('flipped');
           });
@@ -327,6 +348,7 @@
           grid.appendChild(cardElement);
       });
   }
+  
   
   function showPopup(cardData) {
     const card = typeof cardData === 'string' ? JSON.parse(cardData) : cardData;
@@ -362,10 +384,8 @@
         .join('');
 
     // Show popup
-      popup.style.display = 'flex';
+    popup.style.display = 'flex';
 }
-      popup.style.display = 'flex';
-  
     function closePopup() {
       const popup = document.getElementById('popup');
       popup.style.display = 'none';
