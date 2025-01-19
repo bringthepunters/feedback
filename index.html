@@ -7,168 +7,167 @@
   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
   <style>
-    /* Styling for the overall page */
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      height: 100vh;
-      margin: 0;
-      padding-left: 15%;
-      background-color: #0d6238;
-      background-image: url('https://www.transparenttextures.com/patterns/green-fabric.png');
-      font-family: Arial, sans-serif;
-    }
+/* Styling for the overall page */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100vh;
+  margin: 0;
+  padding-left: 15%;
+  background-color: #0d6238;
+  background-image: url('https://www.transparenttextures.com/patterns/green-fabric.png');
+  font-family: Arial, sans-serif;
+}
 
-    /* Grid layout for the cards - updated spacing */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-      row-gap: 15px;  /* Added reduced vertical gap */
-      margin: 25px 25px 25px 0;
-    }
+/* Grid layout for the cards - updated spacing */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  row-gap: 15px;  /* Added reduced vertical gap */
+  margin: 25px 25px 25px 0;
+}
 
-    /* Container for drop zones */
-    .drop-zones {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      height: 100%;
-      margin-left: 50px;
-    }
+/* Container for drop zones */
+.drop-zones {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  margin-left: 50px;
+}
 
-    /* Styling for individual drop zones */
-    .drop-zone {
-      width: 170px;
-      height: 270px;
-      border: 2px dashed #ccc;
-      border-radius: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 18px;
-      font-weight: bold;
-      color: #666;
-      margin-bottom: 20px;
-      position: relative;
-      z-index: 0;
-      transition: all 0.3s ease;
-    }
+/* Styling for individual drop zones */
+.drop-zone {
+  width: 170px;
+  height: 270px;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #666;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 0;
+  transition: all 0.3s ease;
+}
 
-    /* Enhanced drop zone highlight effect */
-    .drop-zone.dragover {
-      border-color: #fff;
-      background-color: rgba(255, 255, 255, 0.2);
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-      transform: scale(1.02);
-    }
+/* Enhanced drop zone highlight effect */
+.drop-zone.dragover {
+  border-color: #fff;
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  transform: scale(1.02);
+}
 
-    /* Drop animation keyframes */
-    @keyframes dropAnimation {
-      0% {
-        transform: scale(0.8);
-        opacity: 0.5;
-      }
-      70% {
-        transform: scale(1.05);
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
+/* Drop animation keyframes */
+@keyframes dropAnimation {
+  0% {
+      transform: scale(0.8);
+      opacity: 0.5;
+  }
+  70% {
+      transform: scale(1.05);
+  }
+  100% {
+      transform: scale(1);
+      opacity: 1;
+  }
+}
 
-    .card-drop-animation {
-      animation: dropAnimation 0.4s ease-out forwards;
-    }
+.card-drop-animation {
+  animation: dropAnimation 0.4s ease-out forwards;
+}
 
-    /* Labels for the drop zones */
-    .drop-zone-label {
-      position: relative;
-      margin-bottom: 10px;
-      font-family: 'Lobster', cursive;
-      font-size: 24px;
-      color: #fff;
-      z-index: 1;
-      text-align: center;
-    }
+/* Labels for the drop zones */
+.drop-zone-label {
+  position: relative;
+  margin-bottom: 10px;
+  font-family: 'Lobster', cursive;
+  font-size: 24px;
+  color: #fff;
+  z-index: 1;
+  text-align: center;
+}
 
-    /* Styling for individual cards */
-    .card {
-      width: 150px;
-      height: 250px;
-      perspective: 1000px;
-      cursor: grab;
-      z-index: 2;
-      position: relative;
-      transition: transform 0.5s ease, opacity 0.3s ease;  /* Added opacity transition */
-    }
+/* Styling for individual cards */
+.card {
+  width: 150px;
+  height: 250px;
+  perspective: 1000px;
+  cursor: grab;
+  z-index: 2;
+  position: relative;
+  transition: transform 0.5s ease, opacity 0.3s ease;  /* Added opacity transition */
+}
 
-    /* Inner container for the card (3D rotation effect) */
-    .card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-      transition: transform 0.6s;
-    }
+/* Inner container for the card (3D rotation effect) */
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
 
-    /* Add rotation effect when the card is flipped */
-    .card.flipped .card-inner {
-      transform: rotateY(180deg);
-    }
+/* Add rotation effect when the card is flipped */
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
 
-    /* Common styles for front and back of the card */
-    .card-front, .card-back {
-      position: absolute;
-      width: calc(100% - 4px);
-      height: calc(100% - 4px);
-      backface-visibility: hidden;
-      border-radius: 10px;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 16px;
-      font-weight: bold;
-      border: 2px solid gold;
-      box-sizing: border-box;
-    }
+/* Common styles for front and back of the card */
+.card-front, .card-back {
+  position: absolute;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  backface-visibility: hidden;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  border: 2px solid gold;
+  box-sizing: border-box;
+}
 
-    .card-front {
-      background-size: cover;
-      background-position: center;
-    }
+.card-front {
+  background-size: cover;
+  background-position: center;
+}
 
-    .card-back {
-      background-color: white;
-      color: black;
-      transform: rotateY(180deg);
-      text-align: center;
-      position: relative;
-    }
+.card-back {
+  background-color: white;
+  color: black;
+  transform: rotateY(180deg);
+  text-align: center;
+  position: relative;
+}
 
-    /* "More" link on the card back */
-    .more {
-      position: absolute;
-      bottom: 10px;
-      font-size: 14px;
-      color: #007bff;
-      cursor: pointer;
-      text-decoration: underline;
-    }
+/* "More" link on the card back */
+.more {
+  position: absolute;
+  bottom: 10px;
+  font-size: 14px;
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+}
 
-    /* Popup styling */
-  /* Popup styling */
+/* Popup styling */
 .popup {
   display: none;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80%;
-  height: 80%;  /* Made taller to accommodate content */
+  width: 80%;  /* Changed back to 80% */
+  height: 80%;  /* Changed back to 80% */
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -180,8 +179,8 @@
   position: absolute;
   top: 25px;
   left: 25px;
-  width: 100px; /* Adjust size as needed */
-  height: 100px; /* Adjust size as needed */
+  width: 100px;
+  height: 100px;
   background-image: url('badge.png');
   background-size: contain;
   background-repeat: no-repeat;
@@ -189,30 +188,32 @@
   z-index: 1001;
 }
 
-
 .popup-image {
   width: 50%;
-  height: 100%; /* Ensure full height is utilized */
-  background-size: contain; /* Ensure the image fits */
+  height: 100%;
+  background-size: 75%;  /* Image at 75% size */
   background-repeat: no-repeat;
   background-position: center;
   background-color: #f8f9fa;
   border-right: 1px solid #dee2e6;
 }
 
-
 /* Popup right content section */
 .popup-content {
   width: 50%;
-  padding: 40px;
+  padding: 2rem;
   overflow-y: auto;
   font-size: 16px;
   line-height: 1.5;
 }
 
-.card-title {
-  font-family: 'Cinzel', serif;
+.card-title, 
+.section-title {
+  font-family: 'Lobster', cursive;
   color: #8B6B3D;
+}
+
+.card-title {
   font-size: 32px;
   margin-bottom: 20px;
 }
@@ -225,8 +226,6 @@
 }
 
 .section-title {
-  font-family: 'Cinzel', serif;
-  color: #8B6B3D;
   font-size: 24px;
   margin-bottom: 15px;
 }
