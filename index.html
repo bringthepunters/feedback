@@ -308,12 +308,25 @@
 <div id="badge"></div>
 
   <script>
+    window.cardData = null;
+
     const cardDataUrl = 'cardtext.json';
     let originalPositions = {};
-    async function loadCards() {
-      const response = await fetch(cardDataUrl);
-      const data = await response.json();
-      const grid = document.getElementById('card-grid');
+/*************  ✨ Codeium Command ⭐  *************/
+  /**
+   * Load cards from JSON file and add them to the grid.
+   * The cards are rendered as draggable, flippable elements
+   * with a front and back side. The front side shows the image,
+   * and the back side shows the short text. Clicking on the card
+   * toggles the flipped state. Clicking on the "more" link on the
+   * back side triggers the popup with the full card data.
+   */
+/******  8763b610-599d-4d66-b680-05009d0e5dc4  *******/
+async function loadCards() {
+  const response = await fetch(cardDataUrl);
+  const data = await response.json();
+  window.cardData = data; // Store the data globally
+  const grid = document.getElementById('card-grid');
   
       data.cards.forEach(card => {
           const cardElement = document.createElement('div');
@@ -399,34 +412,45 @@
     });
 
     function drag(event) {
+      // Get the card being dragged
       const card = event.target.closest('.card');
+      
+      // Store its original position
       originalPositions[card.id] = card.getBoundingClientRect();
+      
+      // Check if the card is flipped
       const isFlipped = card.classList.contains('flipped');
       
-      // Create proper drag image
+      // Create a clone for the drag image
       const dragImage = card.cloneNode(true);
       dragImage.style.position = 'absolute';
       dragImage.style.top = '-1000px';
       document.body.appendChild(dragImage);
       
+      // Apply flipped state to drag image if needed
       if (isFlipped) {
-        dragImage.classList.add('flipped');
+          dragImage.classList.add('flipped');
       }
       
+      // Set up the drag image
       event.dataTransfer.setDragImage(dragImage, 75, 125);
+      
+      // Store and transfer all the data we need
       event.dataTransfer.setData('text/plain', JSON.stringify({
-        cardId: card.id,
-        flipped: isFlipped,
-        html: card.innerHTML
+          cardId: card.id,
+          flipped: isFlipped,
+          html: card.innerHTML,
+          cardData: window.cardData.cards.find(c => c.id === card.id) // Get the full card data
       }));
-
-      card.style.opacity = '0.6';  // Changed from visibility: hidden
-
+  
+      // Make the original card semi-transparent while dragging
+      card.style.opacity = '0.6';
+  
+      // Clean up the temporary drag image
       setTimeout(() => {
-        document.body.removeChild(dragImage);
+          document.body.removeChild(dragImage);
       }, 0);
-    }
-
+  }
     function dragEnd(event) {
       const card = event.target.closest('.card');
       card.style.opacity = '1';  // Changed from visibility: visible
@@ -462,55 +486,60 @@
       event.preventDefault();
       const dropZone = event.target.closest('.drop-zone');
       dropZone.classList.remove('dragover');
-
+  
       try {
-        const data = JSON.parse(event.dataTransfer.getData('text/plain'));
-        const { cardId, flipped, html } = data;
-        const originalCard = document.getElementById(cardId);
-
-        if (!originalCard || !dropZone) return;
-
-        // Clear existing cards
-        while (dropZone.firstChild) {
-          dropZone.removeChild(dropZone.firstChild);
-        }
-
-        // Create new card
-        const clonedCard = document.createElement('div');
-        clonedCard.className = 'card card-drop-animation';
-        clonedCard.innerHTML = html;
-
-        // Set up click listener for flip
-        clonedCard.addEventListener('click', function() {
-          clonedCard.classList.toggle('flipped');
-        });
-
-        // Set up more info click handler
-        const moreLink = clonedCard.querySelector('.more');
-        if (moreLink) {
-          const originalMore = originalCard.querySelector('.more');
-          moreLink.onclick = originalMore.onclick;
-        }
-
-        // Set flip state
-        if (flipped) {
-          clonedCard.classList.add('flipped');
-        }
-
-        // Add to drop zone
-        dropZone.appendChild(clonedCard);
-        
-        // Remove animation class after animation completes
-        setTimeout(() => {
-          clonedCard.classList.remove('card-drop-animation');
-        }, 400);
-
-        // Make original card visible
-        originalCard.style.opacity = '1';  // Updated to match new opacity approach
+          // Get all the transferred data
+          const data = JSON.parse(event.dataTransfer.getData('text/plain'));
+          const { cardId, flipped, html, cardData } = data;
+          const originalCard = document.getElementById(cardId);
+  
+          // Safety check
+          if (!originalCard || !dropZone) return;
+  
+          // Clear existing cards from drop zone
+          while (dropZone.firstChild) {
+              dropZone.removeChild(dropZone.firstChild);
+          }
+  
+          // Create the new card
+          const clonedCard = document.createElement('div');
+          clonedCard.className = 'card card-drop-animation';
+          clonedCard.innerHTML = html;
+  
+          // Set up flip functionality
+          clonedCard.addEventListener('click', function() {
+              clonedCard.classList.toggle('flipped');
+          });
+  
+          // Set up the "more" link functionality
+          const moreLink = clonedCard.querySelector('.more');
+          if (moreLink) {
+              moreLink.addEventListener('click', (event) => {
+                  event.stopPropagation(); // Prevent card flipping
+                  showPopup(cardData); // Use the full card data we passed
+              });
+          }
+  
+          // Apply flipped state if needed
+          if (flipped) {
+              clonedCard.classList.add('flipped');
+          }
+  
+          // Add card to drop zone
+          dropZone.appendChild(clonedCard);
+          
+          // Remove animation class after it completes
+          setTimeout(() => {
+              clonedCard.classList.remove('card-drop-animation');
+          }, 400);
+  
+          // Restore original card visibility
+          originalCard.style.opacity = '1';
+  
       } catch (error) {
-        console.error('Error in drop handler:', error);
+          console.error('Error in drop handler:', error);
       }
-    }
+  }
 
     // Load cards on page load
     loadCards();
