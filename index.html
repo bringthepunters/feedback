@@ -220,39 +220,44 @@
       border-radius: 10px;
     }
 
+    /* Popup styling */
     .popup {
       display: none;
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 60%;
-      height: 70%;
+      width: 80%;
+      height: 80%;
       background-color: white;
       border-radius: 10px;
       box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.4);
       z-index: 1000;
       overflow: hidden;
-      display: flex;
     }
+
     .popup-image {
-      flex: 0 0 50%;
-      padding: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-position: center;
-      background-repeat: no-repeat;
+      width: 50%;
+      height: 100%;
+      float: left;
       background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      padding: 40px;
+      box-sizing: border-box;
       border-right: 1px solid #dee2e6;
     }
+
     .popup-content {
-      width: calc(50% - 40px);
-      padding: 20px;
+      float: right;
+      width: 50%;
+      height: 100%;
+      padding: 40px;
+      box-sizing: border-box;
       overflow-y: auto;
-      font-size: 16px;
-      line-height: 1.5;
     }
+ 
+   
     .card-title {
       font-family: "Lobster", cursive;
       color: #8B6B3D;
@@ -415,7 +420,7 @@
       const consList = popup.querySelector(".cons-list");
 
       const encodedImageUrl = encodeURI(card.image);
-      popupImage.style.backgroundImage = `url('${encodedImageUrl}')`;
+      popupImage.style.setProperty('background-image', `url('${encodedImageUrl}')`);
       cardTitle.textContent = card.cardName;
       cardSummary.textContent = card.cardSummary;
 
