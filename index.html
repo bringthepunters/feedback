@@ -312,16 +312,6 @@
 
     const cardDataUrl = 'cardtext.json';
     let originalPositions = {};
-/*************  ✨ Codeium Command ⭐  *************/
-  /**
-   * Load cards from JSON file and add them to the grid.
-   * The cards are rendered as draggable, flippable elements
-   * with a front and back side. The front side shows the image,
-   * and the back side shows the short text. Clicking on the card
-   * toggles the flipped state. Clicking on the "more" link on the
-   * back side triggers the popup with the full card data.
-   */
-/******  8763b610-599d-4d66-b680-05009d0e5dc4  *******/
 async function loadCards() {
   const response = await fetch(cardDataUrl);
   const data = await response.json();
@@ -379,8 +369,10 @@ async function loadCards() {
     const prosList = popup.querySelector('.pros-list');
     const consList = popup.querySelector('.cons-list');
 
-    // Update image
-    popupImage.style.backgroundImage = `url(${card.image})`;
+    // Update image - properly encode the URL
+    const encodedImageUrl = encodeURI(card.image);
+    console.log('Encoded image URL:', encodedImageUrl);
+    popupImage.style.backgroundImage = `url('${encodedImageUrl}')`;
     
     // Update title and summary
     cardTitle.textContent = card.cardName;
