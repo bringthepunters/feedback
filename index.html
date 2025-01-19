@@ -404,12 +404,19 @@ async function loadCards() {
       popup.style.display = 'none';
     }
 
-    window.addEventListener('click', function(event) {
-      const popup = document.getElementById('popup');
-      if (event.target === popup) {
-        popup.style.display = 'none';
-      }
-    });
+// Find the popup click event listener we already have
+window.addEventListener('click', function(event) {
+  const popup = document.getElementById('popup');
+  const popupContent = popup.querySelector('.popup-content');
+  const popupImage = popup.querySelector('.popup-image');
+  
+  // Check if click is outside both the content and image areas
+  if (!popupContent.contains(event.target) && 
+      !popupImage.contains(event.target) && 
+      event.target !== popup.querySelector('.popup-close')) {
+      popup.style.display = 'none';
+  }
+});
 
     function drag(event) {
       // Get the card being dragged
