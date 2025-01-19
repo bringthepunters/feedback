@@ -34,21 +34,20 @@
       overflow: hidden;
     }
 
-    /* Badge styling - moved left from 25px to 10px */
-    #badge {
+     /* Badge styling */
+     #badge {
       position: absolute;
-      top: 25px;
-      left: 10px; /* changed from 25px to move further left */
-      width: 300px;
-      height: 300px;
+      top: 40px;  /* moved down to avoid drop zone label */
+      left: 10px;
+      width: 200px;  /* made smaller */
+      height: 200px;  /* made smaller */
       background-image: url("badge.png");
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      z-index: 1001;
+      z-index: 2;  /* lower z-index so popup appears over it */
     }
-
-    /* Main grid of bottom cards */
+     /* Main grid of bottom cards */
     .grid {
       position: absolute;
       bottom: 10%;
@@ -221,7 +220,6 @@
       border-radius: 10px;
     }
 
-    /* Popup styling, with drop shadow */
     .popup {
       display: none;
       position: fixed;
@@ -235,16 +233,17 @@
       box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.4);
       z-index: 1000;
       overflow: hidden;
+      display: flex;
     }
-    /* Smaller image with even margin around it */
     .popup-image {
-      box-sizing: border-box;
-      width: 50%;
-      height: 100%;
-      background-size: 80% auto;
-      background-repeat: no-repeat;
+      flex: 0 0 50%;
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background-position: center;
-      margin: 20px;
+      background-repeat: no-repeat;
+      background-size: contain;
       border-right: 1px solid #dee2e6;
     }
     .popup-content {
