@@ -203,6 +203,13 @@
       line-height: 1.6;
     }
 
+    .pros-section .section-title,
+    .cons-section .section-title {
+      font-weight: bold;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+
     .popup-close {
       position: absolute;
       top: 10px;
@@ -216,20 +223,36 @@
 </head>
 <body>
   <div id="badge"></div>
+  
   <div class="drop-zones">
-    <div class="drop-zone">
+    <!-- Make sure each drop-zone can handle drag events -->
+    <div class="drop-zone"
+         ondrop="drop(event)"
+         ondragover="allowDrop(event)"
+         ondragenter="dragEnter(event)"
+         ondragleave="dragLeave(event)">
       <div class="drop-zone-label">How I like to receive feedback...</div>
     </div>
-    <div class="drop-zone">
+    <div class="drop-zone"
+         ondrop="drop(event)"
+         ondragover="allowDrop(event)"
+         ondragenter="dragEnter(event)"
+         ondragleave="dragLeave(event)">
       <div class="drop-zone-label">My Own Feedback Style is...</div>
     </div>
-    <div class="drop-zone">
+    <div class="drop-zone"
+         ondrop="drop(event)"
+         ondragover="allowDrop(event)"
+         ondragenter="dragEnter(event)"
+         ondragleave="dragLeave(event)">
       <div class="drop-zone-label">I aspire to...</div>
     </div>
   </div>
+
   <div class="grid" id="card-grid">
     <!-- Cards will be dynamically loaded here -->
   </div>
+
   <div class="popup" id="popup">
     <div class="popup-image" id="popup-image"></div>
     <div class="popup-content">
@@ -247,110 +270,109 @@
     <div class="popup-close" onclick="closePopup()">&times;</div>
   </div>
 
-
-
   <script>
+    // Make the card data globally accessible
     window.cardData = null;
 
     const cardDataUrl = 'cardtext.json';
     let originalPositions = {};
-async function loadCards() {
-  const response = await fetch(cardDataUrl);
-  const data = await response.json();
-  window.cardData = data; // Store the data globally
-  const grid = document.getElementById('card-grid');
-  
-      data.cards.forEach(card => {
-          const cardElement = document.createElement('div');
-          cardElement.className = 'card';
-          cardElement.id = card.id;
-          cardElement.setAttribute('draggable', 'true');
-          cardElement.setAttribute('ondragstart', 'drag(event)');
-          cardElement.setAttribute('ondragend', 'dragEnd(event)');
-  
-          cardElement.innerHTML = `
-              <div class="card-inner">
-                  <div class="card-front" style="background-image: url('${card.image}');"></div>
-                  <div class="card-back">
-                      ${card.shortText}
-                      <div class="more">... more</div>
-                  </div>
-              </div>
-          `;
-  
-          // Attach event listener for "more"
-          const moreLink = cardElement.querySelector('.more');
-          moreLink.addEventListener('click', (event) => {
-              event.stopPropagation(); // Prevent card flipping
-              showPopup(card); // Trigger popup only when "more" is clicked
-          });
-  
-          // Enable card flipping
-          cardElement.addEventListener('click', function() {
-              cardElement.classList.toggle('flipped');
-          });
-  
-          grid.appendChild(cardElement);
-      });
-  }
-  
-  
-  function showPopup(cardData) {
-    const card = typeof cardData === 'string' ? JSON.parse(cardData) : cardData;
-    const popup = document.getElementById('popup');
 
-    if (!popup) {
-        console.error('Popup element not found');
-        return;
+    async function loadCards() {
+      const response = await fetch(cardDataUrl);
+      const data = await response.json();
+      window.cardData = data; // Store the data globally
+
+      const grid = document.getElementById('card-grid');
+      
+      data.cards.forEach(card => {
+        const cardElement = document.createElement('div');
+        cardElement.className = 'card';
+        cardElement.id = card.id;
+        cardElement.setAttribute('draggable', 'true');
+        cardElement.setAttribute('ondragstart', 'drag(event)');
+        cardElement.setAttribute('ondragend', 'dragEnd(event)');
+
+        cardElement.innerHTML = `
+          <div class="card-inner">
+            <div class="card-front" style="background-image: url('${card.image}');"></div>
+            <div class="card-back">
+              ${card.shortText}
+              <div class="more">... more</div>
+            </div>
+          </div>
+        `;
+
+        // Attach event listener for "more"
+        const moreLink = cardElement.querySelector('.more');
+        moreLink.addEventListener('click', (event) => {
+          event.stopPropagation(); // Prevent card flipping
+          showPopup(card); // Trigger popup only when "more" is clicked
+        });
+
+        // Enable card flipping
+        cardElement.addEventListener('click', function() {
+          cardElement.classList.toggle('flipped');
+        });
+
+        grid.appendChild(cardElement);
+      });
     }
 
-    // Get references to elements within popup
-    const popupImage = popup.querySelector('.popup-image');
-    const cardTitle = popup.querySelector('.card-title');
-    const cardSummary = popup.querySelector('.card-summary');
-    const prosList = popup.querySelector('.pros-list');
-    const consList = popup.querySelector('.cons-list');
+    function showPopup(cardData) {
+      const card = typeof cardData === 'string' ? JSON.parse(cardData) : cardData;
+      const popup = document.getElementById('popup');
 
-    // Update image - properly encode the URL
-    const encodedImageUrl = encodeURI(card.image);
-    console.log('Encoded image URL:', encodedImageUrl);
-    popupImage.style.backgroundImage = `url('${encodedImageUrl}')`;
-    
-    // Update title and summary
-    cardTitle.textContent = card.cardName;
-    cardSummary.textContent = card.cardSummary;
+      if (!popup) {
+        console.error('Popup element not found');
+        return;
+      }
 
-    // Update pros list
-    prosList.innerHTML = card.prosReceivers
+      // Get references to elements within popup
+      const popupImage = popup.querySelector('.popup-image');
+      const cardTitle = popup.querySelector('.card-title');
+      const cardSummary = popup.querySelector('.card-summary');
+      const prosList = popup.querySelector('.pros-list');
+      const consList = popup.querySelector('.cons-list');
+
+      // Update image - properly encode the URL
+      const encodedImageUrl = encodeURI(card.image);
+      popupImage.style.backgroundImage = `url('${encodedImageUrl}')`;
+
+      // Update title and summary
+      cardTitle.textContent = card.cardName;
+      cardSummary.textContent = card.cardSummary;
+
+      // Update pros list
+      prosList.innerHTML = card.prosReceivers
         .map(pro => `<li>${pro}</li>`)
         .join('');
 
-    // Update cons list
-    consList.innerHTML = card.consReceivers
+      // Update cons list
+      consList.innerHTML = card.consReceivers
         .map(con => `<li>${con}</li>`)
         .join('');
 
-    // Show popup
-    popup.style.display = 'flex';
-}
+      // Show popup
+      popup.style.display = 'flex';
+    }
+
     function closePopup() {
       const popup = document.getElementById('popup');
       popup.style.display = 'none';
     }
 
-// Find the popup click event listener we already have
-window.addEventListener('click', function(event) {
-  const popup = document.getElementById('popup');
-  const popupContent = popup.querySelector('.popup-content');
-  const popupImage = popup.querySelector('.popup-image');
-  
-  // Check if click is outside both the content and image areas
-  if (!popupContent.contains(event.target) && 
-      !popupImage.contains(event.target) && 
-      event.target !== popup.querySelector('.popup-close')) {
-      popup.style.display = 'none';
-  }
-});
+    window.addEventListener('click', function(event) {
+      const popup = document.getElementById('popup');
+      const popupContent = popup.querySelector('.popup-content');
+      const popupImage = popup.querySelector('.popup-image');
+
+      // Check if click is outside both the content and image areas
+      if (!popupContent.contains(event.target) &&
+          !popupImage.contains(event.target) &&
+          event.target !== popup.querySelector('.popup-close')) {
+        popup.style.display = 'none';
+      }
+    });
 
     function drag(event) {
       // Get the card being dragged
@@ -378,24 +400,25 @@ window.addEventListener('click', function(event) {
       
       // Store and transfer all the data we need
       event.dataTransfer.setData('text/plain', JSON.stringify({
-          cardId: card.id,
-          flipped: isFlipped,
-          html: card.innerHTML,
-          cardData: window.cardData.cards.find(c => c.id === card.id) // Get the full card data
+        cardId: card.id,
+        flipped: isFlipped,
+        html: card.innerHTML,
+        cardData: window.cardData.cards.find(c => c.id === card.id) // Get the full card data
       }));
-  
+
       // Make the original card semi-transparent while dragging
       card.style.opacity = '0.6';
-  
+
       // Clean up the temporary drag image
       setTimeout(() => {
-          document.body.removeChild(dragImage);
+        document.body.removeChild(dragImage);
       }, 0);
-  }
+    }
+
     function dragEnd(event) {
       const card = event.target.closest('.card');
-      card.style.opacity = '1';  // Changed from visibility: visible
-      
+      card.style.opacity = '1';  // Restore opacity
+
       // Clean up any stuck highlights
       document.querySelectorAll('.drop-zone').forEach(zone => {
         zone.classList.remove('dragover');
@@ -426,61 +449,62 @@ window.addEventListener('click', function(event) {
     function drop(event, zone) {
       event.preventDefault();
       const dropZone = event.target.closest('.drop-zone');
+      if (!dropZone) return;
       dropZone.classList.remove('dragover');
-  
+
       try {
-          // Get all the transferred data
-          const data = JSON.parse(event.dataTransfer.getData('text/plain'));
-          const { cardId, flipped, html, cardData } = data;
-          const originalCard = document.getElementById(cardId);
-  
-          // Safety check
-          if (!originalCard || !dropZone) return;
-  
-          // Clear existing cards from drop zone
-          while (dropZone.firstChild) {
-              dropZone.removeChild(dropZone.firstChild);
-          }
-  
-          // Create the new card
-          const clonedCard = document.createElement('div');
-          clonedCard.className = 'card card-drop-animation';
-          clonedCard.innerHTML = html;
-  
-          // Set up flip functionality
-          clonedCard.addEventListener('click', function() {
-              clonedCard.classList.toggle('flipped');
+        // Get all the transferred data
+        const data = JSON.parse(event.dataTransfer.getData('text/plain'));
+        const { cardId, flipped, html, cardData } = data;
+        const originalCard = document.getElementById(cardId);
+
+        // Safety check
+        if (!originalCard) return;
+
+        // Clear existing cards from this drop zone
+        while (dropZone.firstChild) {
+          dropZone.removeChild(dropZone.firstChild);
+        }
+
+        // Create the new card
+        const clonedCard = document.createElement('div');
+        clonedCard.className = 'card card-drop-animation';
+        clonedCard.innerHTML = html;
+
+        // Set up flip functionality
+        clonedCard.addEventListener('click', function() {
+          clonedCard.classList.toggle('flipped');
+        });
+
+        // Set up the "more" link functionality
+        const moreLink = clonedCard.querySelector('.more');
+        if (moreLink) {
+          moreLink.addEventListener('click', (event) => {
+            event.stopPropagation(); // Prevent card flipping
+            showPopup(cardData);     // Show popup with card data
           });
-  
-          // Set up the "more" link functionality
-          const moreLink = clonedCard.querySelector('.more');
-          if (moreLink) {
-              moreLink.addEventListener('click', (event) => {
-                  event.stopPropagation(); // Prevent card flipping
-                  showPopup(cardData); // Use the full card data we passed
-              });
-          }
-  
-          // Apply flipped state if needed
-          if (flipped) {
-              clonedCard.classList.add('flipped');
-          }
-  
-          // Add card to drop zone
-          dropZone.appendChild(clonedCard);
-          
-          // Remove animation class after it completes
-          setTimeout(() => {
-              clonedCard.classList.remove('card-drop-animation');
-          }, 400);
-  
-          // Restore original card visibility
-          originalCard.style.opacity = '1';
-  
+        }
+
+        // Apply flipped state if needed
+        if (flipped) {
+          clonedCard.classList.add('flipped');
+        }
+
+        // Add card to drop zone
+        dropZone.appendChild(clonedCard);
+        
+        // Remove animation class after it completes
+        setTimeout(() => {
+          clonedCard.classList.remove('card-drop-animation');
+        }, 400);
+
+        // Restore original card visibility
+        originalCard.style.opacity = '1';
+
       } catch (error) {
-          console.error('Error in drop handler:', error);
+        console.error('Error in drop handler:', error);
       }
-  }
+    }
 
     // Load cards on page load
     loadCards();
