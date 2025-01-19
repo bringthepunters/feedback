@@ -7,308 +7,247 @@
   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
   <style>
-/* Styling for the overall page */
-/* Update body background color */
-/* Styling for the overall page */
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  height: 100vh;
-  margin: 0;
-  padding-left: 15%;
-  background-color: #1b822c;  /* CHANGED: Updated green color */
-  background-image: url('https://www.transparenttextures.com/patterns/green-fabric.png');
-  font-family: Arial, sans-serif;
-}
+    /* Overall Styling */
+    body {
+      margin: 0;
+      background-color: #1b822c;
+      background-image: url('https://www.transparenttextures.com/patterns/green-fabric.png');
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-/* Grid layout for the cards - updated spacing */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
-  row-gap: 15px;
-  margin: 25px 25px 25px 0;
-}
+    /* Badge styling */
+    #badge {
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      width: 300px; /* Doubled size */
+      height: 300px;
+      background-image: url('badge.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      z-index: 1001;
+    }
 
-/* Container for drop zones */
-.drop-zones {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 100%;
-  margin-left: 50px;
-}
+    /* Cards at the bottom */
+    .grid {
+      position: absolute;
+      bottom: 10%;
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 10px;
+      width: 90%;
+      justify-content: center;
+    }
 
-/* Styling for individual drop zones */
-.drop-zone {
-  width: 170px;
-  height: 270px;
-  border: 2px dashed #ccc;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-  font-weight: bold;
-  color: #666;
-  margin-bottom: 20px;
-  position: relative;
-  z-index: 0;
-  transition: all 0.3s ease;
-}
+    .card {
+      width: 120px;
+      height: 180px;
+      perspective: 1000px;
+      cursor: grab;
+      transition: transform 0.3s ease;
+      z-index: 2;
+    }
 
-/* Enhanced drop zone highlight effect */
-.drop-zone.dragover {
-  border-color: #fff;
-  background-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-  transform: scale(1.02);
-}
-
-/* Drop animation keyframes */
-@keyframes dropAnimation {
-  0% {
-      transform: scale(0.8);
-      opacity: 0.5;
-  }
-  70% {
+    .card:hover {
       transform: scale(1.05);
-  }
-  100% {
-      transform: scale(1);
-      opacity: 1;
-  }
-}
+    }
 
-.card-drop-animation {
-  animation: dropAnimation 0.4s ease-out forwards;
-}
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.6s;
+    }
 
-/* Labels for the drop zones */
-.drop-zone-label {
-  position: relative;
-  margin-bottom: 10px;
-  font-family: 'Lobster', cursive;
-  font-size: 24px;
-  color: #fff;
-  z-index: 1;
-  text-align: center;
-}
+    .card.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
 
-/* Styling for individual cards */
-.card {
-  width: 150px;
-  height: 250px;
-  perspective: 1000px;
-  cursor: grab;
-  z-index: 2;
-  position: relative;
-  transition: transform 0.5s ease, opacity 0.3s ease;
-}
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
+      font-weight: bold;
+      border: 2px solid gold;
+      box-sizing: border-box;
+    }
 
-/* Inner container for the card (3D rotation effect) */
-.card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.6s;
-}
+    .card-front {
+      background-size: cover;
+      background-position: center;
+    }
 
-/* Add rotation effect when the card is flipped */
-.card.flipped .card-inner {
-  transform: rotateY(180deg);
-}
+    .card-back {
+      background-color: white;
+      color: black;
+      transform: rotateY(180deg);
+      text-align: center;
+      word-wrap: break-word;
+      padding: 10px;
+      font-size: 14px;
+    }
 
-/* Common styles for front and back of the card */
-.card-front, .card-back {
-  position: absolute;
-  width: calc(100% - 4px);
-  height: calc(100% - 4px);
-  backface-visibility: hidden;
-  border-radius: 10px;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  font-weight: bold;
-  border: 2px solid gold;
-  box-sizing: border-box;
-}
+    /* Drop zones above cards */
+    .drop-zones {
+      position: absolute;
+      top: 15%;
+      display: flex;
+      justify-content: space-evenly;
+      width: 90%;
+    }
 
-.card-front {
-  background-size: cover;
-  background-position: center;
-}
+    .drop-zone {
+      width: 154px; /* Increased by 10% */
+      height: 220px; /* Increased by 10% */
+      border: 2px dashed #ccc;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
 
-.card-back {
-  background-color: white;
-  color: black;
-  transform: rotateY(180deg);
-  text-align: center;
-  position: relative;
-}
+    .drop-zone:first-child {
+      transform: rotate(-5deg);
+    }
 
-/* "More" link on the card back */
-.more {
-  position: absolute;
-  bottom: 10px;
-  font-size: 14px;
-  color: #007bff;
-  cursor: pointer;
-  text-decoration: underline;
-}
+    .drop-zone:nth-child(2) {
+      transform: none; /* Center drop zone not rotated */
+    }
 
-/* Popup styling */
-.popup {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80%;
-  height: 80%;
-  background-color: #ffffff;  /* CHANGED: Consistent white background */
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-  overflow: hidden;
-}
+    .drop-zone:last-child {
+      transform: rotate(5deg);
+    }
 
-#badge {
-  position: absolute;
-  top: 25px;
-  left: 25px;
-  width: 100px;
-  height: 100px;
-  background-image: url('badge.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  z-index: 1001;
-}
+    .drop-zone.dragover {
+      border-color: #fff;
+      background-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
 
-.popup-image {
-  width: 50%;
-  height: 100%;
-  background-size: 67.5%;  /* CHANGED: Reduced by 10% from 75% */
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: #ffffff;  /* CHANGED: Match popup background */
-  border-right: 1px solid #dee2e6;
-  border-radius: 8px;  /* CHANGED: Add slight rounding to image */
-}
+    .drop-zone-label {
+      position: absolute;
+      top: -35px;
+      font-family: 'Lobster', cursive;
+      font-size: 20px;
+      color: #fff;
+    }
 
-/* Popup right content section */
-.popup-content {
-  width: 50%;
-  padding: 2rem;
-  overflow-y: auto;
-  font-size: 16px;
-  line-height: 1.5;
-  background-color: #ffffff;  /* CHANGED: Match popup background */
-}
+    /* Enlarged card when dropped */
+    .card.card-drop-animation {
+      width: 154px; /* Match drop zone size */
+      height: 220px; /* Match drop zone size */
+      transform: scale(1.15);
+    }
 
-.card-title, 
-.section-title {
-  font-family: 'Lobster', cursive;
-  color: #8B6B3D;
-}
+    /* Popup styling */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%;
+      height: 70%;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      overflow: hidden;
+    }
 
-.card-title {
-  font-size: 32px;
-  margin-bottom: 20px;
-}
+    .popup-image {
+      width: 50%;
+      height: 100%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: #f8f9fa;
+      border-right: 1px solid #dee2e6;
+    }
 
-.card-summary {
-  margin-bottom: 30px;
-  color: #333;
-  font-size: 16px;
-  line-height: 1.6;
-}
+    .popup-content {
+      width: 50%;
+      padding: 20px;
+      overflow-y: auto;
+      font-size: 16px;
+      line-height: 1.5;
+    }
 
-.section-title {
-  font-size: 24px;
-  margin-bottom: 15px;
-}
+    .card-title {
+      font-family: 'Cinzel', serif;
+      color: #8B6B3D;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
 
-.pros-list, .cons-list {
-  list-style: disc;
-  padding-left: 20px;
-  margin-bottom: 25px;
-}
+    .card-summary {
+      margin-bottom: 30px;
+      color: #333;
+      font-size: 16px;
+      line-height: 1.6;
+    }
 
-.pros-list li, .cons-list li {
-  margin-bottom: 10px;
-  color: #444;
-}
-
-/* Close button for the popup */
-.popup-close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  font-size: 24px;
-  cursor: pointer;
-  color: #666;
-  z-index: 1001;
-}
+    .popup-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #666;
+      z-index: 1001;
+    }
   </style>
 </head>
 <body>
-  <div style="display: flex;">
-    <div class="grid" id="card-grid">
-      <!-- Cards will be dynamically loaded here -->
+  <div id="badge"></div>
+  <div class="drop-zones">
+    <div class="drop-zone">
+      <div class="drop-zone-label">How I like to receive feedback...</div>
     </div>
-
-    <div class="drop-zones">
-      <div>
-        <div class="drop-zone-label">Giving Feedback</div>
-        <div class="drop-zone" 
-             ondragover="allowDrop(event)" 
-             ondrop="drop(event, 'Giving Feedback')"
-             ondragenter="dragEnter(event)"
-             ondragleave="dragLeave(event)"></div>
-      </div>
-      <div>
-        <div class="drop-zone-label">Receiving Feedback</div>
-        <div class="drop-zone" 
-             ondragover="allowDrop(event)" 
-             ondrop="drop(event, 'Receiving Feedback')"
-             ondragenter="dragEnter(event)"
-             ondragleave="dragLeave(event)"></div>
-      </div>
-      <div>
-        <div class="drop-zone-label">I aspire to...</div>
-        <div class="drop-zone" 
-             ondragover="allowDrop(event)" 
-             ondrop="drop(event, 'I aspire to...')"
-             ondragenter="dragEnter(event)"
-             ondragleave="dragLeave(event)"></div>
-      </div>
+    <div class="drop-zone">
+      <div class="drop-zone-label">My Own Feedback Style is...</div>
+    </div>
+    <div class="drop-zone">
+      <div class="drop-zone-label">I aspire to...</div>
     </div>
   </div>
-
-  <div class="popup" id="popup" style="display: none;">
+  <div class="grid" id="card-grid">
+    <!-- Cards will be dynamically loaded here -->
+  </div>
+  <div class="popup" id="popup">
     <div class="popup-image" id="popup-image"></div>
     <div class="popup-content">
-        <div class="card-title"></div>
-        <div class="card-summary"></div>
-        <div class="pros-section">
-            <div class="section-title">Pros for receivers:</div>
-            <ul class="pros-list"></ul>
-        </div>
-        <div class="cons-section">
-            <div class="section-title">Cons for receivers:</div>
-            <ul class="cons-list"></ul>
-        </div>
+      <div class="card-title"></div>
+      <div class="card-summary"></div>
+      <div class="pros-section">
+        <div class="section-title">Pros for receivers:</div>
+        <ul class="pros-list"></ul>
+      </div>
+      <div class="cons-section">
+        <div class="section-title">Cons for receivers:</div>
+        <ul class="cons-list"></ul>
+      </div>
     </div>
     <div class="popup-close" onclick="closePopup()">&times;</div>
-</div>
+  </div>
 
-<div id="badge"></div>
+
 
   <script>
     window.cardData = null;
