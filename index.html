@@ -4,21 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Feedback Styles</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
   <!-- Fonts -->
   <link
     href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
     rel="stylesheet"
   />
   <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap"
     rel="stylesheet"
   />
+
   <style>
     /* Overall Styling */
     body {
       margin: 0;
       background-color: #1b822c;
-      background-image: url("https://www.transparenttextures.com/patterns/green-fabric.png");
+      /* The cloth texture (ensure green-fabric.png is present) */
+      background-image: url("green-fabric.png");
       font-family: Arial, sans-serif;
       display: flex;
       flex-direction: column;
@@ -28,12 +34,12 @@
       overflow: hidden;
     }
 
-    /* Badge styling */
+    /* Badge styling - moved left from 25px to 10px */
     #badge {
       position: absolute;
       top: 25px;
-      left: 25px;
-      width: 300px; /* Doubled size */
+      left: 10px; /* changed from 25px to move further left */
+      width: 300px;
       height: 300px;
       background-image: url("badge.png");
       background-size: contain;
@@ -42,28 +48,44 @@
       z-index: 1001;
     }
 
-    /* Cards at the bottom */
+    /* Main grid of bottom cards */
     .grid {
       position: absolute;
       bottom: 10%;
       display: grid;
-      grid-template-columns: repeat(9, 1fr);
+      grid-template-columns: repeat(9, auto);
       gap: 10px;
       width: 90%;
       justify-content: center;
     }
 
-    /* Slightly bigger initial cards */
+    /* Container for each bottom card + label */
+    .card-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    /* Cinzel Bold label above card */
+    .bottom-card-label {
+      font-family: "Cinzel", serif;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 5px;
+      text-align: center;
+    }
+
+    /* Slightly bigger initial cards, with box-sizing and rounded corners */
     .card {
-      /* CHANGED: 125×187 -> 130×195 */
-      width: 130px; 
+      width: 130px;
       height: 195px;
+      box-sizing: border-box;
+      border: 2px solid gold;
+      border-radius: 10px;
       perspective: 1000px;
       cursor: grab;
       transition: transform 0.3s ease;
       z-index: 2;
     }
-
     .card:hover {
       transform: scale(1.05);
     }
@@ -72,19 +94,24 @@
       position: relative;
       width: 100%;
       height: 100%;
-      transform-style: preserve-3d;
+      text-align: center;
       transition: transform 0.6s;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      border-radius: 10px;
     }
 
     .card.flipped .card-inner {
+      -webkit-transform: rotateY(180deg);
       transform: rotateY(180deg);
     }
 
-    .card-front,
+  .card-front,
     .card-back {
       position: absolute;
       width: 100%;
       height: 100%;
+      -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
       border-radius: 10px;
       overflow: hidden;
@@ -94,43 +121,51 @@
       align-items: center;
       font-size: 16px;
       font-weight: bold;
-      border: 2px solid gold;
-      box-sizing: border-box;
     }
 
-    .card-front {
-      background-size: cover;
-      background-position: center;
-    }
+   /* front should be at rotateY(0deg) */
+   .card-front {
+    background-size: cover;
+    background-position: center;
+    transform: rotateY(0deg);
+    -webkit-transform: rotateY(0deg);
+    z-index: 2;
+  }
 
-    .card-back {
-      background-color: white;
-      color: black;
-      transform: rotateY(180deg);
-      text-align: left;
-      padding: 10px;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-    }
-
-    .back-title {
-      font-size: 16px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    .back-text {
-      font-size: 14px;
-      line-height: 1.4;
-      margin-bottom: 10px;
-    }
-
-    .more {
-      margin-top: auto;
-      font-size: 14px;
-      align-self: flex-end;
-    }
+  .card-back {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    background-color: white;
+    color: black;
+    text-align: left;
+    padding: 15px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  .back-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .back-text {
+    font-size: 14px;
+    line-height: 1.4;
+    flex-grow: 1;
+  }
+  
+  .more {
+    align-self: flex-end;
+    margin-top: auto;
+    font-size: 14px;
+  }
 
     /* Drop zones above cards */
     .drop-zones {
@@ -140,10 +175,10 @@
       justify-content: space-evenly;
       width: 90%;
     }
-
     .drop-zone {
-      width: 154px; /* slightly bigger area to accept cards */
+      width: 154px;
       height: 220px;
+      box-sizing: border-box;
       border: 2px dashed #ccc;
       border-radius: 10px;
       display: flex;
@@ -152,40 +187,41 @@
       transition: transform 0.3s ease, background-color 0.3s ease;
       position: relative;
     }
-
     .drop-zone:first-child {
       transform: rotate(-5deg);
     }
     .drop-zone:nth-child(2) {
-      transform: none; /* Center drop zone not rotated */
+      transform: none;
     }
     .drop-zone:last-child {
       transform: rotate(5deg);
     }
-
     .drop-zone.dragover {
       border-color: #fff;
       background-color: rgba(255, 255, 255, 0.2);
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     }
 
+    /* Larger label, no wrap */
     .drop-zone-label {
       position: absolute;
-      top: -35px;
+      top: -45px;
       font-family: "Lobster", cursive;
-      font-size: 20px;
+      font-size: 22px;
+      white-space: nowrap;
       color: #fff;
-      pointer-events: none; /* so it doesn't block dropping */
+      pointer-events: none;
     }
 
-    /* Dropped card grows to fill zone */
+    /* Dropped card: fill zone exactly, keep corners rounded */
     .card.card-drop-animation {
       width: 154px;
       height: 220px;
-      /* REMOVED: transform: scale(1.15); */
+      box-sizing: border-box;
+      border-radius: 10px;
     }
 
-    /* Popup styling */
+    /* Popup styling, with drop shadow */
     .popup {
       display: none;
       position: fixed;
@@ -196,50 +232,53 @@
       height: 70%;
       background-color: white;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.4);
       z-index: 1000;
       overflow: hidden;
     }
-
+    /* Smaller image with even margin around it */
     .popup-image {
+      box-sizing: border-box;
       width: 50%;
       height: 100%;
-      background-size: contain;
+      background-size: 80% auto;
       background-repeat: no-repeat;
       background-position: center;
-      background-color: #f8f9fa;
+      margin: 20px;
       border-right: 1px solid #dee2e6;
     }
-
     .popup-content {
-      width: 50%;
+      width: calc(50% - 40px);
       padding: 20px;
       overflow-y: auto;
       font-size: 16px;
       line-height: 1.5;
     }
-
     .card-title {
       font-family: "Lobster", cursive;
       color: #8B6B3D;
       font-size: 32px;
       margin-bottom: 20px;
     }
-
     .card-summary {
       margin-bottom: 30px;
       color: #333;
       font-size: 16px;
       line-height: 1.6;
     }
-
+    /* HEADINGS in brown; bullet text is black */
     .pros-section .section-title,
     .cons-section .section-title {
+      color: #6a4f2a; 
       font-weight: bold;
       margin-top: 10px;
       margin-bottom: 5px;
     }
-
+    .pros-list li,
+    .cons-list li {
+      color: #333;
+      font-size: 1em;
+    }
     .popup-close {
       position: absolute;
       top: 10px;
@@ -284,9 +323,7 @@
     </div>
   </div>
 
-  <div class="grid" id="card-grid">
-    <!-- Cards will be dynamically loaded here -->
-  </div>
+  <div class="grid" id="card-grid"></div>
 
   <div class="popup" id="popup">
     <div class="popup-image" id="popup-image"></div>
@@ -315,11 +352,20 @@
     async function loadCards() {
       const response = await fetch(cardDataUrl);
       const data = await response.json();
-      window.cardData = data; // Store globally
+      window.cardData = data;
 
       const grid = document.getElementById("card-grid");
 
       data.cards.forEach((card) => {
+        // Container for label + card
+        const cardContainer = document.createElement("div");
+        cardContainer.className = "card-container";
+
+        const cardLabel = document.createElement("div");
+        cardLabel.className = "bottom-card-label";
+        cardLabel.textContent = card.cardName;
+        cardContainer.appendChild(cardLabel);
+
         const cardElement = document.createElement("div");
         cardElement.className = "card";
         cardElement.id = card.id;
@@ -327,10 +373,12 @@
         cardElement.setAttribute("ondragstart", "drag(event)");
         cardElement.setAttribute("ondragend", "dragEnd(event)");
 
+        // Hover tooltip
+        cardElement.title = `${card.cardName} - ${card.shortText}`;
+
         cardElement.innerHTML = `
           <div class="card-inner">
-            <div class="card-front" style="background-image:url('${card.image}')">
-            </div>
+            <div class="card-front" style="background-image:url('${card.image}')"></div>
             <div class="card-back">
               <div class="back-title">${card.cardName}</div>
               <div class="back-text">${card.shortText}</div>
@@ -339,7 +387,7 @@
           </div>
         `;
 
-        // "more" link => popup
+        // "more" => popup
         const moreLink = cardElement.querySelector(".more");
         moreLink.addEventListener("click", (evt) => {
           evt.stopPropagation();
@@ -351,12 +399,13 @@
           cardElement.classList.toggle("flipped");
         });
 
-        grid.appendChild(cardElement);
+        cardContainer.appendChild(cardElement);
+        grid.appendChild(cardContainer);
       });
     }
 
-    function showPopup(cardData) {
-      const card = typeof cardData === "string" ? JSON.parse(cardData) : cardData;
+    function showPopup(cardObj) {
+      const card = typeof cardObj === "string" ? JSON.parse(cardObj) : cardObj;
       const popup = document.getElementById("popup");
       if (!popup) return;
 
@@ -366,15 +415,17 @@
       const prosList = popup.querySelector(".pros-list");
       const consList = popup.querySelector(".cons-list");
 
-      // Update image
       const encodedImageUrl = encodeURI(card.image);
       popupImage.style.backgroundImage = `url('${encodedImageUrl}')`;
-
-      // Update title, summary, pros/cons
       cardTitle.textContent = card.cardName;
       cardSummary.textContent = card.cardSummary;
-      prosList.innerHTML = card.prosReceivers.map((pro) => `<li>${pro}</li>`).join("");
-      consList.innerHTML = card.consReceivers.map((con) => `<li>${con}</li>`).join("");
+
+      prosList.innerHTML = card.prosReceivers
+        .map((p) => `<li>${p}</li>`)
+        .join("");
+      consList.innerHTML = card.consReceivers
+        .map((c) => `<li>${c}</li>`)
+        .join("");
 
       popup.style.display = "flex";
     }
@@ -386,13 +437,15 @@
     // Close popup if user clicks outside
     window.addEventListener("click", (event) => {
       const popup = document.getElementById("popup");
+      if (popup.style.display !== "flex") return;
+
       const popupContent = popup.querySelector(".popup-content");
       const popupImage = popup.querySelector(".popup-image");
+      const closeBtn = popup.querySelector(".popup-close");
       if (
-        popup.style.display === "flex" &&
         !popupContent.contains(event.target) &&
         !popupImage.contains(event.target) &&
-        event.target !== popup.querySelector(".popup-close")
+        event.target !== closeBtn
       ) {
         popup.style.display = "none";
       }
@@ -404,20 +457,19 @@
 
       originalPositions[card.id] = card.getBoundingClientRect();
 
-      // Clone the card for the drag image
+      // Clone card for drag image
       const dragImage = card.cloneNode(true);
-      // NEW: ensure it flips if the original was flipped
       dragImage.classList.toggle("flipped", card.classList.contains("flipped"));
 
       dragImage.style.position = "absolute";
-      dragImage.style.top = "-1000px"; // off-screen
+      dragImage.style.top = "-1000px";
       document.body.appendChild(dragImage);
 
-      // Remove perspective transforms so it doesn't mirror
+      // Remove perspective transforms
       dragImage.style.transform = "none";
       dragImage.style.perspective = "none";
 
-      // Copy the exact 3D transform from the original card-inner 
+      // Copy 3D transform
       const originalInner = card.querySelector(".card-inner");
       const cloneInner = dragImage.querySelector(".card-inner");
       if (originalInner && cloneInner) {
@@ -425,10 +477,8 @@
         cloneInner.style.transform = computedTransform;
       }
 
-      // Use cloned node as drag image
       event.dataTransfer.setDragImage(dragImage, 75, 125);
 
-      // Prepare data for drop
       const isFlipped = card.classList.contains("flipped");
       event.dataTransfer.setData(
         "text/plain",
@@ -440,10 +490,8 @@
         })
       );
 
-      // Make original semi-transparent
       card.style.opacity = "0.6";
 
-      // Clean up after drag starts
       setTimeout(() => {
         document.body.removeChild(dragImage);
       }, 0);
@@ -453,7 +501,6 @@
       const card = event.target.closest(".card");
       if (card) card.style.opacity = "1";
 
-      // Remove highlight from any drop zones
       document.querySelectorAll(".drop-zone").forEach((zone) => {
         zone.classList.remove("dragover");
       });
@@ -488,24 +535,24 @@
         const originalCard = document.getElementById(cardId);
         if (!originalCard) return;
 
-        // Clear any previously dropped card, keep the label
+        // Clear old, keep label
         [...dropZone.children].forEach((child) => {
           if (!child.classList.contains("drop-zone-label")) {
             dropZone.removeChild(child);
           }
         });
 
-        // Create new dropped card
+        // New dropped card
         const clonedCard = document.createElement("div");
         clonedCard.className = "card card-drop-animation";
         clonedCard.innerHTML = html;
 
-        // Re-enable flipping
+        // flipping
         clonedCard.addEventListener("click", () => {
           clonedCard.classList.toggle("flipped");
         });
 
-        // Reattach "more" -> popup
+        // reattach "more"
         const moreLink = clonedCard.querySelector(".more");
         if (moreLink) {
           moreLink.addEventListener("click", (evt) => {
@@ -516,22 +563,21 @@
 
         if (flipped) clonedCard.classList.add("flipped");
 
-        // Place in drop zone
         dropZone.appendChild(clonedCard);
 
-        // Animate up to zone size
+        // animate to fill zone (154×220)
         setTimeout(() => {
           clonedCard.classList.remove("card-drop-animation");
         }, 400);
 
-        // Restore original card
+        // restore original
         originalCard.style.opacity = "1";
       } catch (error) {
         console.error("Error in drop handler:", error);
       }
     }
 
-    // Load cards on page load
+    // Load on page startup
     loadCards();
   </script>
 </body>
