@@ -8,6 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
   <style>
 /* Styling for the overall page */
+/* Update body background color */
+/* Styling for the overall page */
 body {
   display: flex;
   flex-direction: column;
@@ -15,7 +17,7 @@ body {
   height: 100vh;
   margin: 0;
   padding-left: 15%;
-  background-color: #0d6238;
+  background-color: #1b822c;  /* CHANGED: Updated green color */
   background-image: url('https://www.transparenttextures.com/patterns/green-fabric.png');
   font-family: Arial, sans-serif;
 }
@@ -25,7 +27,7 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 25px;
-  row-gap: 15px;  /* Added reduced vertical gap */
+  row-gap: 15px;
   margin: 25px 25px 25px 0;
 }
 
@@ -102,7 +104,7 @@ body {
   cursor: grab;
   z-index: 2;
   position: relative;
-  transition: transform 0.5s ease, opacity 0.3s ease;  /* Added opacity transition */
+  transition: transform 0.5s ease, opacity 0.3s ease;
 }
 
 /* Inner container for the card (3D rotation effect) */
@@ -166,9 +168,9 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80%;  /* Changed back to 80% */
-  height: 80%;  /* Changed back to 80% */
-  background-color: white;
+  width: 80%;
+  height: 80%;
+  background-color: #ffffff;  /* CHANGED: Consistent white background */
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   z-index: 1000;
@@ -191,11 +193,12 @@ body {
 .popup-image {
   width: 50%;
   height: 100%;
-  background-size: 75%;  /* Image at 75% size */
+  background-size: 67.5%;  /* CHANGED: Reduced by 10% from 75% */
   background-repeat: no-repeat;
   background-position: center;
-  background-color: #f8f9fa;
+  background-color: #ffffff;  /* CHANGED: Match popup background */
   border-right: 1px solid #dee2e6;
+  border-radius: 8px;  /* CHANGED: Add slight rounding to image */
 }
 
 /* Popup right content section */
@@ -205,6 +208,7 @@ body {
   overflow-y: auto;
   font-size: 16px;
   line-height: 1.5;
+  background-color: #ffffff;  /* CHANGED: Match popup background */
 }
 
 .card-title, 
