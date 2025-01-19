@@ -51,9 +51,9 @@
       {
         "id": "card4",
         "image": "card numbers (4).png",
-        "shortText": "Nulla facilisi etiam dignissim diam quis enim.",
+        "shortText": "Nulla fcard4 acilisi etiam dignissim diam quis enim.",
         "cardName": "Card Four",
-        "cardSummary": "Nulla facilisi etiam dignissim diam quis enim lobortis scelerisque. Habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas integer.",
+        "cardSummary": "Nulla fcard4 acilisi etiam dignissim diam quis enim lobortis scelerisque. Habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas integer.",
         "prosReceivers": [
           "Habitant morbi tristique senectus et netus.",
           "Malesuada fames ac turpis egestas."
@@ -67,9 +67,9 @@
       {
         "id": "card5",
         "image": "card numbers (5).png",
-        "shortText": "Massa tempor nec feugiat nisl pretium fusce.",
+        "shortText": "Massa card5tempor nec feugiat nisl pretium fusce.",
         "cardName": "Card Five",
-        "cardSummary": "Massa tempor nec feugiat nisl pretium fusce id. Sit amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus et netus et malesuada.",
+        "cardSummary": "Massa tempor ncard 5 ec feugiat nisl pretium fusce id. Sit amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus et netus et malesuada.",
         "prosReceivers": [
           "Sit amet consectetur adipiscing elit.",
           "Pellentesque habitant morbi tristique."
