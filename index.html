@@ -335,11 +335,11 @@
       <div class="card-title"></div>
       <div class="card-summary"></div>
       <div class="pros-section">
-        <div class="section-title">Pros for receivers:</div>
+        <div class="section-title">Pros:</div>
         <ul class="pros-list"></ul>
       </div>
       <div class="cons-section">
-        <div class="section-title">Cons for receivers:</div>
+        <div class="section-title">Cons:</div>
         <ul class="cons-list"></ul>
       </div>
     </div>
@@ -424,10 +424,10 @@
       cardTitle.textContent = card.cardName;
       cardSummary.textContent = card.cardSummary;
 
-      prosList.innerHTML = card.prosReceivers
+      prosList.innerHTML = card.pros
         .map((p) => `<li>${p}</li>`)
         .join("");
-      consList.innerHTML = card.consReceivers
+      consList.innerHTML = card.cons
         .map((c) => `<li>${c}</li>`)
         .join("");
 

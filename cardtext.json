@@ -1,148 +1,198 @@
 {
-    "cards": [
-      {
-        "id": "card1",
-        "image": "card numbers (1).png",
-        "shortText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        "cardName": "Card One",
-        "cardSummary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
-        "prosReceivers": [
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          "Sed do eiusmod tempor incididunt ut labore."
-        ],
-        "consReceivers": [
-          "Ut enim ad minim veniam, quis nostrud.",
-          "Duis aute irure dolor in reprehenderit.",
-          "Excepteur sint occaecat cupidatat non proident."
-        ]
-      },
-      {
-        "id": "catalyst",
-        "image": "card numbers (2).png",
-        "shortText": "The Catalyst style of feedback feels like discovery...",
-        "cardName": "The Catalyst",
-        "cardSummary": "The Catalyst style of feedback feels like discovery. It helps us find potential we didn't know we had. We have been coached towards it, but we know we arrived at our conclusion by ourselves and we own the action we take.",
-        "prosReceivers": [
-          "We understand the action we're going to take, and why, and we can apply the reasoning again in similar situations.",
-          "We feel personal achievement!"
-        ],
-        "consReceivers": [
-          "Can be frustrating and time consuming for practical minds.",
-          "This feedback might be useless in the moment.",
-          "It won't quickly tell you what action to take next."
-        ]
-      },
-      {
-        "id": "card3",
-        "image": "card numbers (3).png",
-        "shortText": "Suspendisse potenti integer vitae justo eget magna.",
-        "cardName": "Card Three",
-        "cardSummary": "Suspendisse potenti integer vitae justo eget magna fermentum iaculis. Vivamus arcu felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida.",
-        "prosReceivers": [
-          "Vivamus arcu felis bibendum ut tristique.",
-          "Egestas quis ipsum suspendisse ultrices."
-        ],
-        "consReceivers": [
-          "Gravida in fermentum et sollicitudin.",
-          "Habitant morbi tristique senectus.",
-          "Pharetra magna ac placerat vestibulum."
-        ]
-      },
-      {
-        "id": "card4",
-        "image": "card numbers (4).png",
-        "shortText": "Nulla fcard4 acilisi etiam dignissim diam quis enim.",
-        "cardName": "Card Four",
-        "cardSummary": "Nulla fcard4 acilisi etiam dignissim diam quis enim lobortis scelerisque. Habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas integer.",
-        "prosReceivers": [
-          "Habitant morbi tristique senectus et netus.",
-          "Malesuada fames ac turpis egestas."
-        ],
-        "consReceivers": [
-          "Integer vitae justo eget magna.",
-          "Vivamus arcu felis bibendum tristique.",
-          "Suspendisse potenti integer vitae."
-        ]
-      },
-      {
-        "id": "card5",
-        "image": "card numbers (5).png",
-        "shortText": "Massa card5tempor nec feugiat nisl pretium fusce.",
-        "cardName": "Card Five",
-        "cardSummary": "Massa tempor ncard 5 ec feugiat nisl pretium fusce id. Sit amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus et netus et malesuada.",
-        "prosReceivers": [
-          "Sit amet consectetur adipiscing elit.",
-          "Pellentesque habitant morbi tristique."
-        ],
-        "consReceivers": [
-          "Might snot be great",
-          "Pretium fusce id velit ut.",
-          "Tortor dignissim convallis aenean."
-        ]
-      },
-      {
-        "id": "card6",
-        "image": "card numbers (6).png",
-        "shortText": "Tortor dignissim convallis aenean et tortor at risus.",
-        "cardName": "Card Six",
-        "cardSummary": "Tortor dignissim convallis aenean et tortor at risus viverra adipiscing. At augue eget arcu dictum varius duis at consectetur lorem donec massa.",
-        "prosReceivers": [
-          "At augue eget arcu dictum varius.",
-          "Duis at consectetur lorem donec."
-        ],
-        "consReceivers": [
-          "Viverra adipiscing at in tellus.",
-          "Integer feugiat scelerisque varius.",
-          "Morbi enim nunc faucibus a."
-        ]
-      },
-      {
-        "id": "card7",
-        "image": "card numbers (7).png",
-        "shortText": "Viverra adipiscing at in tellus integer feugiat.",
-        "cardName": "Card Seven",
-        "cardSummary": "Viverra adipiscing at in tellus integer feugiat scelerisque varius morbi. Enim nunc faucibus a pellentesque sit amet porttitor eget dolor morbi non.",
-        "prosReceivers": [
-          "Enim nunc faucibus a pellentesque.",
-          "Sit amet porttitor eget dolor."
-        ],
-        "consReceivers": [
-          "Scelerisque varius morbi enim.",
-          "Faucibus a pellentesque sit.",
-          "Porttitor eget dolor morbi."
-        ]
-      },
-      {
-        "id": "card8",
-        "image": "card numbers (8).png",
-        "shortText": "Morbi enim nunc faucibus a pellentesque sit amet.",
-        "cardName": "Card Eight",
-        "cardSummary": "Morbi enim nunc faucibus a pellentesque sit amet porttitor. Eget dolor morbi non arcu risus quis varius quam quisque id diam vel quam elementum.",
-        "prosReceivers": [
-          "Eget dolor morbi non arcu risus.",
-          "Quis varius quam quisque id."
-        ],
-        "consReceivers": [
-          "Diam quis enim lobortis scelerisque.",
-          "Habitant morbi tristique senectus.",
-          "Netus et malesuada fames ac."
-        ]
-      },
-      {
-        "id": "card9",
-        "image": "card numbers (9).png",
-        "shortText": "Eget dolor morbi non arcu risus quis varius.",
-        "cardName": "Card Nine",
-        "cardSummary": "Eget dolor morbi non arcu risus quis varius quam quisque. Id diam vel quam elementum pulvinar etiam non quam lacus suspendisse faucibus interdum.",
-        "prosReceivers": [
-          "Id diam vel quam elementum pulvinar.",
-          "Etiam non quam lacus suspendisse."
-        ],
-        "consReceivers": [
-          "Faucibus pulvinar elementum integer.",
-          "Enim sed faucibus turpis in.",
-          "Eu mi bibendum neque egestas."
-        ]
-      }
-    ]
-  }
+  "cards": [
+    {
+      "id": "card1",
+      "image": "card numbers (1).png",
+      "shortText": "I provide clear step-by-step instructions based on my experience.",
+      "cardName": "Parent",
+      "cardSummary": "I have experience doing this and provide detailed instructions, so no one wastes time. I offer prescriptive, step-by-step guidance. I know how to do this well and prioritize clarity in expectations. \"Just tell me what to do\" approach.",
+      "pros": [
+        "PRO",
+        "I like to provide prescriptive, step-by-step instructions. Listen up! I know how to do this well.",
+        "I have experience doing this and provide detailed instructions, so that no one is wasting their time.",
+        "I provide clarity in what is expected/good looks like.",
+        "I make it easy to measure or review progress."
+      ],
+      "cons": [
+        "This style sucks when there is no defined \"right way\" to proceed.",
+        "Can come across as condescending or assuming the receiver lacks knowledge.",
+        "May not leave room for the receiver's own creativity or approach.",
+        "Doesn't build the receiver's problem-solving capabilities."
+      ]
+    },
+    {
+      "id": "card2",
+      "image": "card numbers (2).png",
+      "shortText": "I foster dialogue through curious questions rather than one-way feedback.",
+      "cardName": "Parrot",
+      "cardSummary": "Having a conversation around feedback helps me better understand causes and support people to develop their own solutions. Feedback is always a two-way conversation. I enter with curiosity and intent to learn as well as advise. The best outcome is when the receiver finds their own solution.",
+      "pros": [
+        "PRO",
+        "Curious about other perspectives, thinking and approaches.",
+        "The recipient owns the insight and is more likely to act on it.",
+        "I respect my team member's existing expertise.",
+        "Builds long-term problem-solving capabilities."
+      ],
+      "cons": [
+        "This style of conversation takes a long time.",
+        "Can be frustrating for those who just want a direct answer.",
+        "May not be effective in urgent situations requiring immediate action.",
+        "Can feel like withholding information if the feedback giver already knows the answer."
+      ]
+    },
+    {
+      "id": "card3",
+      "image": "card numbers (3).png",
+      "shortText": "I prioritize positive relationships over delivering uncomfortable truths.",
+      "cardName": "Meerkat",
+      "cardSummary": "I believe people respond best to positive feedback and encouragement. This builds team camaraderie. I don't think people will listen if they don't fundamentally like me. Maintaining a positive relationship tends to drive my feedback, sometimes at the expense of clarity.",
+      "pros": [
+        "PRO",
+        "I demonstrate a caring, supportive approach.",
+        "I create a positive, encouraging environment.",
+        "Sometimes, people aren't in a state to hear tough feedback. My style works well at these times.",
+        "I make it easy for people to come to me and share their thoughts."
+      ],
+      "cons": [
+        "My style can produce very vague messages. The recipient may struggle to understand what I mean.",
+        "Important issues may never get addressed.",
+        "Recipients can be confused about where they actually stand.",
+        "Problems may persist or worsen without clear feedback."
+      ]
+    },
+    {
+      "id": "card4",
+      "image": "card numbers (4).png",
+      "shortText": "I deliver clear, direct feedback because I care about your success.",
+      "cardName": "Lion",
+      "cardSummary": "My colleagues are adults with clear responsibilities. They know I want them to succeed, so I provide specific, direct feedback. Even if it comes across as blunt sometimes, I prioritize clarity and impact. Care personally, challenge directly.",
+      "pros": [
+        "PRO",
+        "I give direct feedback. I get straight to the point and provide advice which can be blunt at times. I prioritize clarity and impact.",
+        "When I also demonstrate I care personally for the recipient, I build trust and credibility at the same time.",
+        "Leaves little room for misinterpretation about expectations.",
+        "Addresses issues promptly before they escalate."
+      ],
+      "cons": [
+        "Some people misinterpret my direct feedback as personal criticism, even if it's intended to help. This can lead to hurt feelings or resentment.",
+        "Constantly caring + challenging can be emotionally draining if not reciprocated or valued by the culture around you.",
+        "Can shut down receivers who need more psychological safety.",
+        "May not work well across all cultural contexts."
+      ]
+    },
+    {
+      "id": "card5",
+      "image": "card numbers (5).png",
+      "shortText": "I avoid giving feedback altogether due to discomfort and anxiety.",
+      "cardName": "Ostrich",
+      "cardSummary": "As above... and ...I'm not sure that giving feedback is part of my role. It's more of a senior leader and HR responsibility. I actually hate giving feedback. I worry, procrastinate, and find excuses to avoid it. I'm deeply concerned about how it will affect our relationship.",
+      "pros": [
+        "My style works very well for me when I don't feel psychologically safe.",
+        "Avoids immediate conflict or confrontation.",
+        "Preserves short-term harmony in relationships.",
+        "Requires minimal emotional effort from me."
+      ],
+      "cons": [
+        "I can't help others to improve.",
+        "Problems persist and often get worse over time.",
+        "Others may view me as disengaged or uncaring.",
+        "I miss opportunities to develop my team members and build deeper trust."
+      ]
+    },
+    {
+      "id": "card6",
+      "image": "card numbers (6).png",
+      "shortText": "I talk to others with my feedback instead of addressing you directly.",
+      "cardName": "Crab",
+      "cardSummary": "I want to validate my feedback with the person's leader or colleagues, so I talk to someone else about the person. There's usually someone better qualified to give the feedback. Not me. When I need to give you feedback, I'll talk to anyone but you! Including sideways feedback.",
+      "pros": [
+        "My style works well for me when I don't feel psychologically safe.",
+        "I get the support of other leaders.",
+        "I can validate my perceptions before giving feedback.",
+        "I don't have to deal with potential negative reactions."
+      ],
+      "cons": [
+        "My style normalizes indirectness. Others start doing it too. Suddenly, feedback is whispered—not spoken.",
+        "The person receiving secondhand feedback usually feels ambushed, defensive, or humiliated, especially if it comes from someone higher up.",
+        "Damages trust across the organization.",
+        "Creates a culture of gossip and back-channeling."
+      ]
+    },
+    {
+      "id": "card7",
+      "image": "card numbers (7).png",
+      "shortText": "I dump all my unfiltered thoughts at once without preparation.",
+      "cardName": "Penguin",
+      "cardSummary": "I think it's helpful for a person to receive all the feedback in one go, so that they can reflect on what is useful for them. This way I've got all my thoughts on the table. I don't ask if it's a good time. I just open my mouth and whatever comes out, I'll call \"feedback\".",
+      "pros": [
+        "Hey, people know what I'm thinking! I'm an open book!",
+        "I provide comprehensive feedback.",
+        "People know what they're getting. No bullshit.",
+        "Feels authentic and unfiltered to me."
+      ],
+      "cons": [
+        "I've noticed people start bracing for impact every time I speak. Over time, they start avoid me, or withhold their own honesty.",
+        "For some reason, people get very defensive when I'm \"transparent\" like this. It seems like they aren't listening?",
+        "The recipient may be overwhelmed and unable to process all the feedback at once.",
+        "Important points get lost among less significant ones."
+      ]
+    },
+    {
+      "id": "card8",
+      "image": "card numbers (8).png",
+      "shortText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
+      "cardName": "Turtle",
+      "cardSummary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "pros": [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
+        "Duis aute irure dolor in reprehenderit in voluptate."
+      ],
+      "cons": [
+        "Excepteur sint occaecat cupidatat non proident.",
+        "Sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "Sed ut perspiciatis unde omnis iste natus error.",
+        "Nemo enim ipsam voluptatem quia voluptas sit aspernatur."
+      ]
+    },
+    {
+      "id": "card9",
+      "image": "card numbers (9).png",
+      "shortText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
+      "cardName": "Owl",
+      "cardSummary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "pros": [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
+        "Duis aute irure dolor in reprehenderit in voluptate."
+      ],
+      "cons": [
+        "Excepteur sint occaecat cupidatat non proident.",
+        "Sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "Sed ut perspiciatis unde omnis iste natus error.",
+        "Nemo enim ipsam voluptatem quia voluptas sit aspernatur."
+      ]
+    },
+    {
+      "id": "card9a",
+      "image": "card numbers (9).png",
+      "shortText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
+      "cardName": "Eagle",
+      "cardSummary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "pros": [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
+        "Duis aute irure dolor in reprehenderit in voluptate."
+      ],
+      "cons": [
+        "Excepteur sint occaecat cupidatat non proident.",
+        "Sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "Sed ut perspiciatis unde omnis iste natus error.",
+        "Nemo enim ipsam voluptatem quia voluptas sit aspernatur."
+      ]
+    }
+  ]
+}
