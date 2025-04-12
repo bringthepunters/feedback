@@ -155,44 +155,6 @@
         "Sed ut perspiciatis unde omnis iste natus error.",
         "Nemo enim ipsam voluptatem quia voluptas sit aspernatur."
       ]
-    },
-    {
-      "id": "card9",
-      "image": "card numbers (9).png",
-      "shortText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-      "cardName": "Owl",
-      "cardSummary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "pros": [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
-        "Duis aute irure dolor in reprehenderit in voluptate."
-      ],
-      "cons": [
-        "Excepteur sint occaecat cupidatat non proident.",
-        "Sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        "Sed ut perspiciatis unde omnis iste natus error.",
-        "Nemo enim ipsam voluptatem quia voluptas sit aspernatur."
-      ]
-    },
-    {
-      "id": "card9a",
-      "image": "card numbers (9).png",
-      "shortText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-      "cardName": "Eagle",
-      "cardSummary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "pros": [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
-        "Duis aute irure dolor in reprehenderit in voluptate."
-      ],
-      "cons": [
-        "Excepteur sint occaecat cupidatat non proident.",
-        "Sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        "Sed ut perspiciatis unde omnis iste natus error.",
-        "Nemo enim ipsam voluptatem quia voluptas sit aspernatur."
-      ]
     }
   ]
 }
