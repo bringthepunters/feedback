@@ -312,6 +312,38 @@
       color: #666;
       z-index: 1001;
     }
+
+    /* Instructions Card Styling */
+    #instructions-card {
+      position: absolute;
+      left: 10px; /* Align with badge */
+      bottom: 10%; /* Align base with card grid */
+      width: 130px; /* Same width as tarot cards */
+      height: 195px; /* Same height as tarot cards */
+      background-color: #166a24; /* Darker green */
+      border: 2px solid gold; /* Same border as tarot cards */
+      border-radius: 10px; /* Same radius as tarot cards */
+      padding: 15px;
+      box-sizing: border-box;
+      color: white;
+      overflow-y: auto; /* Add scroll if content overflows */
+      font-family: Arial, sans-serif;
+      z-index: 1; /* Ensure it's behind cards if they overlap somehow */
+    }
+    #instructions-card h3 {
+      margin: 0 0 10px 0;
+      padding: 0;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      font-family: "Cinzel", serif; /* Match card label font */
+    }
+     #instructions-card p {
+      margin: 0;
+      font-size: 12px; /* Smaller font for body */
+      line-height: 1.4;
+    }
+
   </style>
 </head>
 <body>
@@ -346,8 +378,9 @@
       <div class="drop-zone-label">I aspire to...</div>
     </div>
   </div>
+<div id="instructions-card"></div> <!-- Instructions Card Element -->
+<div class="grid" id="card-grid"></div>
 
-  <div class="grid" id="card-grid"></div>
 
   <div class="popup" id="popup">
     <div class="popup-image" id="popup-image"></div>
@@ -627,8 +660,33 @@
       }
     }
 
-    // Load on page startup
+    // --- Load Instructions ---
+    async function loadInstructions() {
+      try {
+        const response = await fetch("instructions.json");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        const instructionsCard = document.getElementById("instructions-card");
+        if (instructionsCard) {
+          instructionsCard.innerHTML = `<h3>${data.heading}</h3><p>${data.body}</p>`;
+        } else {
+          console.error("Instructions card element not found.");
+        }
+      } catch (error) {
+        console.error("Could not load instructions:", error);
+        const instructionsCard = document.getElementById("instructions-card");
+        if (instructionsCard) {
+           instructionsCard.innerHTML = `<h3>Error</h3><p>Could not load instructions.</p>`;
+        }
+      }
+    }
+
+    // Load cards and instructions on page startup
     loadCards();
+    loadInstructions();
+
   </script>
 </body>
 </html>
