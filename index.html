@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -162,8 +162,15 @@
   
   .more {
     align-self: flex-end;
-    margin-top: auto;
+    margin-top: auto; /* Pushes to the bottom */
     font-size: 14px;
+    color: #007bff; /* Blue color for link indication */
+    text-decoration: underline; /* Underline for link indication */
+    cursor: pointer; /* Pointer cursor on hover */
+    padding-top: 5px; /* Add some space above */
+  }
+  .more:hover {
+    color: #0056b3; /* Darker blue on hover */
   }
 
     /* Drop zones above cards */
@@ -238,21 +245,22 @@
 
     .popup-image {
       width: 50%;
-      height: 100%;
+      /* height: 100%; Removed to allow padding to create space */
       float: left;
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      padding: 40px;
+      background-origin: content-box; /* Make background respect padding */
+      padding: 10px;
       box-sizing: border-box;
-      border-right: 1px solid #dee2e6;
+      /* border-right: 1px solid #dee2e6; */
     }
 
     .popup-content {
       float: right;
       width: 50%;
       height: 100%;
-      padding: 40px;
+      padding: 10px 40px 40px 40px; /* Adjusted padding (top 10px, others 40px) */
       box-sizing: border-box;
       overflow-y: auto;
     }
@@ -265,10 +273,22 @@
       margin-bottom: 20px;
     }
     .card-summary {
-      margin-bottom: 30px;
+      margin-bottom: 15px; /* Reduced margin */
       color: #333;
       font-size: 16px;
       line-height: 1.6;
+    }
+    /* Styling for new popup sections */
+    .popup-aka, .popup-animal-explanation {
+      margin-bottom: 15px;
+      color: #333;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .popup-aka strong, .popup-animal-explanation strong {
+      color: #6a4f2a; /* Brown color for heading */
+      display: block; /* Make heading appear on its own line */
+      margin-bottom: 5px;
     }
     /* HEADINGS in brown; bullet text is black */
     .pros-section .section-title,
@@ -342,6 +362,9 @@
         <div class="section-title">Cons:</div>
         <ul class="cons-list"></ul>
       </div>
+      <div class="popup-aka"></div>      <!-- Moved element for AKA -->
+      <div class="popup-animal-explanation"></div> <!-- Moved element for Animal Explanation -->
+      </div>
     </div>
     <div class="popup-close" onclick="closePopup()">&times;</div>
   </div>
@@ -386,7 +409,7 @@
             <div class="card-back">
               <div class="back-title">${card.cardName}</div>
               <div class="back-text">${card.shortText}</div>
-              <div class="more">... more</div>
+              <div class="more">... more details</div>
             </div>
           </div>
         `;
@@ -410,11 +433,20 @@
 
     function showPopup(cardObj) {
       const card = typeof cardObj === "string" ? JSON.parse(cardObj) : cardObj;
+      // --- DEBUGGING START ---
+      console.log("showPopup received card object:", card);
+      if (card.cardName === "Parent") {
+        console.log("Parent Card AKA:", card.aka, "Type:", typeof card.aka, "Is Array:", Array.isArray(card.aka));
+        console.log("Parent Card Explanation:", card.animalExplanation, "Type:", typeof card.animalExplanation);
+      }
+      // --- DEBUGGING END ---
       const popup = document.getElementById("popup");
       if (!popup) return;
 
       const popupImage = popup.querySelector(".popup-image");
       const cardTitle = popup.querySelector(".card-title");
+      const popupAka = popup.querySelector(".popup-aka"); // Select new AKA element
+      const popupAnimalExplanation = popup.querySelector(".popup-animal-explanation"); // Select new Animal Explanation element
       const cardSummary = popup.querySelector(".card-summary");
       const prosList = popup.querySelector(".pros-list");
       const consList = popup.querySelector(".cons-list");
@@ -424,12 +456,35 @@
       cardTitle.textContent = card.cardName;
       cardSummary.textContent = card.cardSummary;
 
-      prosList.innerHTML = card.pros
-        .map((p) => `<li>${p}</li>`)
-        .join("");
-      consList.innerHTML = card.cons
-        .map((c) => `<li>${c}</li>`)
-        .join("");
+      // Populate Pros and Cons, hide section if list is empty/missing
+      // Added checks for array existence and length
+      const prosHTML = (card.pros && Array.isArray(card.pros) && card.pros.length > 0) ? card.pros.map((p) => `<li>${p}</li>`).join("") : '';
+      prosList.innerHTML = prosHTML;
+      popup.querySelector('.pros-section').style.display = prosHTML ? 'block' : 'none';
+
+      const consHTML = (card.cons && Array.isArray(card.cons) && card.cons.length > 0) ? card.cons.map((c) => `<li>${c}</li>`).join("") : '';
+      consList.innerHTML = consHTML;
+      popup.querySelector('.cons-section').style.display = consHTML ? 'block' : 'none';
+
+      // Populate AKA - check if exists and is a non-empty array
+      // console.log("Checking AKA:", card.aka); // Optional: More detailed logging
+      if (card.aka && Array.isArray(card.aka) && card.aka.length > 0) {
+          popupAka.innerHTML = `<strong>AKA:</strong> ${card.aka.join(', ')}`;
+          popupAka.style.display = 'block';
+      } else {
+          popupAka.innerHTML = '';
+          popupAka.style.display = 'none';
+      }
+
+      // Populate Animal Explanation - check if exists and is a non-empty string
+      // console.log("Checking Explanation:", card.animalExplanation); // Optional: More detailed logging
+      if (card.animalExplanation && typeof card.animalExplanation === 'string' && card.animalExplanation.trim() !== '') {
+          popupAnimalExplanation.innerHTML = `<strong>Why this animal?</strong> ${card.animalExplanation}`;
+          popupAnimalExplanation.style.display = 'block';
+      } else {
+          popupAnimalExplanation.innerHTML = '';
+          popupAnimalExplanation.style.display = 'none';
+      }
 
       popup.style.display = "flex";
     }

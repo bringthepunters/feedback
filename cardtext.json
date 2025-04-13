@@ -7,58 +7,56 @@
       "cardName": "Parent",
       "cardSummary": "I have experience doing this and provide detailed instructions, so no one wastes time. I offer prescriptive, step-by-step guidance. I know how to do this well and prioritize clarity in expectations. \"Just tell me what to do\" approach.",
       "pros": [
-        "PRO",
-        "I like to provide prescriptive, step-by-step instructions. Listen up! I know how to do this well.",
         "I have experience doing this and provide detailed instructions, so that no one is wasting their time.",
-        "I provide clarity in what is expected/good looks like.",
+        "I provide clarity in what good looks like.",
         "I make it easy to measure or review progress."
       ],
       "cons": [
         "This style sucks when there is no defined \"right way\" to proceed.",
-        "Can come across as condescending or assuming the receiver lacks knowledge.",
-        "May not leave room for the receiver's own creativity or approach.",
-        "Doesn't build the receiver's problem-solving capabilities."
-      ]
+        "I can come across as condescending or assuming the receiver lacks knowledge.",
+        "Doesn't build the receiver's problem-solving capabilities, especially when the \"why\" is missing"
+      ],
+      "aka": ["Instructor", "Expert"],
+      "animalExplanation": "Represents providing detailed, guiding instructions, much like a parent teaching a child step-by-step."
     },
     {
       "id": "card2",
       "image": "card numbers (2).png",
-      "shortText": "I foster dialogue through curious questions rather than one-way feedback.",
+      "shortText": "Feedback is a 2-way conversation where we can  both learn.",
       "cardName": "Parrot",
       "cardSummary": "Having a conversation around feedback helps me better understand causes and support people to develop their own solutions. Feedback is always a two-way conversation. I enter with curiosity and intent to learn as well as advise. The best outcome is when the receiver finds their own solution.",
       "pros": [
-        "PRO",
-        "Curious about other perspectives, thinking and approaches.",
         "The recipient owns the insight and is more likely to act on it.",
         "I respect my team member's existing expertise.",
-        "Builds long-term problem-solving capabilities."
+        "My style builds long-term problem-solving capabilities."
       ],
       "cons": [
         "This style of conversation takes a long time.",
-        "Can be frustrating for those who just want a direct answer.",
-        "May not be effective in urgent situations requiring immediate action.",
-        "Can feel like withholding information if the feedback giver already knows the answer."
-      ]
+        "Can be frustrating for those who just want a direct answer. It can feel like I'm withholding information if the feedback giver already knows the answer.",
+        "Not be effective in urgent situations requiring immediate action.",
+      ],
+      "aka": ["Coach", "Guide"],
+      "animalExplanation": "Parrots are chatty."
     },
     {
       "id": "card3",
       "image": "card numbers (3).png",
-      "shortText": "I prioritize positive relationships over delivering uncomfortable truths.",
+      "shortText": "I prioritize  relationships over delivering uncomfortable truths.",
       "cardName": "Meerkat",
-      "cardSummary": "I believe people respond best to positive feedback and encouragement. This builds team camaraderie. I don't think people will listen if they don't fundamentally like me. Maintaining a positive relationship tends to drive my feedback, sometimes at the expense of clarity.",
+      "cardSummary": "I believe people respond best to positive feedback and encouragement. I don't think people will listen if they don't fundamentally like me. So my feedback is indirect, sometimes at the expense of clarity.",
       "pros": [
-        "PRO",
         "I demonstrate a caring, supportive approach.",
-        "I create a positive, encouraging environment.",
         "Sometimes, people aren't in a state to hear tough feedback. My style works well at these times.",
-        "I make it easy for people to come to me and share their thoughts."
+        "I'm very approachable."
       ],
       "cons": [
-        "My style can produce very vague messages. The recipient may struggle to understand what I mean.",
+        "My style can produce so vague ! The recipient may even struggle to understand what I mean.",
         "Important issues may never get addressed.",
-        "Recipients can be confused about where they actually stand.",
+        "Recipients can be confused about where they actually stand with me.",
         "Problems may persist or worsen without clear feedback."
-      ]
+      ],
+      "aka": ["People-Pleaser", "Harmonizer"],
+      "animalExplanation": "Meerkats are social and alert,  prioritizing group harmony."
     },
     {
       "id": "card4",
@@ -78,13 +76,15 @@
         "Constantly caring + challenging can be emotionally draining if not reciprocated or valued by the culture around you.",
         "Can shut down receivers who need more psychological safety.",
         "May not work well across all cultural contexts."
-      ]
+      ],
+      "aka": ["Radical Candor", "Challenger"],
+      "animalExplanation": "Lions are seen as strong and direct leaders, unafraid to challenge."
     },
     {
       "id": "card5",
       "image": "card numbers (5).png",
       "shortText": "I avoid giving feedback altogether due to discomfort and anxiety.",
-      "cardName": "Ostrich",
+      "cardName": "Turtle",
       "cardSummary": "As above... and ...I'm not sure that giving feedback is part of my role. It's more of a senior leader and HR responsibility. I actually hate giving feedback. I worry, procrastinate, and find excuses to avoid it. I'm deeply concerned about how it will affect our relationship.",
       "pros": [
         "My style works very well for me when I don't feel psychologically safe.",
@@ -97,7 +97,9 @@
         "Problems persist and often get worse over time.",
         "Others may view me as disengaged or uncaring.",
         "I miss opportunities to develop my team members and build deeper trust."
-      ]
+      ],
+      "aka": ["Avoider", "Silent One"],
+      "animalExplanation": "Turtles retreat into their shells when threatened or uncomfortable, symbolizing avoidance of difficult feedback conversations."
     },
     {
       "id": "card6",
@@ -116,7 +118,9 @@
         "The person receiving secondhand feedback usually feels ambushed, defensive, or humiliated, especially if it comes from someone higher up.",
         "Damages trust across the organization.",
         "Creates a culture of gossip and back-channeling."
-      ]
+      ],
+      "aka": ["Indirect Communicator", "Gossip"],
+      "animalExplanation": "Crabs move sideways, representing indirect communication and addressing issues by talking around the person involved rather than directly."
     },
     {
       "id": "card7",
@@ -135,26 +139,9 @@
         "For some reason, people get very defensive when I'm \"transparent\" like this. It seems like they aren't listening?",
         "The recipient may be overwhelmed and unable to process all the feedback at once.",
         "Important points get lost among less significant ones."
-      ]
-    },
-    {
-      "id": "card8",
-      "image": "card numbers (8).png",
-      "shortText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
-      "cardName": "Turtle",
-      "cardSummary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "pros": [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
-        "Duis aute irure dolor in reprehenderit in voluptate."
       ],
-      "cons": [
-        "Excepteur sint occaecat cupidatat non proident.",
-        "Sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        "Sed ut perspiciatis unde omnis iste natus error.",
-        "Nemo enim ipsam voluptatem quia voluptas sit aspernatur."
-      ]
+      "aka": ["Unfiltered", "Drive-by"],
+      "animalExplanation": "Penguins feed their young by vomiting."
     }
   ]
 }
