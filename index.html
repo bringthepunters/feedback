@@ -433,13 +433,6 @@
 
     function showPopup(cardObj) {
       const card = typeof cardObj === "string" ? JSON.parse(cardObj) : cardObj;
-      // --- DEBUGGING START ---
-      console.log("showPopup received card object:", card);
-      if (card.cardName === "Parent") {
-        console.log("Parent Card AKA:", card.aka, "Type:", typeof card.aka, "Is Array:", Array.isArray(card.aka));
-        console.log("Parent Card Explanation:", card.animalExplanation, "Type:", typeof card.animalExplanation);
-      }
-      // --- DEBUGGING END ---
       const popup = document.getElementById("popup");
       if (!popup) return;
 
@@ -467,7 +460,6 @@
       popup.querySelector('.cons-section').style.display = consHTML ? 'block' : 'none';
 
       // Populate AKA - check if exists and is a non-empty array
-      // console.log("Checking AKA:", card.aka); // Optional: More detailed logging
       if (card.aka && Array.isArray(card.aka) && card.aka.length > 0) {
           popupAka.innerHTML = `<strong>AKA:</strong> ${card.aka.join(', ')}`;
           popupAka.style.display = 'block';
@@ -477,7 +469,6 @@
       }
 
       // Populate Animal Explanation - check if exists and is a non-empty string
-      // console.log("Checking Explanation:", card.animalExplanation); // Optional: More detailed logging
       if (card.animalExplanation && typeof card.animalExplanation === 'string' && card.animalExplanation.trim() !== '') {
           popupAnimalExplanation.innerHTML = `<strong>Why this animal?</strong> ${card.animalExplanation}`;
           popupAnimalExplanation.style.display = 'block';
