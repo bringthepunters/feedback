@@ -454,6 +454,19 @@
           </div>
         `; // Ensure template literal ends correctly
 
+        // --- Force correct card back structure ---
+        const cardBack = cardElement.querySelector('.card-back');
+        if (cardBack) {
+          const allowedClasses = ['back-title', 'back-text', 'more'];
+          Array.from(cardBack.children).forEach(child => {
+            if (!allowedClasses.some(cls => child.classList.contains(cls))) {
+              cardBack.removeChild(child);
+              console.warn(`Removed unexpected element from card back: ${child.outerHTML}`); // Log removal
+            }
+          });
+        }
+        // --- End force structure ---
+
         // "more" => popup
         const moreLink = cardElement.querySelector(".more");
         moreLink.addEventListener("click", (evt) => {
@@ -570,13 +583,18 @@
       event.dataTransfer.setDragImage(dragImage, 75, 125);
 
       const isFlipped = card.classList.contains("flipped");
+      const cardDataToTransfer = window.cardData.cards.find((c) => c.id === card.id);
+      // --- DEBUGGING START ---
+      if (cardDataToTransfer && cardDataToTransfer.cardName === "Parent") {
+        console.log("DRAG - Parent card data BEFORE stringify:", JSON.stringify(cardDataToTransfer)); // Log the stringified version too
+      }
+      // --- DEBUGGING END ---
       event.dataTransfer.setData(
         "text/plain",
         JSON.stringify({
           cardId: card.id,
           flipped: isFlipped,
-          html: card.innerHTML,
-          cardData: window.cardData.cards.find((c) => c.id === card.id),
+          cardData: cardDataToTransfer,
         })
       );
 
@@ -620,8 +638,16 @@
       dropZone.classList.remove("dragover");
 
       try {
-        const data = JSON.parse(event.dataTransfer.getData("text/plain"));
-        const { cardId, flipped, html, cardData } = data;
+        const dataString = event.dataTransfer.getData("text/plain");
+        const data = JSON.parse(dataString);
+        const { cardId, flipped, cardData } = data;
+        // --- DEBUGGING START ---
+        if (cardData && cardData.cardName === "Parent") {
+          console.log("DROP - Parent card data AFTER parse:", cardData);
+          console.log("DROP - Parent Card AKA:", cardData.aka);
+          console.log("DROP - Parent Card Explanation:", cardData.animalExplanation);
+        }
+        // --- DEBUGGING END ---
         const originalCard = document.getElementById(cardId);
         if (!originalCard) return;
 
@@ -635,7 +661,17 @@
         // New dropped card
         const clonedCard = document.createElement("div");
         clonedCard.className = "card card-drop-animation";
-        clonedCard.innerHTML = html;
+        // Regenerate innerHTML based on cardData, similar to loadCards
+        clonedCard.innerHTML = `
+          <div class="card-inner">
+            <div class="card-front" style="background-image:url('${encodeURI(cardData.image)}')"></div>
+            <div class="card-back">
+              <div class="back-title">${cardData.cardName}</div>
+              <div class="back-text">${cardData.shortText}</div>
+              <div class="more">... more details</div>
+            </div>
+          </div>
+        `;
 
         // flipping
         clonedCard.addEventListener("click", () => {
@@ -647,6 +683,13 @@
         if (moreLink) {
           moreLink.addEventListener("click", (evt) => {
             evt.stopPropagation();
+            // --- DEBUGGING START ---
+            console.log("Attaching popup to DROPPED card. Card data:", cardData);
+            if (cardData && cardData.cardName === "Parent") {
+              console.log("DROPPED Parent Card AKA:", cardData.aka);
+              console.log("DROPPED Parent Card Explanation:", cardData.animalExplanation);
+            }
+            // --- DEBUGGING END ---
             showPopup(cardData);
           });
         }
