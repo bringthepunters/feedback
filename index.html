@@ -269,7 +269,7 @@
     .card-title {
       font-family: "Lobster", cursive;
       color: #8B6B3D;
-      font-size: 32px;
+      font-size: 35px; /* Increased by ~10% */
       margin-bottom: 20px;
     }
     .card-summary {
@@ -318,7 +318,7 @@
       position: absolute;
       left: 10px; /* Align with badge */
       /* bottom: 10%; Removed */
-      top: 440px; /* Badge bottom (40+200=240) + 200px margin */
+      top: 660px; /* Moved down significantly (50% 'higher' from previous calc) */
       width: 200px; /* Same width as badge */
       height: 195px; /* Keep height for now, adjust if needed */
       background-color: #166a24; /* Darker green */
@@ -334,7 +334,7 @@
     #instructions-card h3 {
       margin: 0 0 10px 0;
       padding: 0;
-      font-size: 16px;
+      font-size: 19px; /* Increased by ~20% */
       font-weight: bold;
       text-align: center;
       font-family: "Lobster", cursive; /* Changed to Lobster */
@@ -442,16 +442,17 @@
           console.log("loadCards - Parent card data for innerHTML:", card);
         }
         // --- DEBUGGING END ---
+        // Explicitly setting simple card back HTML
         cardElement.innerHTML = `
           <div class="card-inner">
-            <div class="card-front" style="background-image:url('${card.image}')"></div>
+            <div class="card-front" style="background-image:url('${encodeURI(card.image)}')"></div>
             <div class="card-back">
               <div class="back-title">${card.cardName}</div>
               <div class="back-text">${card.shortText}</div>
               <div class="more">... more details</div>
             </div>
           </div>
-        `;
+        `; // Ensure template literal ends correctly
 
         // "more" => popup
         const moreLink = cardElement.querySelector(".more");
