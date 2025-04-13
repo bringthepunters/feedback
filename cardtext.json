@@ -24,7 +24,7 @@
       "image": "card numbers (2).png",
       "shortText": "Feedback is a 2-way conversation where we can  both learn.",
       "cardName": "Parrot",
-      "cardSummary": "Having a conversation around feedback helps me better understand causes and support people to develop their own solutions. Feedback is always a two-way conversation. I enter with curiosity and intent to learn as well as advise. The best outcome is when the receiver finds their own solution.",
+      "cardSummary": "Feedback is always a two-way conversation. I enter with curiosity and intent to learn as well as advise. The best outcome is when the receiver finds their own solution.",
       "pros": [
         "The recipient owns the insight and is more likely to act on it.",
         "I respect my team member's existing expertise.",
@@ -35,15 +35,15 @@
         "Can be frustrating for those who just want a direct answer. It can feel like I'm withholding information if the feedback giver already knows the answer.",
         "Not be effective in urgent situations requiring immediate action."
       ],
-      "aka": ["Coach", "Guide"],
-      "animalExplanation": "Parrots are chatty."
+      "aka": ["Coach", "Guide", "The Conversationalist"],
+      "animalExplanation": "Parrots are chatty creatures."
     },
     {
       "id": "card3",
       "image": "card numbers (3).png",
-      "shortText": "I prioritize  relationships over delivering uncomfortable truths.",
+      "shortText": "I give indirect feedback. ",
       "cardName": "Meerkat",
-      "cardSummary": "I believe people respond best to positive feedback and encouragement. I don't think people will listen if they don't fundamentally like me. So my feedback is indirect, sometimes at the expense of clarity.",
+      "cardSummary": "I prioritise  relationships over delivering uncomfortable truths. I believe people respond best to positive feedback and encouragement. I don't think people will listen if they don't fundamentally like me. So my feedback is indirect, sometimes at the expense of clarity.",
       "pros": [
         "I demonstrate a caring, supportive approach.",
         "Sometimes, people aren't in a state to hear tough feedback. My style works well at these times.",
