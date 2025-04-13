@@ -33,7 +33,7 @@
       "cons": [
         "This style of conversation takes a long time.",
         "Can be frustrating for those who just want a direct answer. It can feel like I'm withholding information if the feedback giver already knows the answer.",
-        "Not be effective in urgent situations requiring immediate action.",
+        "Not be effective in urgent situations requiring immediate action."
       ],
       "aka": ["Coach", "Guide"],
       "animalExplanation": "Parrots are chatty."
@@ -56,17 +56,15 @@
         "Problems may persist or worsen without clear feedback."
       ],
       "aka": ["People-Pleaser", "Harmonizer"],
-      "animalExplanation": "Meerkats are social and alert,  prioritizing group harmony."
+      "animalExplanation": "Meerkats are super-social,  prioritizing group harmony."
     },
     {
       "id": "card4",
       "image": "card numbers (4).png",
       "shortText": "I deliver clear, direct feedback because I care about your success.",
       "cardName": "Lion",
-      "cardSummary": "My colleagues are adults with clear responsibilities. They know I want them to succeed, so I provide specific, direct feedback. Even if it comes across as blunt sometimes, I prioritize clarity and impact. Care personally, challenge directly.",
+      "cardSummary": "My colleagues are adults with clear responsibilities. They know I want them to succeed, so I provide specific, direct feedback. Even if it comes across as blunt sometimes, I prioritize clarity and impact. ",
       "pros": [
-        "PRO",
-        "I give direct feedback. I get straight to the point and provide advice which can be blunt at times. I prioritize clarity and impact.",
         "When I also demonstrate I care personally for the recipient, I build trust and credibility at the same time.",
         "Leaves little room for misinterpretation about expectations.",
         "Addresses issues promptly before they escalate."
@@ -83,30 +81,27 @@
     {
       "id": "card5",
       "image": "card numbers (5).png",
-      "shortText": "I avoid giving feedback altogether due to discomfort and anxiety.",
+      "shortText": "I avoid giving feedback altogether.",
       "cardName": "Turtle",
-      "cardSummary": "As above... and ...I'm not sure that giving feedback is part of my role. It's more of a senior leader and HR responsibility. I actually hate giving feedback. I worry, procrastinate, and find excuses to avoid it. I'm deeply concerned about how it will affect our relationship.",
+      "cardSummary": "I actually hate giving feedback. I worry, procrastinate, and find excuses to avoid it. I'm deeply concerned about how it will affect our relationship.",
       "pros": [
         "My style works very well for me when I don't feel psychologically safe.",
-        "Avoids immediate conflict or confrontation.",
-        "Preserves short-term harmony in relationships.",
-        "Requires minimal emotional effort from me."
+        "Avoids immediate conflict or confrontation, and preserves short-term harmony in relationships."
       ],
       "cons": [
-        "I can't help others to improve.",
         "Problems persist and often get worse over time.",
         "Others may view me as disengaged or uncaring.",
         "I miss opportunities to develop my team members and build deeper trust."
       ],
-      "aka": ["Avoider", "Silent One"],
+      "aka": ["gotta go", "The \"never a good time\"", "Got Nuthin"],
       "animalExplanation": "Turtles retreat into their shells when threatened or uncomfortable, symbolizing avoidance of difficult feedback conversations."
     },
     {
       "id": "card6",
       "image": "card numbers (6).png",
-      "shortText": "I talk to others with my feedback instead of addressing you directly.",
+      "shortText": "I tell others  my feedback instead of addressing you directly.",
       "cardName": "Crab",
-      "cardSummary": "I want to validate my feedback with the person's leader or colleagues, so I talk to someone else about the person. There's usually someone better qualified to give the feedback. Not me. When I need to give you feedback, I'll talk to anyone but you! Including sideways feedback.",
+      "cardSummary": "When I need to give you feedback, I'll talk to anyone but you! Including your boss.",
       "pros": [
         "My style works well for me when I don't feel psychologically safe.",
         "I get the support of other leaders.",
@@ -117,9 +112,9 @@
         "My style normalizes indirectness. Others start doing it too. Suddenly, feedback is whispered—not spoken.",
         "The person receiving secondhand feedback usually feels ambushed, defensive, or humiliated, especially if it comes from someone higher up.",
         "Damages trust across the organization.",
-        "Creates a culture of gossip and back-channeling."
+        "Sustains a culture of gossip and back-channeling."
       ],
-      "aka": ["Indirect Communicator", "Gossip"],
+      "aka": ["The escalator", "SThe idewinder"],
       "animalExplanation": "Crabs move sideways, representing indirect communication and addressing issues by talking around the person involved rather than directly."
     },
     {
@@ -131,14 +126,12 @@
       "pros": [
         "Hey, people know what I'm thinking! I'm an open book!",
         "I provide comprehensive feedback.",
-        "People know what they're getting. No bullshit.",
-        "Feels authentic and unfiltered to me."
+        "People know what they're getting. No bullshit. It's authentic. Just the way I am."
       ],
       "cons": [
         "I've noticed people start bracing for impact every time I speak. Over time, they start avoid me, or withhold their own honesty.",
         "For some reason, people get very defensive when I'm \"transparent\" like this. It seems like they aren't listening?",
-        "The recipient may be overwhelmed and unable to process all the feedback at once.",
-        "Important points get lost among less significant ones."
+        "The recipient may be overwhelmed and unable to process all the feedback at once. Important points get lost among less significant ones."
       ],
       "aka": ["Unfiltered", "Drive-by"],
       "animalExplanation": "Penguins feed their young by vomiting."
