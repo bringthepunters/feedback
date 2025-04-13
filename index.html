@@ -66,8 +66,8 @@
     }
     /* Cinzel Bold label above card */
     .bottom-card-label {
-      font-family: "Cinzel", serif;
-      font-weight: 700;
+      font-family: "Lobster", cursive; /* Changed to Lobster */
+      /* font-weight: 700; Removed, Lobster might have its own weight */
       color: #fff;
       margin-bottom: 5px;
       text-align: center;
@@ -317,9 +317,10 @@
     #instructions-card {
       position: absolute;
       left: 10px; /* Align with badge */
-      bottom: 10%; /* Align base with card grid */
-      width: 130px; /* Same width as tarot cards */
-      height: 195px; /* Same height as tarot cards */
+      /* bottom: 10%; Removed */
+      top: 440px; /* Badge bottom (40+200=240) + 200px margin */
+      width: 200px; /* Same width as badge */
+      height: 195px; /* Keep height for now, adjust if needed */
       background-color: #166a24; /* Darker green */
       border: 2px solid gold; /* Same border as tarot cards */
       border-radius: 10px; /* Same radius as tarot cards */
@@ -336,7 +337,7 @@
       font-size: 16px;
       font-weight: bold;
       text-align: center;
-      font-family: "Cinzel", serif; /* Match card label font */
+      font-family: "Lobster", cursive; /* Changed to Lobster */
     }
      #instructions-card p {
       margin: 0;
@@ -436,6 +437,11 @@
         // Hover tooltip
         cardElement.title = `${card.cardName} - ${card.shortText}`;
 
+        // --- DEBUGGING START ---
+        if (card.cardName === "Parent") {
+          console.log("loadCards - Parent card data for innerHTML:", card);
+        }
+        // --- DEBUGGING END ---
         cardElement.innerHTML = `
           <div class="card-inner">
             <div class="card-front" style="background-image:url('${card.image}')"></div>
