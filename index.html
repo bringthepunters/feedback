@@ -410,21 +410,29 @@
     const cardDataUrl = "cardtext.json";
     let originalPositions = {};
 
-    async function loadCards() {
-      const response = await fetch(cardDataUrl);
-      const data = await response.json();
-      window.cardData = data;
+    async function loadCards(useExistingData = false) {
+      if (!useExistingData) {
+        const response = await fetch(cardDataUrl);
+        const data = await response.json();
+        window.cardData = data;
+      }
 
+      // Clear existing grid first
       const grid = document.getElementById("card-grid");
+      grid.innerHTML = '';
 
+      console.log("Building cards with data:", data.cards);
+      
       data.cards.forEach((card) => {
         // Container for label + card
         const cardContainer = document.createElement("div");
         cardContainer.className = "card-container";
+        cardContainer.dataset.cardId = card.id;
 
         const cardLabel = document.createElement("div");
         cardLabel.className = "bottom-card-label";
         cardLabel.textContent = card.cardName;
+        console.log(`Setting label for ${card.id} to "${card.cardName}"`);
         cardContainer.appendChild(cardLabel);
 
         const cardElement = document.createElement("div");
@@ -584,11 +592,11 @@
 
       const isFlipped = card.classList.contains("flipped");
       const cardDataToTransfer = window.cardData.cards.find((c) => c.id === card.id);
-      // --- DEBUGGING START ---
-      if (cardDataToTransfer && cardDataToTransfer.cardName === "Parent") {
-        console.log("DRAG - Parent card data BEFORE stringify:", JSON.stringify(cardDataToTransfer)); // Log the stringified version too
-      }
-      // --- DEBUGGING END ---
+      
+      // Log all card data for debugging
+      console.log(`DRAG - Card ID ${card.id} data:`, cardDataToTransfer);
+      console.log(`DRAG - Card name from dataset: ${cardDataToTransfer.cardName}`);
+      
       event.dataTransfer.setData(
         "text/plain",
         JSON.stringify({
@@ -641,13 +649,13 @@
         const dataString = event.dataTransfer.getData("text/plain");
         const data = JSON.parse(dataString);
         const { cardId, flipped, cardData } = data;
-        // --- DEBUGGING START ---
-        if (cardData && cardData.cardName === "Parent") {
-          console.log("DROP - Parent card data AFTER parse:", cardData);
-          console.log("DROP - Parent Card AKA:", cardData.aka);
-          console.log("DROP - Parent Card Explanation:", cardData.animalExplanation);
-        }
-        // --- DEBUGGING END ---
+        
+        // Log all card data after parsing for debugging
+        console.log("DROP - Card data after parse:", cardData);
+        console.log("DROP - Card Name:", cardData.cardName);
+        console.log("DROP - Card AKA:", cardData.aka);
+        console.log("DROP - Card Explanation:", cardData.animalExplanation);
+        
         const originalCard = document.getElementById(cardId);
         if (!originalCard) return;
 
@@ -683,13 +691,12 @@
         if (moreLink) {
           moreLink.addEventListener("click", (evt) => {
             evt.stopPropagation();
-            // --- DEBUGGING START ---
+            // Log dropped card data when more is clicked
             console.log("Attaching popup to DROPPED card. Card data:", cardData);
-            if (cardData && cardData.cardName === "Parent") {
-              console.log("DROPPED Parent Card AKA:", cardData.aka);
-              console.log("DROPPED Parent Card Explanation:", cardData.animalExplanation);
-            }
-            // --- DEBUGGING END ---
+            console.log("DROPPED Card Name:", cardData.cardName);
+            console.log("DROPPED Card AKA:", cardData.aka);
+            console.log("DROPPED Card Explanation:", cardData.animalExplanation);
+            
             showPopup(cardData);
           });
         }
@@ -731,6 +738,7 @@
         const instructions = { heading: "", body: "" };
         const cardMap = {};
 
+        // Process CSV data
         for (const row of lines) {
           const cells = parseCsvRow(row);
           if (cells.length < 4) continue;
@@ -743,7 +751,10 @@
             if (!cardMap[id]) {
               cardMap[id] = { id };
             }
-            if (field === "cardName") cardMap[id].cardName = value;
+            if (field === "cardName") {
+              cardMap[id].cardName = value;
+              console.log(`Setting ${id} cardName to "${value}"`);
+            }
             else if (field === "shortText") cardMap[id].shortText = value;
             else if (field === "cardSummary") cardMap[id].cardSummary = value;
             else if (field === "pros") cardMap[id].pros = value ? value.split(";").map(s => s.trim()) : [];
@@ -759,13 +770,26 @@
           instructionsCard.innerHTML = `<h3>${instructions.heading}</h3><p>${instructions.body}</p>`;
         }
 
+        // Clear existing cards in the grid
+        const grid = document.getElementById("card-grid");
+        if (grid) {
+          grid.innerHTML = '';
+        }
+
         // Convert cardMap to array
         const finalCards = Object.values(cardMap);
+        
+        // Add card images based on numeric ID
+        finalCards.forEach(card => {
+          const cardNumber = card.id.replace('card', '');
+          card.image = `card numbers (${cardNumber}).png`;
+          console.log(`Assigned image for ${card.id}: ${card.image}, cardName: ${card.cardName}`);
+        });
 
         // Overwrite window.cardData with new values
         window.cardData = { cards: finalCards };
         // Now build the UI with loadCards() but it will use the updated window.cardData
-        loadCards();
+        loadCards(true); // Pass true to use existing data instead of fetching from JSON
 
       } catch (error) {
         console.error("Could not load from Google Sheet:", error);
@@ -803,7 +827,17 @@
 
     // On page load, fetch from Google Sheet
     window.addEventListener("DOMContentLoaded", () => {
+      // Skip loading from local JSON and only use Google Sheet data
       loadDataFromGoogleSheet();
+      
+      // Add a force refresh button for testing (can be removed in production)
+      const badge = document.getElementById("badge");
+      if (badge) {
+        badge.addEventListener("click", () => {
+          console.log("Forcing refresh from Google Sheet");
+          loadDataFromGoogleSheet();
+        });
+      }
     });
 
   </script>
