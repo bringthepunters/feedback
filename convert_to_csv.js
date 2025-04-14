@@ -46,6 +46,17 @@ function main() {
     rows.push(
       toCsvRow("instructions", "instructions", "body", instructionsData.body)
     );
+    
+    // Add drop zone labels configuration
+    rows.push(
+      toCsvRow("config", "dropZones", "dropZone1Label", "How I like to receive feedback...")
+    );
+    rows.push(
+      toCsvRow("config", "dropZones", "dropZone2Label", "My Own Feedback Style is...")
+    );
+    rows.push(
+      toCsvRow("config", "dropZones", "dropZone3Label", "I aspire to...")
+    );
 
     // 4) Extract each card's fields
     const cardArray = cardsData.cards || [];

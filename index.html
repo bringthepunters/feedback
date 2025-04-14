@@ -793,9 +793,15 @@
         lines.shift();
 
         console.log("Parsed CSV lines:", lines.length);
-        
         const instructions = { heading: "", body: "" };
         const cardMap = {};
+        // Add configuration for drop zone labels with defaults
+        const config = {
+          dropZone1Label: "How I like to receive feedback...",
+          dropZone2Label: "My Own Feedback Style is...",
+          dropZone3Label: "I aspire to..."
+        };
+
 
         // Process CSV data
         for (const row of lines) {
@@ -811,6 +817,11 @@
           if (type === "instructions" && id === "instructions") {
             if (field === "heading") instructions.heading = value;
             else if (field === "body") instructions.body = value;
+          } else if (type === "config" && id === "dropZones") {
+            // Process configuration for drop zone labels
+            if (field === "dropZone1Label") config.dropZone1Label = value;
+            else if (field === "dropZone2Label") config.dropZone2Label = value;
+            else if (field === "dropZone3Label") config.dropZone3Label = value;
           } else if (type === "card") {
             if (!cardMap[id]) {
               cardMap[id] = { id };
@@ -839,6 +850,15 @@
           // Convert semicolons to line breaks in the instructions body
           const formattedBody = instructions.body.split(';').map(line => line.trim()).join('<br>');
           instructionsCard.innerHTML = `<h3>${instructions.heading}</h3><p>${formattedBody}</p>`;
+        }
+
+        // Apply drop zone labels from configuration
+        const dropZoneLabels = document.querySelectorAll('.drop-zone-label');
+        if (dropZoneLabels.length >= 3) {
+          dropZoneLabels[0].textContent = config.dropZone1Label;
+          dropZoneLabels[1].textContent = config.dropZone2Label;
+          dropZoneLabels[2].textContent = config.dropZone3Label;
+          console.log("Updated drop zone labels from configuration");
         }
 
         // Debug: Log all cards in cardMap
