@@ -523,7 +523,7 @@
 
       // Populate Animal Explanation - check if exists and is a non-empty string
       if (card.animalExplanation && typeof card.animalExplanation === 'string' && card.animalExplanation.trim() !== '') {
-          popupAnimalExplanation.innerHTML = `<strong>Why this animal?</strong> ${card.animalExplanation}`;
+          popupAnimalExplanation.innerHTML = `<strong>${card.cardName}</strong> ${card.animalExplanation}`;
           popupAnimalExplanation.style.display = 'block';
       } else {
           popupAnimalExplanation.innerHTML = '';
@@ -749,7 +749,7 @@
             else if (field === "pros") cardMap[id].pros = value ? value.split(";").map(s => s.trim()) : [];
             else if (field === "cons") cardMap[id].cons = value ? value.split(";").map(s => s.trim()) : [];
             else if (field === "aka") cardMap[id].aka = value ? value.split(";").map(s => s.trim()) : [];
-            else if (field === "animalExplanation") cardMap[id].animalExplanation = value;
+            else if (field === "animalExplanation" || field === "whythisanimal" || field === "TheParrot" || field === "TheLion") cardMap[id].animalExplanation = value;
           }
         }
 
