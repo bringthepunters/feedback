@@ -711,31 +711,100 @@
     }
 
     // --- Load Instructions ---
-    async function loadInstructions() {
+    // Replace local loadInstructions + loadCards with Google Sheets CSV approach
+    async function loadDataFromGoogleSheet() {
+      const sheetCsvUrl = "https://docs.google.com/spreadsheets/d/1iliN5ukkqErDS4dR-ripsL0kmC1FVTfjye8E39NNTH0/export?format=csv";
+
       try {
-        const response = await fetch("instructions.json");
+        const response = await fetch(sheetCsvUrl);
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error("HTTP error! status: " + response.status);
         }
-        const data = await response.json();
+        const csvText = await response.text();
+
+        // Parse CSV
+        // Format: type,id,field,value
+        const lines = csvText.split(/\r?\n/).filter(line => line.trim());
+        // Remove header
+        lines.shift();
+
+        const instructions = { heading: "", body: "" };
+        const cardMap = {};
+
+        for (const row of lines) {
+          const cells = parseCsvRow(row);
+          if (cells.length < 4) continue;
+          const [type, id, field, value] = cells;
+
+          if (type === "instructions" && id === "instructions") {
+            if (field === "heading") instructions.heading = value;
+            else if (field === "body") instructions.body = value;
+          } else if (type === "card") {
+            if (!cardMap[id]) {
+              cardMap[id] = { id };
+            }
+            if (field === "cardName") cardMap[id].cardName = value;
+            else if (field === "shortText") cardMap[id].shortText = value;
+            else if (field === "cardSummary") cardMap[id].cardSummary = value;
+            else if (field === "pros") cardMap[id].pros = value ? value.split(";").map(s => s.trim()) : [];
+            else if (field === "cons") cardMap[id].cons = value ? value.split(";").map(s => s.trim()) : [];
+            else if (field === "aka") cardMap[id].aka = value ? value.split(";").map(s => s.trim()) : [];
+            else if (field === "animalExplanation") cardMap[id].animalExplanation = value;
+          }
+        }
+
+        // Apply instructions
         const instructionsCard = document.getElementById("instructions-card");
         if (instructionsCard) {
-          instructionsCard.innerHTML = `<h3>${data.heading}</h3><p>${data.body}</p>`;
-        } else {
-          console.error("Instructions card element not found.");
+          instructionsCard.innerHTML = `<h3>${instructions.heading}</h3><p>${instructions.body}</p>`;
         }
+
+        // Convert cardMap to array
+        const finalCards = Object.values(cardMap);
+
+        // Overwrite window.cardData with new values
+        window.cardData = { cards: finalCards };
+        // Now build the UI with loadCards() but it will use the updated window.cardData
+        loadCards();
+
       } catch (error) {
-        console.error("Could not load instructions:", error);
+        console.error("Could not load from Google Sheet:", error);
         const instructionsCard = document.getElementById("instructions-card");
         if (instructionsCard) {
-           instructionsCard.innerHTML = `<h3>Error</h3><p>Could not load instructions.</p>`;
+          instructionsCard.innerHTML = `<h3>Error</h3><p>Could not load from Google Sheet.</p>`;
         }
       }
     }
 
-    // Load cards and instructions on page startup
-    loadCards();
-    loadInstructions();
+    function parseCsvRow(row) {
+      const result = [];
+      let current = "";
+      let inQuotes = false;
+
+      for (let i = 0; i < row.length; i++) {
+        const char = row[i];
+        if (char === '"') {
+          if (inQuotes && row[i + 1] === '"') {
+            current += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (char === "," && !inQuotes) {
+          result.push(current);
+          current = "";
+        } else {
+          current += char;
+        }
+      }
+      if (current) result.push(current);
+      return result;
+    }
+
+    // On page load, fetch from Google Sheet
+    window.addEventListener("DOMContentLoaded", () => {
+      loadDataFromGoogleSheet();
+    });
 
   </script>
 </body>
