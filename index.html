@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>Feedback Styles</title>
 
   <!-- Favicon -->
@@ -407,16 +410,20 @@
     // Make the card data globally accessible
     window.cardData = null;
 
-    const cardDataUrl = "cardtext.json";
+    // Remove reliance on local JSON file completely
     let originalPositions = {};
 
-    async function loadCards(useExistingData = false) {
-      if (!useExistingData) {
-        const response = await fetch(cardDataUrl);
-        const data = await response.json();
-        window.cardData = data;
+    async function loadCards(cardsData) {
+      console.log("loadCards called with data:", cardsData);
+      
+      if (!cardsData || !cardsData.cards || !Array.isArray(cardsData.cards)) {
+        console.error("Invalid cards data:", cardsData);
+        return;
       }
 
+      // Store the data globally
+      window.cardData = cardsData;
+      
       // Clear existing grid first
       const grid = document.getElementById("card-grid");
       grid.innerHTML = '';
@@ -493,7 +500,31 @@
     }
 
     function showPopup(cardObj) {
-      const card = typeof cardObj === "string" ? JSON.parse(cardObj) : cardObj;
+      // CRITICAL FIX: If we're given a card ID, get fresh data from window.cardData
+      if (typeof cardObj === "string") {
+        try {
+          // Try to parse it as JSON first
+          const parsed = JSON.parse(cardObj);
+          cardObj = parsed;
+        } catch (e) {
+          // If not valid JSON, it might be a card ID
+          if (window.cardData && window.cardData.cards) {
+            const freshCard = window.cardData.cards.find(c => c.id === cardObj);
+            if (freshCard) {
+              cardObj = freshCard;
+            }
+          }
+        }
+      } else if (cardObj && cardObj.id && window.cardData && window.cardData.cards) {
+        // If it's an object with an ID, get fresh data to ensure we have latest names
+        const freshCard = window.cardData.cards.find(c => c.id === cardObj.id);
+        if (freshCard) {
+          cardObj = freshCard;
+          console.log("POPUP - Using fresh card data:", freshCard);
+        }
+      }
+      
+      const card = cardObj;
       const popup = document.getElementById("popup");
       if (!popup) return;
 
@@ -507,6 +538,11 @@
 
       const encodedImageUrl = encodeURI(card.image);
       popupImage.style.setProperty('background-image', `url('${encodedImageUrl}')`);
+      // Log the card data being displayed
+      console.log("POPUP - Card data being displayed:", card);
+      console.log("POPUP - Card name:", card.cardName);
+      
+      // Ensure card name is displayed correctly
       cardTitle.textContent = card.cardName;
       cardSummary.textContent = card.cardSummary;
 
@@ -533,6 +569,7 @@
       if (card.animalExplanation && typeof card.animalExplanation === 'string' && card.animalExplanation.trim() !== '') {
           popupAnimalExplanation.innerHTML = `<strong>${card.cardName}</strong> ${card.animalExplanation}`;
           popupAnimalExplanation.style.display = 'block';
+          console.log(`POPUP - Animal explanation heading set to: ${card.cardName}`);
       } else {
           popupAnimalExplanation.innerHTML = '';
           popupAnimalExplanation.style.display = 'none';
@@ -591,18 +628,21 @@
       event.dataTransfer.setDragImage(dragImage, 75, 125);
 
       const isFlipped = card.classList.contains("flipped");
-      const cardDataToTransfer = window.cardData.cards.find((c) => c.id === card.id);
+      
+      // CRITICAL FIX: Always get the most up-to-date card data from window.cardData
+      // instead of using potentially stale references
+      const freshCardData = window.cardData.cards.find((c) => c.id === card.id);
       
       // Log all card data for debugging
-      console.log(`DRAG - Card ID ${card.id} data:`, cardDataToTransfer);
-      console.log(`DRAG - Card name from dataset: ${cardDataToTransfer.cardName}`);
+      console.log(`DRAG - Card ID ${card.id} data:`, freshCardData);
+      console.log(`DRAG - Card name from dataset: ${freshCardData.cardName}`);
       
       event.dataTransfer.setData(
         "text/plain",
         JSON.stringify({
           cardId: card.id,
           flipped: isFlipped,
-          cardData: cardDataToTransfer,
+          cardData: freshCardData,
         })
       );
 
@@ -720,29 +760,52 @@
     // --- Load Instructions ---
     // Replace local loadInstructions + loadCards with Google Sheets CSV approach
     async function loadDataFromGoogleSheet() {
-      const sheetCsvUrl = "https://docs.google.com/spreadsheets/d/1iliN5ukkqErDS4dR-ripsL0kmC1FVTfjye8E39NNTH0/export?format=csv";
-
+      // Add cache-busting timestamp to URL
+      const timestamp = new Date().getTime();
+      const sheetCsvUrl = `https://docs.google.com/spreadsheets/d/1iliN5ukkqErDS4dR-ripsL0kmC1FVTfjye8E39NNTH0/export?format=csv&_=${timestamp}`;
+      
+      console.log("Fetching data from Google Sheet with URL:", sheetCsvUrl);
+      
       try {
-        const response = await fetch(sheetCsvUrl);
+        // Prevent caching with fetch options
+        const response = await fetch(sheetCsvUrl, {
+          method: 'GET',
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          }
+        });
+        
         if (!response.ok) {
           throw new Error("HTTP error! status: " + response.status);
         }
+        
         const csvText = await response.text();
-
+        console.log("CSV data received, length:", csvText.length);
+        
         // Parse CSV
         // Format: type,id,field,value
         const lines = csvText.split(/\r?\n/).filter(line => line.trim());
         // Remove header
         lines.shift();
 
+        console.log("Parsed CSV lines:", lines.length);
+        
         const instructions = { heading: "", body: "" };
         const cardMap = {};
 
         // Process CSV data
         for (const row of lines) {
           const cells = parseCsvRow(row);
-          if (cells.length < 4) continue;
+          if (cells.length < 4) {
+            console.warn("Skipping incomplete row:", row);
+            continue;
+          }
+          
           const [type, id, field, value] = cells;
+          console.log(`Processing row: type=${type}, id=${id}, field=${field}, value=${value.substring(0, 30)}...`);
 
           if (type === "instructions" && id === "instructions") {
             if (field === "heading") instructions.heading = value;
@@ -750,17 +813,22 @@
           } else if (type === "card") {
             if (!cardMap[id]) {
               cardMap[id] = { id };
+              console.log(`Created new card with id ${id}`);
             }
+            
             if (field === "cardName") {
               cardMap[id].cardName = value;
-              console.log(`Setting ${id} cardName to "${value}"`);
+              console.log(`SET CARD NAME: ${id} = "${value}"`);
             }
             else if (field === "shortText") cardMap[id].shortText = value;
             else if (field === "cardSummary") cardMap[id].cardSummary = value;
             else if (field === "pros") cardMap[id].pros = value ? value.split(";").map(s => s.trim()) : [];
             else if (field === "cons") cardMap[id].cons = value ? value.split(";").map(s => s.trim()) : [];
             else if (field === "aka") cardMap[id].aka = value ? value.split(";").map(s => s.trim()) : [];
-            else if (field === "animalExplanation" || field === "whythisanimal" || field === "TheParrot" || field === "TheLion") cardMap[id].animalExplanation = value;
+            else if (field === "animalExplanation" || field === "whythisanimal" || field === "TheParrot" || field === "TheLion") {
+              cardMap[id].animalExplanation = value;
+              console.log(`Set animal explanation for ${id}`);
+            }
           }
         }
 
@@ -770,11 +838,11 @@
           instructionsCard.innerHTML = `<h3>${instructions.heading}</h3><p>${instructions.body}</p>`;
         }
 
-        // Clear existing cards in the grid
-        const grid = document.getElementById("card-grid");
-        if (grid) {
-          grid.innerHTML = '';
-        }
+        // Debug: Log all cards in cardMap
+        console.log("Final cardMap:", cardMap);
+        Object.values(cardMap).forEach(card => {
+          console.log(`Card ${card.id} final name: ${card.cardName}`);
+        });
 
         // Convert cardMap to array
         const finalCards = Object.values(cardMap);
@@ -783,13 +851,26 @@
         finalCards.forEach(card => {
           const cardNumber = card.id.replace('card', '');
           card.image = `card numbers (${cardNumber}).png`;
-          console.log(`Assigned image for ${card.id}: ${card.image}, cardName: ${card.cardName}`);
+          
+          // CRITICAL FIX: Ensure card names are properly set
+          if (!card.cardName) {
+            console.error(`ERROR: Missing cardName for ${card.id}!`);
+          } else {
+            // Force proper capitalization
+            card.cardName = card.cardName.trim();
+            card.cardName = card.cardName.charAt(0).toUpperCase() + card.cardName.slice(1);
+            console.log(`FINAL CARD NAME: ${card.id} = "${card.cardName}"`);
+          }
         });
 
-        // Overwrite window.cardData with new values
-        window.cardData = { cards: finalCards };
-        // Now build the UI with loadCards() but it will use the updated window.cardData
-        loadCards(true); // Pass true to use existing data instead of fetching from JSON
+        // Create the final data structure
+        const cardsData = { cards: finalCards };
+        
+        // Display a message about the data being loaded
+        console.log(`LOADED ${finalCards.length} CARDS FROM GOOGLE SHEET`);
+        
+        // Now build the UI with the data we just loaded
+        loadCards(cardsData);
 
       } catch (error) {
         console.error("Could not load from Google Sheet:", error);
@@ -825,19 +906,57 @@
       return result;
     }
 
+    // Disable all local JSON loading and replace with direct Google Sheet data
     // On page load, fetch from Google Sheet
     window.addEventListener("DOMContentLoaded", () => {
-      // Skip loading from local JSON and only use Google Sheet data
+      // Display loading indicator
+      const grid = document.getElementById("card-grid");
+      if (grid) {
+        grid.innerHTML = '<div style="color: white; font-size: 24px; text-align: center; width: 100%;">Loading data from Google Sheet...</div>';
+      }
+      
+      // Completely bypass local JSON and only use Google Sheet data
       loadDataFromGoogleSheet();
       
-      // Add a force refresh button for testing (can be removed in production)
+      // Force reload function - completely clears browser cache and reloads page
+      function forceHardReload() {
+        console.log("PERFORMING HARD RELOAD");
+        // Clear all browser storage
+        if (window.localStorage) window.localStorage.clear();
+        if (window.sessionStorage) window.sessionStorage.clear();
+        
+        // Add cache-busting parameter and reload
+        const reloadUrl = window.location.pathname + "?nocache=" + new Date().getTime();
+        window.location.href = reloadUrl;
+      }
+      
+      // Add a force refresh button
       const badge = document.getElementById("badge");
       if (badge) {
-        badge.addEventListener("click", () => {
-          console.log("Forcing refresh from Google Sheet");
-          loadDataFromGoogleSheet();
-        });
+        badge.style.cursor = 'pointer';
+        badge.title = "Click to FORCE HARD RELOAD from Google Sheet";
+        badge.addEventListener("click", forceHardReload);
       }
+      
+      // Create visible refresh button
+      const refreshButton = document.createElement('button');
+      refreshButton.textContent = 'FORCE RELOAD DATA';
+      refreshButton.style = 'position: fixed; top: 10px; right: 10px; z-index: 1000; padding: 5px 10px; background-color: #ff4d4d; color: white; border: none; cursor: pointer; font-weight: bold;';
+      refreshButton.addEventListener('click', forceHardReload);
+      document.body.appendChild(refreshButton);
+      
+      // Also create a soft refresh button that just reloads data without page refresh
+      const softRefreshButton = document.createElement('button');
+      softRefreshButton.textContent = 'Refresh Data';
+      softRefreshButton.style = 'position: fixed; top: 50px; right: 10px; z-index: 1000; padding: 5px 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer;';
+      softRefreshButton.addEventListener('click', () => {
+        console.log("Refresh button clicked");
+        if (grid) {
+          grid.innerHTML = '<div style="color: white; font-size: 24px; text-align: center; width: 100%;">Refreshing data...</div>';
+        }
+        loadDataFromGoogleSheet();
+      });
+      document.body.appendChild(softRefreshButton);
     });
 
   </script>
