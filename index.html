@@ -74,6 +74,7 @@
       color: #fff;
       margin-bottom: 5px;
       text-align: center;
+      font-size: 120%; /* Increased by 20% */
     }
 
     /* Slightly bigger initial cards, with box-sizing and rounded corners */
@@ -152,7 +153,7 @@
   }
   
   .back-title {
-    font-size: 16px;
+    font-size: 19px; /* Increased by ~20% from 16px */
     font-weight: bold;
     margin-bottom: 10px;
   }
@@ -272,7 +273,7 @@
     .card-title {
       font-family: "Lobster", cursive;
       color: #8B6B3D;
-      font-size: 35px; /* Increased by ~10% */
+      font-size: 42px; /* Increased by 20% from 35px */
       margin-bottom: 20px;
     }
     .card-summary {
@@ -835,7 +836,9 @@
         // Apply instructions
         const instructionsCard = document.getElementById("instructions-card");
         if (instructionsCard) {
-          instructionsCard.innerHTML = `<h3>${instructions.heading}</h3><p>${instructions.body}</p>`;
+          // Convert semicolons to line breaks in the instructions body
+          const formattedBody = instructions.body.split(';').map(line => line.trim()).join('<br>');
+          instructionsCard.innerHTML = `<h3>${instructions.heading}</h3><p>${formattedBody}</p>`;
         }
 
         // Debug: Log all cards in cardMap
