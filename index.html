@@ -29,36 +29,65 @@
       /* The cloth texture (ensure green-fabric.png is present) */
       background-image: url("green-fabric.png");
       font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
       height: 100vh;
       overflow: hidden;
     }
 
-     /* Badge styling */
-     #badge {
-      position: absolute;
-      top: 40px;  /* moved down to avoid drop zone label */
-      left: 10px;
-      width: 200px;  /* made smaller */
-      height: 200px;  /* made smaller */
+    /* Main grid layout - divides screen into thirds horizontally & vertically */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* First column divided in half */
+    .first-column {
+      grid-column: 1;
+      grid-row: 1 / span 2;
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+    }
+
+    /* Title cell styling */
+    .title-cell {
+      grid-row: 1;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Badge styling */
+    #badge {
+      width: 100%;
+      height: 100%;
       background-image: url("badge.png");
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      z-index: 2;  /* lower z-index so popup appears over it */
+      z-index: 2;
     }
-     /* Main grid of bottom cards */
-    .grid {
-      position: absolute;
-      bottom: 10%;
-      display: grid;
-      grid-template-columns: repeat(8, auto);
-      gap: 10px;
-      width: 90%;
+    /* Instructions cell styling */
+    .instructions-cell {
+      grid-row: 2;
+      padding: 20px;
+      display: flex;
       justify-content: center;
+      align-items: center;
+    }
+
+    /* Main grid of bottom cards - aligned with bottom of instruction box */
+    .grid {
+      grid-column: 1 / span 3;
+      grid-row: 3;
+      display: grid;
+      grid-template-columns: repeat(7, auto);
+      gap: 10px;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 20px;
     }
 
     /* Container for each bottom card + label */
@@ -79,8 +108,8 @@
 
     /* Slightly bigger initial cards, with box-sizing and rounded corners */
     .card {
-      width: 130px;
-      height: 195px;
+      width: 156px; /* Increased by 20% from 130px */
+      height: 234px; /* Increased by 20% from 195px */
       box-sizing: border-box;
       border: 2px solid gold;
       border-radius: 10px;
@@ -177,16 +206,17 @@
     color: #0056b3; /* Darker blue on hover */
   }
 
-    /* Drop zones above cards */
+    /* Drop zones in top row */
     .drop-zones {
-      position: absolute;
-      top: 15%;
-      display: flex;
-      justify-content: space-evenly;
-      width: 90%;
+      grid-column: 2 / span 2;
+      grid-row: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      padding: 20px;
     }
     .drop-zone {
-      width: 154px;
+      width: 100%;
       height: 220px;
       box-sizing: border-box;
       border: 2px dashed #ccc;
@@ -212,20 +242,21 @@
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     }
 
-    /* Larger label, no wrap */
+    /* Larger label, with line breaks allowed */
     .drop-zone-label {
       position: absolute;
       top: -45px;
       font-family: "Lobster", cursive;
       font-size: 26px; /* Increased by 20% from 22px */
-      white-space: nowrap;
+      white-space: normal; /* Allow line breaks */
+      text-align: center;
       color: #fff;
       pointer-events: none;
     }
 
     /* Dropped card: fill zone exactly, keep corners rounded */
     .card.card-drop-animation {
-      width: 154px;
+      width: 100%;
       height: 220px;
       box-sizing: border-box;
       border-radius: 10px;
@@ -319,12 +350,8 @@
 
     /* Instructions Card Styling */
     #instructions-card {
-      position: absolute;
-      left: 10px; /* Align with badge */
-      bottom: 10%; /* Align base with card grid */
-      /* top: 660px; Removed */
-      width: 200px; /* Same width as badge */
-      height: 390px; /* Doubled height (195px * 2) */
+      width: 100%;
+      height: 100%;
       background-color: #166a24; /* Darker green */
       border: 2px solid gold; /* Same border as tarot cards */
       border-radius: 10px; /* Same radius as tarot cards */
@@ -352,39 +379,47 @@
   </style>
 </head>
 <body>
-  <div id="badge"></div>
+  <div class="main-grid">
+    <div class="first-column">
+      <div class="title-cell">
+        <div id="badge"></div>
+      </div>
+      <div class="instructions-cell">
+        <div id="instructions-card"></div>
+      </div>
+    </div>
 
-  <div class="drop-zones">
-    <div
-      class="drop-zone"
-      ondrop="drop(event)"
-      ondragover="allowDrop(event)"
-      ondragenter="dragEnter(event)"
-      ondragleave="dragLeave(event)"
-    >
-      <div class="drop-zone-label">How I like to receive feedback...</div>
+    <div class="drop-zones">
+      <div
+        class="drop-zone"
+        ondrop="drop(event)"
+        ondragover="allowDrop(event)"
+        ondragenter="dragEnter(event)"
+        ondragleave="dragLeave(event)"
+      >
+        <div class="drop-zone-label">My default archetype for GIVING feedback...</div>
+      </div>
+      <div
+        class="drop-zone"
+        ondrop="drop(event)"
+        ondragover="allowDrop(event)"
+        ondragenter="dragEnter(event)"
+        ondragleave="dragLeave(event)"
+      >
+        <div class="drop-zone-label">I like to RECEIVE feedback from this archetype...</div>
+      </div>
+      <div
+        class="drop-zone"
+        ondrop="drop(event)"
+        ondragover="allowDrop(event)"
+        ondragenter="dragEnter(event)"
+        ondragleave="dragLeave(event)"
+      >
+        <div class="drop-zone-label">I aspire to GIVE feedback more like this...</div>
+      </div>
     </div>
-    <div
-      class="drop-zone"
-      ondrop="drop(event)"
-      ondragover="allowDrop(event)"
-      ondragenter="dragEnter(event)"
-      ondragleave="dragLeave(event)"
-    >
-      <div class="drop-zone-label">My Own Feedback Style is...</div>
-    </div>
-    <div
-      class="drop-zone"
-      ondrop="drop(event)"
-      ondragover="allowDrop(event)"
-      ondragenter="dragEnter(event)"
-      ondragleave="dragLeave(event)"
-    >
-      <div class="drop-zone-label">I aspire to...</div>
-    </div>
-  </div>
-<div id="instructions-card"></div> <!-- Instructions Card Element -->
-<div class="grid" id="card-grid"></div>
+    
+    <div class="grid" id="card-grid"></div>
 
 
   <div class="popup" id="popup">
@@ -405,6 +440,7 @@
       </div>
     </div>
     <div class="popup-close" onclick="closePopup()">&times;</div>
+  </div>
   </div>
 
   <script>
