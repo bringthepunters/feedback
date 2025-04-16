@@ -4,6 +4,81 @@
   <meta charset="UTF-8">
   <title>Card 6 - Alchemy Style</title>
   <style>
+    .tarot-card {
+      width: 100%; /* Ensure it scales with the container */
+      max-width: 600px; /* Maintain aspect ratio */
+      height: auto;
+      margin: 20px auto;
+      background: linear-gradient(135deg, #f2f8e3 0%, #bce5ff 100%);
+      border: 5px solid #ffd766; /* Golden border */
+      border-radius: 10px;
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+  
+    .card-title {
+      position: absolute;
+      top: 20px;
+      width: 100%;
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 48px;
+      font-weight: bold;
+      color: #ff9c33;
+      letter-spacing: 2px;
+      text-shadow: 1px 1px 2px #fff;
+    }
+  
+    .alchemy-symbol {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 240px;
+      height: 240px;
+      border: 4px dashed #fff;
+      border-radius: 50%;
+      background: radial-gradient(
+        circle at center,
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(255, 255, 255, 0.0) 90%
+      );
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    }
+  
+    .swirl {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: none;
+      border: 4px solid #fff;
+      border-radius: 50%;
+      opacity: 0.5;
+    }
+  
+    .swirl:nth-child(3) {
+      top: 300px; /* just an example swirl position */
+      left: 100px;
+    }
+  
+    .swirl:nth-child(4) {
+      top: 700px;
+      left: 400px;
+    }
+  
+    .card-footer {
+      position: absolute;
+      bottom: 30px;
+      width: 100%;
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 36px;
+      color: #ff9c33;
+      text-shadow: 1px 1px 2px #fff;
+      letter-spacing: 1px;
+    }
     /* Container sets exact 600×1000 size */
     .tarot-card {
       width: 600px;
