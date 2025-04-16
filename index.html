@@ -50,6 +50,134 @@
     .title-cell {
       grid-row: 1;
       align-items: flex-end;
+      grid-column: 2; /* Move title one column to the left */
+    }
+  
+    .instructions-cell {
+      grid-row: 2 / span 2;
+      align-items: flex-start;
+      grid-column: 2; /* Move instructions one column to the left */
+    }
+  
+    #badge,
+    #instructions-card {
+      width: 50%;
+      min-width: 0;
+      max-width: 180px;
+      box-sizing: border-box;
+      margin: 0 auto;
+      display: block;
+    }
+  
+    #instructions-card {
+      z-index: 1; /* Ensure it's behind cards if they overlap somehow */
+    }
+  
+    .grid {
+      grid-column: 1 / span 3;
+      grid-row: 3;
+      display: grid;
+      grid-template-columns: repeat(7, auto);
+      gap: 10px;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 20px;
+      overflow-y: auto; /* Ensure cards don't go off the screen */
+      padding-bottom: 20px; /* Add padding to ensure cards are not too close to the edge */
+    }
+  
+    .drop-zones-row {
+      grid-column: 2 / span 2;
+      grid-row: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      justify-items: center;
+      height: 100%;
+    }
+  
+    .drop-zone {
+      width: 180px;
+      height: 240px;
+      box-sizing: border-box;
+      border: 2px dashed #ccc;
+      border-radius: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: none;
+      transition: transform 0.3s, background-color 0.3s;
+      position: relative;
+      margin-bottom: 0;
+    }
+  
+    .drop-zone.tilt-left {
+      transform: rotate(-10deg);
+    }
+  
+    .drop-zone.tilt-right {
+      transform: rotate(8deg);
+    }
+  
+    .drop-zone.dragover {
+      border-color: #fff;
+      background-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+  
+    .drop-zone-label {
+      margin-top: 10px;
+      font-family: "Lobster", cursive;
+      font-size: 22px;
+      white-space: pre-line;
+      text-align: center;
+      color: #fff;
+      pointer-events: none;
+      width: 180px;
+      line-height: 1.2;
+      display: block;
+    }
+  
+    .drop-zone-label.tilt-left {
+      transform: rotate(-10deg);
+    }
+  
+    .drop-zone-label.tilt-right {
+      transform: rotate(8deg);
+    }
+  
+    .card-title {
+      font-size: 46.2px; /* Increased by 10% from 42px */
+    }
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden; /* Ensure no overflow */
+    }
+  
+    .first-column {
+      grid-column: 1;
+      grid-row: 1 / span 3;
+      display: grid;
+      grid-template-rows: 1fr 1fr 1fr;
+      height: 100%;
+    }
+  
+    .title-cell,
+    .instructions-cell {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%; /* Ensure consistent width */
+    }
+  
+    .title-cell {
+      grid-row: 1;
+      align-items: flex-end;
     }
   
     .instructions-cell {
