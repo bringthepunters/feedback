@@ -141,14 +141,8 @@
       overflow: hidden;
     }
 
-    /* Main grid layout - divides screen into thirds horizontally & vertically */
-    .main-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: 1fr 1fr 1fr;
-      height: 100vh;
-      width: 100vw;
-    }
+    /* Main grid layout - original definition kept for compatibility with JS */
+    /* The div now uses Tailwind classes for the grid */
 
     /* First column: exactly 1/3 width, two stacked panels */
     .first-column {
@@ -181,16 +175,7 @@
       display: block;
     }
 
-    /* Badge styling */
-    #badge {
-      height: 180px;
-      background-image: url("badge.png");
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      z-index: 2;
-      aspect-ratio: 1/1.2;
-    }
+    /* Badge styling moved to Tailwind classes on the img tag */
 
     /* Main grid of bottom cards - aligned with bottom of instruction box */
     .grid {
@@ -500,7 +485,7 @@
   <div class="main-grid grid grid-cols-6 grid-rows-1 min-h-screen w-full">
     <div class="first-column">
       <div class="title-cell">
-        <div id="badge"></div>
+        <img id="badge" src="badge.png" alt="Badge" class="w-36 h-36 object-contain cursor-pointer" title="Click to FORCE HARD RELOAD from Google Sheet" />
       </div>
       <div class="instructions-cell">
         <div id="instructions-card"></div>
@@ -556,8 +541,582 @@
 
   <script>
     console.log("JS loaded - script is running");
-    // (JS code as provided in the user's message)
-    // ... (omitted here for brevity, but will be included in the actual file)
+    // Make the card data globally accessible
+    window.cardData = null;
+
+    // Remove reliance on local JSON file completely
+    let originalPositions = {};
+
+    async function loadCards(cardsData) {
+      console.log("loadCards called with data:", cardsData);
+      
+      if (!cardsData || !cardsData.cards || !Array.isArray(cardsData.cards)) {
+        console.error("Invalid cards data:", cardsData);
+        return;
+      }
+
+      // Store the data globally
+      window.cardData = cardsData;
+      
+      // Clear existing grid first
+      const grid = document.getElementById("card-grid");
+      grid.innerHTML = '';
+
+      console.log("Building cards with data:", cardsData.cards);
+      
+      cardsData.cards.forEach((card) => {
+        // Container for label + card
+        const cardContainer = document.createElement("div");
+        cardContainer.className = "card-container";
+        cardContainer.dataset.cardId = card.id;
+
+        const cardLabel = document.createElement("div");
+        cardLabel.className = "bottom-card-label";
+        cardLabel.textContent = card.cardName;
+        console.log(`Setting label for ${card.id} to "${card.cardName}"`);
+        cardContainer.appendChild(cardLabel);
+
+        const cardElement = document.createElement("div");
+        cardElement.className = "card";
+        cardElement.id = card.id;
+        cardElement.setAttribute("draggable", "true");
+        cardElement.setAttribute("ondragstart", "drag(event)");
+        cardElement.setAttribute("ondragend", "dragEnd(event)");
+
+        // Hover tooltip
+        cardElement.title = `${card.cardName} - ${card.shortText}`;
+
+        // --- DEBUGGING START ---
+        if (card.cardName === "Parent") {
+          console.log("loadCards - Parent card data for innerHTML:", card);
+        }
+        // --- DEBUGGING END ---
+        // Explicitly setting simple card back HTML
+        cardElement.innerHTML = `
+          <div class="card-inner">
+            <div class="card-front" style="background-image:url('${encodeURI(card.image)}')"></div>
+            <div class="card-back">
+              <div class="back-title">${card.cardName}</div>
+              <div class="back-text">${card.shortText}</div>
+              <div class="more">... more details</div>
+            </div>
+          </div>
+        `; // Ensure template literal ends correctly
+
+        // --- Force correct card back structure ---
+        const cardBack = cardElement.querySelector('.card-back');
+        if (cardBack) {
+          const allowedClasses = ['back-title', 'back-text', 'more'];
+          Array.from(cardBack.children).forEach(child => {
+            if (!allowedClasses.some(cls => child.classList.contains(cls))) {
+              cardBack.removeChild(child);
+              console.warn(`Removed unexpected element from card back: ${child.outerHTML}`); // Log removal
+            }
+          });
+        }
+        // --- End force structure ---
+
+        // "more" => popup
+        const moreLink = cardElement.querySelector(".more");
+        moreLink.addEventListener("click", (evt) => {
+          evt.stopPropagation();
+          showPopup(card);
+        });
+
+        // Enable flipping on click
+        cardElement.addEventListener("click", () => {
+          cardElement.classList.toggle("flipped");
+        });
+
+        cardContainer.appendChild(cardElement);
+        grid.appendChild(cardContainer);
+      });
+    }
+
+    function showPopup(cardObj) {
+      // CRITICAL FIX: If we're given a card ID, get fresh data from window.cardData
+      if (typeof cardObj === "string") {
+        try {
+          // Try to parse it as JSON first
+          const parsed = JSON.parse(cardObj);
+          cardObj = parsed;
+        } catch (e) {
+          // If not valid JSON, it might be a card ID
+          if (window.cardData && window.cardData.cards) {
+            const freshCard = window.cardData.cards.find(c => c.id === cardObj);
+            if (freshCard) {
+              cardObj = freshCard;
+            }
+          }
+        }
+      } else if (cardObj && cardObj.id && window.cardData && window.cardData.cards) {
+        // If it's an object with an ID, get fresh data to ensure we have latest names
+        const freshCard = window.cardData.cards.find(c => c.id === cardObj.id);
+        if (freshCard) {
+          cardObj = freshCard;
+          console.log("POPUP - Using fresh card data:", freshCard);
+        }
+      }
+      
+      const card = cardObj;
+      const popup = document.getElementById("popup");
+      if (!popup) return;
+
+      const popupImage = popup.querySelector(".popup-image");
+      const cardTitle = popup.querySelector(".card-title");
+      const popupAka = popup.querySelector(".popup-aka"); // Select new AKA element
+      const popupAnimalExplanation = popup.querySelector(".popup-animal-explanation"); // Select new Animal Explanation element
+      const cardSummary = popup.querySelector(".card-summary");
+      const prosList = popup.querySelector(".pros-list");
+      const consList = popup.querySelector(".cons-list");
+
+      const encodedImageUrl = encodeURI(card.image);
+      popupImage.style.setProperty('background-image', `url('${encodedImageUrl}')`);
+      // Log the card data being displayed
+      console.log("POPUP - Card data being displayed:", card);
+      console.log("POPUP - Card name:", card.cardName);
+      
+      // Ensure card name is displayed correctly
+      cardTitle.textContent = card.cardName;
+      cardSummary.textContent = card.cardSummary;
+
+      // Populate Pros and Cons, hide section if list is empty/missing
+      // Added checks for array existence and length
+      const prosHTML = (card.pros && Array.isArray(card.pros) && card.pros.length > 0) ? card.pros.map((p) => `<li>${p}</li>`).join("") : '';
+      prosList.innerHTML = prosHTML;
+      popup.querySelector('.pros-section').style.display = prosHTML ? 'block' : 'none';
+
+      const consHTML = (card.cons && Array.isArray(card.cons) && card.cons.length > 0) ? card.cons.map((c) => `<li>${c}</li>`).join("") : '';
+      consList.innerHTML = consHTML;
+      popup.querySelector('.cons-section').style.display = consHTML ? 'block' : 'none';
+
+      // Populate AKA - check if exists and is a non-empty array
+      if (card.aka && Array.isArray(card.aka) && card.aka.length > 0) {
+          popupAka.innerHTML = `<strong>AKA:</strong> ${card.aka.join(', ')}`;
+          popupAka.style.display = 'block';
+      } else {
+          popupAka.innerHTML = '';
+          popupAka.style.display = 'none';
+      }
+
+      // Populate Animal Explanation - check if exists and is a non-empty string
+      if (card.animalExplanation && typeof card.animalExplanation === 'string' && card.animalExplanation.trim() !== '') {
+          popupAnimalExplanation.innerHTML = `<strong>${card.cardName}</strong> ${card.animalExplanation}`;
+          popupAnimalExplanation.style.display = 'block';
+          console.log(`POPUP - Animal explanation heading set to: ${card.cardName}`);
+      } else {
+          popupAnimalExplanation.innerHTML = '';
+          popupAnimalExplanation.style.display = 'none';
+      }
+
+      popup.style.display = "flex";
+    }
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+
+    // Close popup if user clicks outside
+    window.addEventListener("click", (event) => {
+      const popup = document.getElementById("popup");
+      if (popup.style.display !== "flex") return;
+
+      const popupContent = popup.querySelector(".popup-content");
+      const popupImage = popup.querySelector(".popup-image");
+      const closeBtn = popup.querySelector(".popup-close");
+      if (
+        !popupContent.contains(event.target) &&
+        !popupImage.contains(event.target) &&
+        event.target !== closeBtn
+      ) {
+        popup.style.display = "none";
+      }
+    });
+
+    function drag(event) {
+      const card = event.target.closest(".card");
+      if (!card) return;
+
+      originalPositions[card.id] = card.getBoundingClientRect();
+
+      // Clone card for drag image
+      const dragImage = card.cloneNode(true);
+      dragImage.classList.toggle("flipped", card.classList.contains("flipped"));
+
+      dragImage.style.position = "absolute";
+      dragImage.style.top = "-1000px";
+      document.body.appendChild(dragImage);
+
+      // Remove perspective transforms
+      dragImage.style.transform = "none";
+      dragImage.style.perspective = "none";
+
+      // Copy 3D transform
+      const originalInner = card.querySelector(".card-inner");
+      const cloneInner = dragImage.querySelector(".card-inner");
+      if (originalInner && cloneInner) {
+        const computedTransform = window.getComputedStyle(originalInner).transform;
+        cloneInner.style.transform = computedTransform;
+      }
+
+      event.dataTransfer.setDragImage(dragImage, 75, 125);
+
+      const isFlipped = card.classList.contains("flipped");
+      
+      // CRITICAL FIX: Always get the most up-to-date card data from window.cardData
+      // instead of using potentially stale references
+      const freshCardData = window.cardData.cards.find((c) => c.id === card.id);
+      
+      // Log all card data for debugging
+      console.log(`DRAG - Card ID ${card.id} data:`, freshCardData);
+      console.log(`DRAG - Card name from dataset: ${freshCardData.cardName}`);
+      
+      event.dataTransfer.setData(
+        "text/plain",
+        JSON.stringify({
+          cardId: card.id,
+          flipped: isFlipped,
+          cardData: freshCardData,
+        })
+      );
+
+      card.style.opacity = "0.6";
+
+      setTimeout(() => {
+        document.body.removeChild(dragImage);
+      }, 0);
+    }
+
+    function dragEnd(event) {
+      const card = event.target.closest(".card");
+      if (card) card.style.opacity = "1";
+
+      document.querySelectorAll(".drop-zone").forEach((zone) => {
+        zone.classList.remove("dragover");
+      });
+    }
+
+    function allowDrop(event) {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = "copy";
+    }
+
+    function dragEnter(event) {
+      event.preventDefault();
+      const dropZone = event.target.closest(".drop-zone");
+      if (dropZone) dropZone.classList.add("dragover");
+    }
+
+    function dragLeave(event) {
+      event.preventDefault();
+      const dropZone = event.target.closest(".drop-zone");
+      if (dropZone) dropZone.classList.remove("dragover");
+    }
+
+    function drop(event) {
+      event.preventDefault();
+      const dropZone = event.target.closest(".drop-zone");
+      if (!dropZone) return;
+      dropZone.classList.remove("dragover");
+
+      try {
+        const dataString = event.dataTransfer.getData("text/plain");
+        const data = JSON.parse(dataString);
+        const { cardId, flipped, cardData } = data;
+        
+        // Log all card data after parsing for debugging
+        console.log("DROP - Card data after parse:", cardData);
+        console.log("DROP - Card Name:", cardData.cardName);
+        console.log("DROP - Card AKA:", cardData.aka);
+        console.log("DROP - Card Explanation:", cardData.animalExplanation);
+        
+        const originalCard = document.getElementById(cardId);
+        if (!originalCard) return;
+
+        // Clear old, keep label
+        [...dropZone.children].forEach((child) => {
+          if (!child.classList.contains("drop-zone-label")) {
+            dropZone.removeChild(child);
+          }
+        });
+
+        // New dropped card
+        const clonedCard = document.createElement("div");
+        clonedCard.className = "card card-drop-animation";
+        // Regenerate innerHTML based on cardData, similar to loadCards
+        clonedCard.innerHTML = `
+          <div class="card-inner">
+            <div class="card-front" style="background-image:url('${encodeURI(cardData.image)}')"></div>
+            <div class="card-back">
+              <div class="back-title">${cardData.cardName}</div>
+              <div class="back-text">${cardData.shortText}</div>
+              <div class="more">... more details</div>
+            </div>
+          </div>
+        `;
+
+        // flipping
+        clonedCard.addEventListener("click", () => {
+          clonedCard.classList.toggle("flipped");
+        });
+
+        // reattach "more"
+        const moreLink = clonedCard.querySelector(".more");
+        if (moreLink) {
+          moreLink.addEventListener("click", (evt) => {
+            evt.stopPropagation();
+            // Log dropped card data when more is clicked
+            console.log("Attaching popup to DROPPED card. Card data:", cardData);
+            console.log("DROPPED Card Name:", cardData.cardName);
+            console.log("DROPPED Card AKA:", cardData.aka);
+            console.log("DROPPED Card Explanation:", cardData.animalExplanation);
+            
+            showPopup(cardData);
+          });
+        }
+
+        if (flipped) clonedCard.classList.add("flipped");
+
+        dropZone.appendChild(clonedCard);
+
+        // animate to fill zone (154×220)
+        setTimeout(() => {
+          clonedCard.classList.remove("card-drop-animation");
+        }, 400);
+
+        // restore original
+        originalCard.style.opacity = "1";
+      } catch (error) {
+        console.error("Error in drop handler:", error);
+      }
+    }
+
+    // --- Load Instructions ---
+    // Replace local loadInstructions + loadCards with Google Sheets CSV approach
+    async function loadDataFromGoogleSheet() {
+      // Add cache-busting timestamp to URL
+      const timestamp = new Date().getTime();
+      const sheetCsvUrl = `https://docs.google.com/spreadsheets/d/1iliN5ukkqErDS4dR-ripsL0kmC1FVTfjye8E39NNTH0/export?format=csv&_=${timestamp}`;
+      
+      console.log("Fetching data from Google Sheet with URL:", sheetCsvUrl);
+      
+      try {
+        console.log("Attempting to fetch from Google Sheet:", sheetCsvUrl);
+        // Prevent caching with fetch options
+        const response = await fetch(sheetCsvUrl, {
+          method: 'GET',
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache'
+            // Removed 'Expires' header which was causing CORS issues
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error("HTTP error! status: " + response.status);
+        }
+        
+        const csvText = await response.text();
+        console.log("CSV data received, length:", csvText.length);
+        console.log("First 100 characters of CSV:", csvText.substring(0, 100));
+        
+        // Parse CSV
+        // Format: type,id,field,value
+        const lines = csvText.split(/\r?\n/).filter(line => line.trim());
+        // Remove header
+        lines.shift();
+
+        console.log("Parsed CSV lines:", lines.length);
+        const instructions = { heading: "", body: "" };
+        const cardMap = {};
+        // Add configuration for drop zone labels with defaults
+        const config = {
+          dropZone1Label: "How I like to receive feedback...",
+          dropZone2Label: "My Own Feedback Style is...",
+          dropZone3Label: "I aspire to..."
+        };
+
+
+        // Process CSV data
+        for (const row of lines) {
+          const cells = parseCsvRow(row);
+          if (cells.length < 4) {
+            console.warn("Skipping incomplete row:", row);
+            continue;
+          }
+          
+          const [type, id, field, value] = cells;
+          console.log(`Processing row: type=${type}, id=${id}, field=${field}, value=${value.substring(0, 30)}...`);
+
+          if (type === "instructions" && id === "instructions") {
+            if (field === "heading") instructions.heading = value;
+            else if (field === "body") instructions.body = value;
+          } else if (type === "config" && id === "dropZones") {
+            // Process configuration for drop zone labels
+            if (field === "dropZone1Label") config.dropZone1Label = value;
+            else if (field === "dropZone2Label") config.dropZone2Label = value;
+            else if (field === "dropZone3Label") config.dropZone3Label = value;
+          } else if (type === "card") {
+            if (!cardMap[id]) {
+              cardMap[id] = { id };
+              console.log(`Created new card with id ${id}`);
+            }
+            
+            if (field === "cardName") {
+              cardMap[id].cardName = value;
+              console.log(`SET CARD NAME: ${id} = "${value}"`);
+            }
+            else if (field === "shortText") cardMap[id].shortText = value;
+            else if (field === "cardSummary") cardMap[id].cardSummary = value;
+            else if (field === "pros") cardMap[id].pros = value ? value.split(";").map(s => s.trim()) : [];
+            else if (field === "cons") cardMap[id].cons = value ? value.split(";").map(s => s.trim()) : [];
+            else if (field === "aka") cardMap[id].aka = value ? value.split(";").map(s => s.trim()) : [];
+            else if (field === "animalExplanation" || field === "whythisanimal" || field === "TheParrot" || field === "TheLion") {
+              cardMap[id].animalExplanation = value;
+              console.log(`Set animal explanation for ${id}`);
+            }
+          }
+        }
+
+        // Apply instructions
+        const instructionsCard = document.getElementById("instructions-card");
+        if (instructionsCard) {
+          // Convert semicolons to line breaks in the instructions body
+          const formattedBody = instructions.body.split(';').map(line => line.trim()).join('<br>');
+          instructionsCard.innerHTML = `<h3>${instructions.heading}</h3><p>${formattedBody}</p>`;
+        }
+
+        // Apply drop zone labels from configuration
+        const dropZoneLabels = document.querySelectorAll('.drop-zone-label');
+        if (dropZoneLabels.length >= 3) {
+          dropZoneLabels[0].textContent = config.dropZone1Label;
+          dropZoneLabels[1].textContent = config.dropZone2Label;
+          dropZoneLabels[2].textContent = config.dropZone3Label;
+          console.log("Updated drop zone labels from configuration");
+        }
+
+        // Debug: Log all cards in cardMap
+        console.log("Final cardMap:", cardMap);
+        Object.values(cardMap).forEach(card => {
+          console.log(`Card ${card.id} final name: ${card.cardName}`);
+        });
+
+        // Convert cardMap to array
+        const finalCards = Object.values(cardMap);
+        
+        // Add card images based on numeric ID
+        finalCards.forEach(card => {
+          const cardNumber = card.id.replace('card', '');
+          card.image = `card numbers (${cardNumber}).png`;
+          
+          // CRITICAL FIX: Ensure card names are properly set
+          if (!card.cardName) {
+            console.error(`ERROR: Missing cardName for ${card.id}!`);
+          } else {
+            // Force proper capitalization
+            card.cardName = card.cardName.trim();
+            card.cardName = card.cardName.charAt(0).toUpperCase() + card.cardName.slice(1);
+            console.log(`FINAL CARD NAME: ${card.id} = "${card.cardName}"`);
+          }
+        });
+
+        // Create the final data structure
+        const cardsData = { cards: finalCards };
+        
+        // Display a message about the data being loaded
+        console.log(`LOADED ${finalCards.length} CARDS FROM GOOGLE SHEET`);
+        
+        // Now build the UI with the data we just loaded
+        console.log("About to call loadCards with data:", cardsData);
+        loadCards(cardsData);
+
+      } catch (error) {
+        console.error("Could not load from Google Sheet:", error);
+        const instructionsCard = document.getElementById("instructions-card");
+        if (instructionsCard) {
+          instructionsCard.innerHTML = `<h3>Error</h3><p>Could not load from Google Sheet.</p>`;
+        }
+      }
+    }
+
+    function parseCsvRow(row) {
+      const result = [];
+      let current = "";
+      let inQuotes = false;
+
+      for (let i = 0; i < row.length; i++) {
+        const char = row[i];
+        if (char === '"') {
+          if (inQuotes && row[i + 1] === '"') {
+            current += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (char === "," && !inQuotes) {
+          result.push(current);
+          current = "";
+        } else {
+          current += char;
+        }
+      }
+      if (current) result.push(current);
+      return result;
+    }
+
+    // Disable all local JSON loading and replace with direct Google Sheet data
+    // On page load, fetch from Google Sheet
+    window.addEventListener("DOMContentLoaded", () => {
+      // Display loading indicator
+      const grid = document.getElementById("card-grid");
+      if (grid) {
+        grid.innerHTML = '<div style="color: white; font-size: 24px; text-align: center; width: 100%;">Loading data from Google Sheet...</div>';
+      }
+      
+      // Completely bypass local JSON and only use Google Sheet data
+      loadDataFromGoogleSheet();
+      
+      // Force reload function - completely clears browser cache and reloads page
+      function forceHardReload() {
+        console.log("PERFORMING HARD RELOAD");
+        // Clear all browser storage
+        if (window.localStorage) window.localStorage.clear();
+        if (window.sessionStorage) window.sessionStorage.clear();
+        
+        // Add cache-busting parameter and reload
+        const reloadUrl = window.location.pathname + "?nocache=" + new Date().getTime();
+        window.location.href = reloadUrl;
+      }
+      
+      // Add a force refresh button
+      const badge = document.getElementById("badge");
+      if (badge) {
+        badge.style.cursor = 'pointer';
+        badge.title = "Click to FORCE HARD RELOAD from Google Sheet";
+        badge.addEventListener("click", forceHardReload);
+      }
+      
+      // Create visible refresh button
+      const refreshButton = document.createElement('button');
+      refreshButton.textContent = 'FORCE RELOAD DATA';
+      refreshButton.style = 'position: fixed; top: 10px; right: 10px; z-index: 1000; padding: 5px 10px; background-color: #ff4d4d; color: white; border: none; cursor: pointer; font-weight: bold;';
+      refreshButton.addEventListener('click', forceHardReload);
+      document.body.appendChild(refreshButton);
+      
+      // Also create a soft refresh button that just reloads data without page refresh
+      const softRefreshButton = document.createElement('button');
+      softRefreshButton.textContent = 'Refresh Data';
+      softRefreshButton.style = 'position: fixed; top: 50px; right: 10px; z-index: 1000; padding: 5px 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer;';
+      softRefreshButton.addEventListener('click', () => {
+        console.log("Refresh button clicked");
+        if (grid) {
+          grid.innerHTML = '<div style="color: white; font-size: 24px; text-align: center; width: 100%;">Refreshing data...</div>';
+        }
+        loadDataFromGoogleSheet();
+      });
+      document.body.appendChild(softRefreshButton);
+    });
   </script>
 </body>
 </html>
