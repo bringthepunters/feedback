@@ -481,41 +481,50 @@
 
   </style>
 </head>
-<body>
-  <div class="main-grid grid grid-cols-6 grid-rows-1 min-h-screen w-full">
-    <div class="first-column">
-      <div class="title-cell">
+<body class="bg-green-700 bg-[url('green-fabric.png')] font-sans min-h-screen overflow-hidden">
+  <div class="grid grid-cols-6 grid-rows-[1fr_1fr_1fr] min-h-screen w-full">
+    <!-- Column 1: Badge and Instructions -->
+    <div class="col-span-1 row-span-3 flex flex-col p-4">
+      <!-- Badge/Title at top -->
+      <div class="flex items-center justify-center h-1/3">
         <img id="badge" src="badge.png" alt="Badge" class="w-36 h-36 object-contain cursor-pointer" title="Click to FORCE HARD RELOAD from Google Sheet" />
       </div>
-      <div class="instructions-cell">
-        <div id="instructions-card"></div>
+      <!-- Instructions below -->
+      <div class="flex items-start justify-center h-2/3">
+        <div id="instructions-card" class="bg-green-800 border-2 border-yellow-400 rounded-lg p-4 text-white w-full max-w-[180px]"></div>
       </div>
     </div>
 
-    <div class="drop-zones-row">
-      <div style="display: flex; flex-direction: column; align-items: center;">
-        <div
-          class="drop-zone tilt-left"
-          ondrop="drop(event)"
-          ondragover="allowDrop(event)"
-          ondragenter="dragEnter(event)"
-          ondragleave="dragLeave(event)"
-        ></div>
-        <span class="drop-zone-label">My default archetype for GIVING feedback…</span>
-      </div>
-      <div style="display: flex; flex-direction: column; align-items: center;">
-        <div
-          class="drop-zone tilt-right"
-          ondrop="drop(event)"
-          ondragover="allowDrop(event)"
-          ondragenter="dragEnter(event)"
-          ondragleave="dragLeave(event)"
-        ></div>
-        <span class="drop-zone-label">I like to RECEIVE feedback from this archetype…</span>
+    <!-- Columns 2-6: Drop Zones (middle rows) -->
+    <div class="col-span-5 row-span-2 flex justify-center items-center">
+      <div class="flex space-x-36 mb-8">
+        <div class="flex flex-col items-center">
+          <div
+            class="drop-zone tilt-left w-44 h-60 border-2 border-dashed border-gray-300 rounded-xl flex justify-center items-center transition-transform"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event)"
+            ondragenter="dragEnter(event)"
+            ondragleave="dragLeave(event)"
+          ></div>
+          <span class="drop-zone-label text-lg font-lobster text-center text-white w-44 mt-2">My default archetype for GIVING feedback…</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <div
+            class="drop-zone tilt-right w-44 h-60 border-2 border-dashed border-gray-300 rounded-xl flex justify-center items-center transition-transform"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event)"
+            ondragenter="dragEnter(event)"
+            ondragleave="dragLeave(event)"
+          ></div>
+          <span class="drop-zone-label text-lg font-lobster text-center text-white w-44 mt-2">I like to RECEIVE feedback from this archetype…</span>
+        </div>
       </div>
     </div>
     
-    <div class="grid" id="card-grid"></div>
+    <!-- Columns 2-6: Card Grid (bottom row) -->
+    <div class="col-span-5 row-start-3 px-4">
+      <div class="grid grid-cols-7 gap-4 justify-center items-start pt-6 overflow-y-auto" id="card-grid"></div>
+    </div>
 
 
   <div class="popup" id="popup">
@@ -894,22 +903,24 @@
     // --- Load Instructions ---
     // Replace local loadInstructions + loadCards with Google Sheets CSV approach
     async function loadDataFromGoogleSheet() {
-      // Add cache-busting timestamp to URL
+      // Add more aggressive cache-busting with random component + timestamp
       const timestamp = new Date().getTime();
-      const sheetCsvUrl = `https://docs.google.com/spreadsheets/d/1iliN5ukkqErDS4dR-ripsL0kmC1FVTfjye8E39NNTH0/export?format=csv&_=${timestamp}`;
+      const random = Math.floor(Math.random() * 1000000);
+      const sheetCsvUrl = `https://docs.google.com/spreadsheets/d/1iliN5ukkqErDS4dR-ripsL0kmC1FVTfjye8E39NNTH0/export?format=csv&nocache=${timestamp}-${random}`;
       
       console.log("Fetching data from Google Sheet with URL:", sheetCsvUrl);
       
       try {
         console.log("Attempting to fetch from Google Sheet:", sheetCsvUrl);
-        // Prevent caching with fetch options
+        // Prevent caching with more aggressive fetch options
         const response = await fetch(sheetCsvUrl, {
           method: 'GET',
           cache: 'no-store',
+          credentials: 'omit',
           headers: {
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Pragma': 'no-cache'
-            // Removed 'Expires' header which was causing CORS issues
+            'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+            'Pragma': 'no-cache',
+            'Expires': '0'
           }
         });
         
@@ -979,12 +990,12 @@
           }
         }
 
-        // Apply instructions
+        // Apply instructions with Tailwind classes
         const instructionsCard = document.getElementById("instructions-card");
         if (instructionsCard) {
           // Convert semicolons to line breaks in the instructions body
           const formattedBody = instructions.body.split(';').map(line => line.trim()).join('<br>');
-          instructionsCard.innerHTML = `<h3>${instructions.heading}</h3><p>${formattedBody}</p>`;
+          instructionsCard.innerHTML = `<h3 class="text-center font-lobster text-xl mb-2">${instructions.heading}</h3><p class="text-sm">${formattedBody}</p>`;
         }
 
         // Apply drop zone labels from configuration
@@ -1071,7 +1082,7 @@
       // Display loading indicator
       const grid = document.getElementById("card-grid");
       if (grid) {
-        grid.innerHTML = '<div style="color: white; font-size: 24px; text-align: center; width: 100%;">Loading data from Google Sheet...</div>';
+        grid.innerHTML = '<div class="text-white text-2xl text-center w-full">Loading data from Google Sheet...</div>';
       }
       
       // Completely bypass local JSON and only use Google Sheet data
@@ -1100,18 +1111,18 @@
       // Create visible refresh button
       const refreshButton = document.createElement('button');
       refreshButton.textContent = 'FORCE RELOAD DATA';
-      refreshButton.style = 'position: fixed; top: 10px; right: 10px; z-index: 1000; padding: 5px 10px; background-color: #ff4d4d; color: white; border: none; cursor: pointer; font-weight: bold;';
+      refreshButton.className = 'fixed top-4 right-4 z-50 px-3 py-2 bg-red-500 text-white font-bold rounded hover:bg-red-600 focus:outline-none';
       refreshButton.addEventListener('click', forceHardReload);
       document.body.appendChild(refreshButton);
       
       // Also create a soft refresh button that just reloads data without page refresh
       const softRefreshButton = document.createElement('button');
       softRefreshButton.textContent = 'Refresh Data';
-      softRefreshButton.style = 'position: fixed; top: 50px; right: 10px; z-index: 1000; padding: 5px 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer;';
+      softRefreshButton.className = 'fixed top-16 right-4 z-50 px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none';
       softRefreshButton.addEventListener('click', () => {
         console.log("Refresh button clicked");
         if (grid) {
-          grid.innerHTML = '<div style="color: white; font-size: 24px; text-align: center; width: 100%;">Refreshing data...</div>';
+          grid.innerHTML = '<div class="text-white text-2xl text-center w-full">Refreshing data...</div>';
         }
         loadDataFromGoogleSheet();
       });
