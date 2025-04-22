@@ -819,6 +819,16 @@
     }
 
 
+    // Session ID utility for logging
+    function getSessionId() {
+      let sessionId = localStorage.getItem('sessionId');
+      if (!sessionId) {
+        sessionId = 'sess-' + Math.random().toString(36).substr(2, 9) + '-' + Date.now();
+        localStorage.setItem('sessionId', sessionId);
+      }
+      return sessionId;
+    }
+
     function dragLeave(event) {
       event.preventDefault();
       const dropZone = event.target.closest(".drop-zone");
@@ -845,6 +855,42 @@
         const originalCard = document.getElementById(cardId);
         if (!originalCard) return;
 
+
+        // --- LOGGING TO GOOGLE SHEETS ---
+        // Get drop zone label (assume label is next sibling with class 'drop-zone-label')
+        let dropZoneLabel = '';
+        if (dropZone && dropZone.nextElementSibling && dropZone.nextElementSibling.classList.contains('drop-zone-label')) {
+          dropZoneLabel = dropZone.nextElementSibling.textContent.trim();
+        } else if (dropZone && dropZone.previousElementSibling && dropZone.previousElementSibling.classList.contains('drop-zone-label')) {
+          dropZoneLabel = dropZone.previousElementSibling.textContent.trim();
+        } else if (dropZone && dropZone.getAttribute('id')) {
+          dropZoneLabel = dropZone.getAttribute('id');
+        } else {
+          dropZoneLabel = 'unknown-drop-zone';
+        }
+
+        const logData = {
+          cardName: cardData.cardName,
+          dropZone: dropZoneLabel,
+          timestamp: new Date().toISOString(),
+          sessionId: getSessionId()
+        };
+
+        // TODO: Replace with your actual Google Apps Script Web App URL
+        const GOOGLE_SHEETS_WEBHOOK_URL = 'YOUR_WEB_APP_URL_HERE';
+
+        fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+          method: 'POST',
+          body: JSON.stringify(logData),
+          headers: { 'Content-Type': 'application/json' }
+        }).then(res => {
+          if (!res.ok) {
+            console.error('Failed to log drag event');
+          }
+        }).catch(err => {
+          console.error('Error logging drag event:', err);
+        });
+        // --- END LOGGING ---
 
         // Clear old, keep label
         [...dropZone.children].forEach((child) => {
