@@ -869,20 +869,22 @@
           dropZoneLabel = 'unknown-drop-zone';
         }
 
-        const logData = {
-          cardName: cardData.cardName,
-          dropZone: dropZoneLabel,
-          timestamp: new Date().toISOString(),
-          sessionId: getSessionId()
-        };
+        // Prepare log data as an array matching the sheet columns
+        const logData = [
+          new Date().toISOString(),         // Timestamp
+          cardData.cardName,                // Card Name
+          dropZoneLabel,                    // Drop Zone
+          getSessionId(),                   // Session ID
+          navigator.userAgent               // User Agent
+        ];
 
-        // TODO: Replace with your actual Google Apps Script Web App URL
-        const GOOGLE_SHEETS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzEDV8_pHBQ7t9q2t83yN46CklidDIfzMzSUftLoMrsqyAwWG3_dGyu8oA6z0KWGAg8jw/exec';
+        // NoCodeAPI endpoint for logging tab
+        const GOOGLE_SHEETS_WEBHOOK_URL = 'https://v1.nocodeapi.com/feedbackanimals/google_sheets/wlYguQngXUOgaSbq?tabId=logging';
 
         fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
           method: 'POST',
-          body: JSON.stringify(logData),
-          headers: { 'Content-Type': 'application/json' }
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify([logData])
         }).then(res => {
           if (!res.ok) {
             console.error('Failed to log drag event');
