@@ -818,6 +818,16 @@
       if (dropZone) dropZone.classList.add("dragover");
     }
 
+    // Session ID utility
+    function getSessionId() {
+      let sessionId = localStorage.getItem('sessionId');
+      if (!sessionId) {
+        sessionId = 'sess-' + Math.random().toString(36).substr(2, 9) + '-' + Date.now();
+        localStorage.setItem('sessionId', sessionId);
+      }
+      return sessionId;
+    }
+
     function dragLeave(event) {
       event.preventDefault();
       const dropZone = event.target.closest(".drop-zone");
@@ -843,6 +853,39 @@
         
         const originalCard = document.getElementById(cardId);
         if (!originalCard) return;
+
+        // --- LOGGING TO BACKEND ---
+        // Get drop zone label (assume label is next sibling with class 'drop-zone-label')
+        let dropZoneLabel = '';
+        if (dropZone && dropZone.nextElementSibling && dropZone.nextElementSibling.classList.contains('drop-zone-label')) {
+          dropZoneLabel = dropZone.nextElementSibling.textContent.trim();
+        } else if (dropZone && dropZone.previousElementSibling && dropZone.previousElementSibling.classList.contains('drop-zone-label')) {
+          dropZoneLabel = dropZone.previousElementSibling.textContent.trim();
+        } else if (dropZone && dropZone.getAttribute('id')) {
+          dropZoneLabel = dropZone.getAttribute('id');
+        } else {
+          dropZoneLabel = 'unknown-drop-zone';
+        }
+
+        const logData = {
+          cardName: cardData.cardName,
+          dropZone: dropZoneLabel,
+          timestamp: new Date().toISOString(),
+          sessionId: getSessionId()
+        };
+
+        fetch('http://localhost:3001/log-drag', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(logData)
+        }).then(res => {
+          if (!res.ok) {
+            console.error('Failed to log drag event');
+          }
+        }).catch(err => {
+          console.error('Error logging drag event:', err);
+        });
+        // --- END LOGGING ---
 
         // Clear old, keep label
         [...dropZone.children].forEach((child) => {
