@@ -525,26 +525,26 @@
     </nav>
     <!-- Modals for 1, 2, 3 -->
     <div id="modal-1" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 hidden">
-      <div class="bg-white rounded-lg shadow-lg w-[400px] h-[300px] flex flex-col items-center justify-center relative">
+      <div class="bg-white rounded-lg shadow-lg w-[400px] h-[300px] flex flex-col items-center justify-center relative overflow-auto">
         <button onclick="closeModal(1)" class="absolute top-2 right-4 text-2xl text-gray-700 hover:text-red-600">&times;</button>
         <div class="text-2xl text-green-900 font-bold">This is Page 1</div>
       </div>
     </div>
     <div id="modal-2" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 hidden">
-      <div class="bg-white rounded-lg shadow-lg w-[400px] h-[300px] flex flex-col items-center justify-center relative">
+      <div class="bg-white rounded-lg shadow-lg w-[400px] h-[300px] flex flex-col items-center justify-center relative overflow-auto">
         <button onclick="closeModal(2)" class="absolute top-2 right-4 text-2xl text-gray-700 hover:text-red-600">&times;</button>
         <div class="text-2xl text-green-900 font-bold">This is Page 2</div>
       </div>
     </div>
     <div id="modal-3" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 hidden">
-      <div class="bg-white rounded-lg shadow-lg w-[400px] h-[300px] flex flex-col items-center justify-center relative">
+      <div class="bg-white rounded-lg shadow-lg w-[400px] h-[300px] flex flex-col items-center justify-center relative overflow-auto">
         <button onclick="closeModal(3)" class="absolute top-2 right-4 text-2xl text-gray-700 hover:text-red-600">&times;</button>
         <div class="text-2xl text-green-900 font-bold">This is Page 3</div>
       </div>
     </div>
     <!-- Splash Screen -->
     <div id="splash-screen" class="fixed inset-0 z-[100] flex items-center justify-center bg-white" style="width:100vw;height:100vh;">
-      <div style="width:1200px;height:800px;background:white;box-shadow:0 0 40px rgba(0,0,0,0.2);border-radius:24px;"></div>
+      <div style="width:600px;height:400px;background:white;box-shadow:0 0 40px rgba(0,0,0,0.2);border-radius:24px;"></div>
     </div>
     <!-- Column 1: Instructions only -->
     <div class="col-span-1 row-span-3 flex flex-col p-4 border-r border-green-600">
@@ -634,11 +634,19 @@
 
     // Modal logic for 1, 2, 3
     function openModal(num) {
-      document.getElementById(`modal-${num}`).classList.remove('hidden');
+      const modal = document.getElementById(`modal-${num}`);
+      modal.classList.remove('hidden');
       document.body.classList.add('overflow-hidden');
       // Close menu if open
       hamburgerMenu.classList.add('-translate-x-full');
       menuOpen = false;
+      // Add overlay click to close
+      modal.addEventListener('click', function handler(e) {
+        if (e.target === modal) {
+          closeModal(num);
+          modal.removeEventListener('click', handler);
+        }
+      });
     }
     function closeModal(num) {
       document.getElementById(`modal-${num}`).classList.add('hidden');
@@ -1276,24 +1284,6 @@
       }
       
       // Create visible refresh button
-      const refreshButton = document.createElement('button');
-      refreshButton.textContent = 'FORCE RELOAD DATA';
-      refreshButton.className = 'fixed top-4 right-4 z-50 px-3 py-2 bg-red-500 text-white font-bold rounded hover:bg-red-600 focus:outline-none';
-      refreshButton.addEventListener('click', forceHardReload);
-      document.body.appendChild(refreshButton);
-      
-      // Also create a soft refresh button that just reloads data without page refresh
-      const softRefreshButton = document.createElement('button');
-      softRefreshButton.textContent = 'Refresh Data';
-      softRefreshButton.className = 'fixed top-16 right-4 z-50 px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none';
-      softRefreshButton.addEventListener('click', () => {
-        console.log("Refresh button clicked");
-        if (grid) {
-          grid.innerHTML = '<div class="text-white text-2xl text-center w-full">Refreshing data...</div>';
-        }
-        loadDataFromGoogleSheet();
-      });
-      document.body.appendChild(softRefreshButton);
     });
   </script>
 </body>
