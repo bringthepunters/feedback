@@ -313,14 +313,20 @@
   .more {
     align-self: flex-end;
     margin-top: auto; /* Pushes to the bottom */
-    font-size: 14px;
+    font-size: 16px;
     color: #007bff; /* Blue color for link indication */
     text-decoration: underline; /* Underline for link indication */
     cursor: pointer; /* Pointer cursor on hover */
-    padding-top: 5px; /* Add some space above */
+    padding: 10px 18px 8px 18px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 12px;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: background 0.2s, color 0.2s;
   }
   .more:hover {
     color: #0056b3; /* Darker blue on hover */
+    background: rgba(255,255,255,0.7);
   }
 
     /* Drop zones in the middle row, columns 2 and 3 */
