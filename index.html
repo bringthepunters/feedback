@@ -225,14 +225,14 @@
 
     /* Slightly bigger initial cards, with box-sizing and rounded corners */
     .card {
-      width: 180px; /* Increased by 15% from 156px */
-      height: 269px; /* Increased by 15% from 234px */
+      width: 156px;
+      height: 234px;
       box-sizing: border-box;
       border: 2px solid gold;
       border-radius: 16px;
       perspective: 1000px;
       cursor: grab;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, width 0.3s, height 0.3s;
       z-index: 2;
     }
     .card:hover {
@@ -377,8 +377,8 @@
 
     /* Dropped card: fill zone exactly, keep corners rounded */
     .card.card-drop-animation {
-      width: 100%;
-      height: 100%;
+      width: 180px;
+      height: 269px;
       box-sizing: border-box;
       border-radius: 16px;
     }
