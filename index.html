@@ -510,12 +510,21 @@
 </head>
 <body class="bg-green-700 bg-[url('green-fabric.png')] font-sans min-h-screen overflow-hidden">
   <div class="grid grid-cols-6 min-h-screen w-full">
-    <!-- Column 1: Badge and Instructions -->
+    <!-- Hamburger Menu -->
+    <button id="hamburger-btn" class="fixed top-4 left-4 z-50 flex flex-col justify-center items-center w-12 h-12 bg-green-900 rounded-lg shadow-lg focus:outline-none">
+      <span class="block w-8 h-1 bg-white mb-1 rounded"></span>
+      <span class="block w-8 h-1 bg-white mb-1 rounded"></span>
+      <span class="block w-8 h-1 bg-white rounded"></span>
+    </button>
+    <nav id="hamburger-menu" class="fixed top-0 left-0 w-48 h-full bg-green-800 text-white shadow-lg z-40 transform -translate-x-full transition-transform duration-300">
+      <ul class="flex flex-col mt-20 space-y-6 text-lg">
+        <li><a href="1.html" class="block px-6 py-2 hover:bg-green-700 rounded">1</a></li>
+        <li><a href="2.html" class="block px-6 py-2 hover:bg-green-700 rounded">2</a></li>
+        <li><a href="3.html" class="block px-6 py-2 hover:bg-green-700 rounded">3</a></li>
+      </ul>
+    </nav>
+    <!-- Column 1: Instructions only -->
     <div class="col-span-1 row-span-3 flex flex-col p-4 border-r border-green-600">
-      <!-- Badge/Title at top -->
-      <div class="flex items-center justify-center mb-8 mt-4">
-        <img id="badge" src="badge.png" alt="Badge" class="w-full max-w-[180px] object-contain cursor-pointer" title="Click to FORCE HARD RELOAD from Google Sheet" />
-      </div>
       <!-- Instructions below -->
       <div class="flex items-start justify-center">
         <div id="instructions-card" class="bg-green-800 border-2 border-yellow-400 rounded-lg p-4 text-white w-full max-w-[180px]"></div>
@@ -576,6 +585,30 @@
   </div>
 
   <script>
+    // Hamburger menu toggle
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    let menuOpen = false;
+    hamburgerBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      if (menuOpen) {
+        hamburgerMenu.classList.remove('-translate-x-full');
+      } else {
+        hamburgerMenu.classList.add('-translate-x-full');
+      }
+    });
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (
+        menuOpen &&
+        !hamburgerMenu.contains(e.target) &&
+        !hamburgerBtn.contains(e.target)
+      ) {
+        hamburgerMenu.classList.add('-translate-x-full');
+        menuOpen = false;
+      }
+    });
+
     console.log("JS loaded - script is running");
     // Make the card data globally accessible
     window.cardData = null;
