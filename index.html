@@ -544,8 +544,23 @@
     </div>
     <!-- Splash Screen -->
     <div id="splash-screen" class="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-60" style="width:100vw;height:100vh;">
-      <div id="splash-box" style="width:600px;height:400px;background:white;box-shadow:0 0 40px rgba(0,0,0,0.2);border-radius:24px;display:flex;align-items:center;justify-content:center;">
-        <img src="splash.png" alt="Splash" style="max-width:100%;max-height:100%;object-fit:contain;"/>
+      <div id="splash-box" style="width:660px;height:440px;background:white;box-shadow:0 0 40px rgba(0,0,0,0.2);border-radius:32px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+        <span style="
+          position: absolute;
+          top: 8%;
+          left: 20%;
+          transform: translateY(-50%);
+          font-size: 2.8rem;
+          font-family: 'Cinzel', serif, Arial, sans-serif;
+          font-weight: 700;
+          color: #111;
+          letter-spacing: 2px;
+          z-index: 2;
+          text-shadow: 0 2px 8px rgba(255,255,255,0.7);
+          pointer-events: none;
+          user-select: none;
+        ">Feedback Animals</span>
+        <img src="splash.png" alt="Splash" style="max-width:100%;max-height:100%;object-fit:contain;z-index:1;"/>
       </div>
     </div>
     <!-- Column 1: Instructions only -->
