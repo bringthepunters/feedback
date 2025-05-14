@@ -543,14 +543,14 @@
       </div>
     </div>
     <!-- Splash Screen -->
-    <div id="splash-screen" class="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-60" style="width:100vw;height:100vh;">
+    <div id="splash-screen" class="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-60" style="width:100vw;height:100vh;opacity:0;transition:opacity 1.5s;">
       <div id="splash-box" style="width:660px;height:440px;background:white;box-shadow:0 0 40px rgba(0,0,0,0.2);border-radius:32px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
         <span style="
           position: absolute;
           top: 8%;
-          left: 20%;
-          transform: translateY(-50%);
-          font-size: 2.8rem;
+          left: 50%;
+          transform: translate(-50%, 0);
+          font-size: 2.66rem;
           font-family: 'Cinzel', serif, Arial, sans-serif;
           font-weight: 700;
           color: #111;
@@ -559,7 +559,10 @@
           text-shadow: 0 2px 8px rgba(255,255,255,0.7);
           pointer-events: none;
           user-select: none;
-        ">Feedback Animals</span>
+          width: 100%;
+          text-align: center;
+          line-height: 1.1;
+        ">Feedback<br>Animals</span>
         <img src="splash.png" alt="Splash" style="max-width:100%;max-height:100%;object-fit:contain;z-index:1;"/>
       </div>
     </div>
@@ -681,6 +684,10 @@
       // Splash screen logic
       const splash = document.getElementById('splash-screen');
       const splashBox = document.getElementById('splash-box');
+      // Fade in splash
+      setTimeout(() => {
+        splash.style.opacity = '1';
+      }, 50);
       let splashTimeout = setTimeout(() => {
         splash.style.display = 'none';
       }, 10000);
