@@ -1,0 +1,55 @@
+type,id,field,value
+instructions,instructions,heading,Feedback Animal Cards Instructions
+instructions,instructions,body,"Use the Feedback Animal Cards to better understand different feedback styles. Assume that everyone has good intentions at heart, we just have different feedback approaches.; 1. Read each of the Feedback Animal Cards.  Learn more about each animal by clicking on the card.; 2. Select and drag the Feedback Animal card onto the table. Choose the card that feels most like you in your current role; 3. Use these insights as part of team building, or start a conversation with your coach on how to grow your feedback skills. You'll find more information on how to use the Feedback Animal Cards here;  4. To reset, just refresh your screen."
+card,card1,cardName,Owl
+card,card1,shortText,I provide clear step-by-step instructions based on my experience.
+card,card1,cardSummary,"I have experience and provide detailed task instructions, so no one wastes time. I offer prescriptive, step-by-step guidance. I know how to do this well and am clear on the expected outcomes. ""I'll tell you what to do"" approach."
+card,card1,pros,"I have experience doing this and provide detailed instructions, so that no one is wasting their time.; I provide clarity in what good looks like.; I make it easy to measure or review progress."
+card,card1,cons,"This style fails when there is no defined ""right way"" to proceed.; I can come across as condescending or assuming the receiver lacks knowledge.; It doesn't build the receiver's problem-solving capabilities, especially when the ""why"" is missing"
+card,card1,aka,Instructor; Expert
+card,card1,whythisanimal,In many cultures the owl symbolises wisdom and knowledge.  They are perceived as having insight and keen powers of perception. 
+card,card2,cardName,Lorikeet
+card,card2,shortText,Feedback is a 2-way conversation where we can  both learn.
+card,card2,cardSummary,"Feedback is always a two-way conversation. I enter with curiosity and intent to learn, as well as advise. The best outcome is when the receiver finds their own solution."
+card,card2,pros,The recipient owns the insight and is more likely to act on it.; I respect my team member's existing expertise.; My style builds long-term problem-solving capabilities.
+card,card2,cons,This style of conversation can take a long time.; It can be frustrating for those who just want a direct answer. It can feel like I am withholding information when they already know the answer.; Not effective in urgent situations requiring immediate action.
+card,card2,aka,Coach; Guide; Conversationalist
+card,card2,whythisanimal,"Lorikeets are talkative, gregarious birds. They are curious and form lasting social bonds in their flock."
+card,card3,cardName,Meerkat
+card,card3,shortText,I give indirect feedback. I care about our relationships.
+card,card3,cardSummary,"I prioritise  relationships over delivering uncomfortable truths. I believe people respond best to positive feedback and encouragement. I focus on giving positive messages, sometimes at the expense of clarity."
+card,card3,pros,"I demonstrate a caring, supportive approach.; Sometimes, people aren't in a state to hear tough feedback. My style works well at these times.; I'm very approachable."
+card,card3,cons,My style can be so vague. The recipient may even struggle to understand what I mean.; Important issues may never get addressed.; Recipients can be confused about where they actually stand with me.; Problems may persist or worsen without clear feedback.; The trusting relationships I value can be eroded by not providing more direct feedback.
+card,card3,aka,People-pleaser;  Indirect; Harmonizer
+card,card3,whythisanimal,"Meerkats are super-social,  prioritizing group harmony.  They avoid conflict and foster cooperation."
+card,card4,cardName,Lioness
+card,card4,shortText,I deliver direct feedback because I care about your success.
+card,card4,cardSummary,"My colleagues are adults with clear responsibilities. They know I want them to succeed, so I provide specific, direct feedback. Even if it comes across as blunt sometimes, I prioritize clarity and impact. "
+card,card4,pros,I build trust and credibility when I give direct feedback tied to the success of the recipient.; My style leaves little room for misinterpretation about expectations.; Addresses issues promptly before they escalate.
+card,card4,cons,"Some people misinterpret my direct feedback as personal criticism, even if it's intended to help. This can lead to hurt feelings or resentment.; Can shut down receivers who need more psychological safety.; May not work well across all cultural contexts."
+card,card4,aka,Radical Candor; The Challenger
+card,card4,whythisanimal,The Lioness is seen as strong and direct: unafraid to challenge. She cares about her pride's success
+card,card5,cardName,Turtle
+card,card5,shortText,I avoid giving feedback altogether.
+card,card5,cardSummary,"I actually hate giving feedback. I worry, procrastinate, and find excuses to avoid it. I'm deeply concerned about how it will affect work relationships."
+card,card5,pros,"My style works very well for me when I don't feel psychologically safe.; It avoids immediate conflict or confrontation, and preserves short-term harmony in relationships."
+card,card5,cons,The problems around me persist and often get worse over time.; Others may view me as disengaged or uncaring.; I miss opportunities to develop my team members and build deeper trust.; 
+card,card5,aka,"The Avoider; The ""never a good time""; More than my job's worth"
+card,card5,whythisanimal,"Turtles retreat into their shells when threatened or uncomfortable, symbolizing avoidance of difficult feedback conversations."
+card,card6,cardName,Crab
+card,card6,shortText,I tell others  my feedback instead of addressing you directly.
+card,card6,cardSummary,"When I need to give feedback, I'll talk to anyone but the person! Including their boss."
+card,card6,pros,My style works well for me when I don't feel psychologically safe.; I get the support of other leaders.; I can validate my perceptions before giving feedback.; I don't have to deal with potential negative reactions.
+card,card6,cons,"My style normalizes indirectness. Others start doing it too. Suddenly, feedback is whispered—not spoken.; The person receiving secondhand feedback usually feels ambushed, defensive, or humiliated, especially if it comes from someone higher up.; Damages trust across the organization.; Sustains a culture of gossip and back-channeling."
+card,card6,aka,"The escalator, The sidewinder, "
+card,card6,whythisanimal,"Crabs move sideways, representing indirect communication and addressing issues by talking around the person involved rather than directly.  Their hard shell is symbolic of self preservation."
+card,card7,cardName,Penguin
+card,card7,shortText,I dump all my unfiltered thoughts at once without preparation.
+card,card7,cardSummary,"I put any and all of my thoughts and feelings on the table. I don't ask if it's a good time. I just open my mouth and whatever comes out, I'll call ""feedback"". I think it's helpful for a person to receive all the feedback in one go, so that they can reflect on what is useful for them. "
+card,card7,pros,"Hey, people know what I'm thinking! I'm an open book!; I provide comprehensive feedback.; People know what they're getting. No bullshit. It's authentic. Just the way I am."
+card,card7,cons,"I've noticed people start bracing for impact every time I speak. Over time, they avoid me, or withhold their own honesty.; People can get defensive when I'm ""transparent"" like this. It seems like they aren't listening.; The recipient may be overwhelmed and unable to process all the feedback at once. Important points get lost among less significant ones."
+card,card7,aka,"The Unfiltered; The Seagull; The Drive-by, The Dump truck, "
+card,card7,whythisanimal,"Penguins spend days out at sea catching fish, then return to feed their young by regurgitating everything they've caught."
+config,dropZones,dropZone1Label,The animal that feels most like the way I give feedback is....
+config,dropZones,dropZone2Label,In my current role I like to receive feedback from this animal...
+config,dropZones,dropZone3Label,I aspire to give feedback more like this...

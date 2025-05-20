@@ -3,94 +3,173 @@
     "heading": "Feedback Animal Cards Instructions",
     "body": "Use the Feedback Animal Cards to better understand different feedback styles. Assume that everyone has good intentions at heart, we just have different feedback approaches.; 1. Read each of the Feedback Animal Cards.  Learn more about each animal by clicking on the card.; 2. Select and drag the Feedback Animal card onto the table. Choose the card that feels most like you in your current role; 3. Use these insights as part of team building, or start a conversation with your coach on how to grow your feedback skills. You'll find more information on how to use the Feedback Animal Cards here;  4. To reset, just refresh your screen."
   },
+  "config": {
+    "dropZone1Label": "The animal that feels most like the way I give feedback is....",
+    "dropZone2Label": "In my current role I like to receive feedback from this animal...",
+    "dropZone3Label": "I aspire to give feedback more like this..."
+  },
   "cards": [
     {
       "id": "card1",
       "cardName": "Owl",
       "shortText": "I provide clear step-by-step instructions based on my experience.",
-      "cardSummary": "I have experience and provide detailed task instructions, so no one wastes time.",
-      "pros": ["I have experience doing this and provide detailed instructions.", "I provide clarity in what good looks like.", "I make it easy to measure or review progress."],
-      "cons": ["This style fails when there is no defined 'right way' to proceed.", "I can come across as condescending.", "It doesn't build the receiver's problem-solving capabilities."],
-      "aka": ["Instructor", "Expert"],
-      "whythisanimal": "In many cultures the owl symbolises wisdom and knowledge.",
+      "cardSummary": "I have experience and provide detailed task instructions, so no one wastes time. I offer prescriptive, step-by-step guidance. I know how to do this well and am clear on the expected outcomes. \"I'll tell you what to do\" approach.",
+      "pros": [
+        "I have experience doing this and provide detailed instructions, so that no one is wasting their time.",
+        "I provide clarity in what good looks like.",
+        "I make it easy to measure or review progress."
+      ],
+      "cons": [
+        "This style fails when there is no defined \"right way\" to proceed.",
+        "I can come across as condescending or assuming the receiver lacks knowledge.",
+        "It doesn't build the receiver's problem-solving capabilities, especially when the \"why\" is missing"
+      ],
+      "aka": [
+        "Instructor",
+        "Expert"
+      ],
+      "whythisanimal": "In many cultures the owl symbolises wisdom and knowledge.  They are perceived as having insight and keen powers of perception.",
       "image": "card numbers (1).png"
     },
     {
       "id": "card2",
       "cardName": "Lorikeet",
-      "shortText": "Feedback is a 2-way conversation where we can both learn.",
-      "cardSummary": "Feedback is always a two-way conversation.",
-      "pros": ["The recipient owns the insight.", "I respect my team member's expertise.", "My style builds long-term problem-solving capabilities."],
-      "cons": ["Can be time-consuming.", "May lack clear direction."],
-      "aka": ["Conversationalist"],
-      "whythisanimal": "Lorikeets are social and communicative.",
+      "shortText": "Feedback is a 2-way conversation where we can  both learn.",
+      "cardSummary": "Feedback is always a two-way conversation. I enter with curiosity and intent to learn, as well as advise. The best outcome is when the receiver finds their own solution.",
+      "pros": [
+        "The recipient owns the insight and is more likely to act on it.",
+        "I respect my team member's existing expertise.",
+        "My style builds long-term problem-solving capabilities."
+      ],
+      "cons": [
+        "This style of conversation can take a long time.",
+        "It can be frustrating for those who just want a direct answer. It can feel like I am withholding information when they already know the answer.",
+        "Not effective in urgent situations requiring immediate action."
+      ],
+      "aka": [
+        "Coach",
+        "Guide",
+        "Conversationalist"
+      ],
+      "whythisanimal": "Lorikeets are talkative, gregarious birds. They are curious and form lasting social bonds in their flock.",
       "image": "card numbers (2).png"
     },
     {
       "id": "card3",
-      "cardName": "Lion",
-      "shortText": "I give direct and honest feedback.",
-      "cardSummary": "I value courage and clarity in feedback.",
-      "pros": ["Direct and to the point.", "Encourages improvement."],
-      "cons": ["Can be perceived as harsh.", "May intimidate others."],
-      "aka": ["Leader"],
-      "whythisanimal": "Lions are bold and assertive.",
+      "cardName": "Meerkat",
+      "shortText": "I give indirect feedback. I care about our relationships.",
+      "cardSummary": "I prioritise  relationships over delivering uncomfortable truths. I believe people respond best to positive feedback and encouragement. I focus on giving positive messages, sometimes at the expense of clarity.",
+      "pros": [
+        "I demonstrate a caring, supportive approach.",
+        "Sometimes, people aren't in a state to hear tough feedback. My style works well at these times.",
+        "I'm very approachable."
+      ],
+      "cons": [
+        "My style can be so vague. The recipient may even struggle to understand what I mean.",
+        "Important issues may never get addressed.",
+        "Recipients can be confused about where they actually stand with me.",
+        "Problems may persist or worsen without clear feedback.",
+        "The trusting relationships I value can be eroded by not providing more direct feedback."
+      ],
+      "aka": [
+        "People-pleaser",
+        "Indirect",
+        "Harmonizer"
+      ],
+      "whythisanimal": "Meerkats are super-social,  prioritizing group harmony.  They avoid conflict and foster cooperation.",
       "image": "card numbers (3).png"
     },
     {
       "id": "card4",
-      "cardName": "Dolphin",
-      "shortText": "I use encouragement and positivity.",
-      "cardSummary": "I focus on strengths and positive reinforcement.",
-      "pros": ["Motivates others.", "Builds confidence."],
-      "cons": ["May avoid tough feedback.", "Can seem insincere."],
-      "aka": ["Coach"],
-      "whythisanimal": "Dolphins are playful and supportive.",
+      "cardName": "Lioness",
+      "shortText": "I deliver direct feedback because I care about your success.",
+      "cardSummary": "My colleagues are adults with clear responsibilities. They know I want them to succeed, so I provide specific, direct feedback. Even if it comes across as blunt sometimes, I prioritize clarity and impact. ",
+      "pros": [
+        "I build trust and credibility when I give direct feedback tied to the success of the recipient.",
+        "My style leaves little room for misinterpretation about expectations.",
+        "Addresses issues promptly before they escalate."
+      ],
+      "cons": [
+        "Some people misinterpret my direct feedback as personal criticism, even if it's intended to help. This can lead to hurt feelings or resentment.",
+        "Can shut down receivers who need more psychological safety.",
+        "May not work well across all cultural contexts."
+      ],
+      "aka": [
+        "Radical Candor",
+        "The Challenger"
+      ],
+      "whythisanimal": "The Lioness is seen as strong and direct: unafraid to challenge. She cares about her pride's success",
       "image": "card numbers (4).png"
     },
     {
       "id": "card5",
-      "cardName": "Elephant",
-      "shortText": "I remember details and give thoughtful feedback.",
-      "cardSummary": "I provide feedback based on careful observation.",
-      "pros": ["Thorough and fair.", "Considers the big picture."],
-      "cons": ["Can be slow to respond.", "May overthink feedback."],
-      "aka": ["Historian"],
-      "whythisanimal": "Elephants are wise and have great memories.",
+      "cardName": "Turtle",
+      "shortText": "I avoid giving feedback altogether.",
+      "cardSummary": "I actually hate giving feedback. I worry, procrastinate, and find excuses to avoid it. I'm deeply concerned about how it will affect work relationships.",
+      "pros": [
+        "My style works very well for me when I don't feel psychologically safe.",
+        "It avoids immediate conflict or confrontation, and preserves short-term harmony in relationships."
+      ],
+      "cons": [
+        "The problems around me persist and often get worse over time.",
+        "Others may view me as disengaged or uncaring.",
+        "I miss opportunities to develop my team members and build deeper trust."
+      ],
+      "aka": [
+        "The Avoider",
+        "The \"never a good time\"",
+        "More than my job's worth"
+      ],
+      "whythisanimal": "Turtles retreat into their shells when threatened or uncomfortable, symbolizing avoidance of difficult feedback conversations.",
       "image": "card numbers (5).png"
     },
     {
       "id": "card6",
-      "cardName": "Cat",
-      "shortText": "I give subtle and indirect feedback.",
-      "cardSummary": "I prefer to hint rather than state directly.",
-      "pros": ["Gentle approach.", "Reduces defensiveness."],
-      "cons": ["Can be unclear.", "Feedback may be missed."],
-      "aka": ["Diplomat"],
-      "whythisanimal": "Cats are subtle and observant.",
+      "cardName": "Crab",
+      "shortText": "I tell others  my feedback instead of addressing you directly.",
+      "cardSummary": "When I need to give feedback, I'll talk to anyone but the person! Including their boss.",
+      "pros": [
+        "My style works well for me when I don't feel psychologically safe.",
+        "I get the support of other leaders.",
+        "I can validate my perceptions before giving feedback.",
+        "I don't have to deal with potential negative reactions."
+      ],
+      "cons": [
+        "My style normalizes indirectness. Others start doing it too. Suddenly, feedback is whispered—not spoken.",
+        "The person receiving secondhand feedback usually feels ambushed, defensive, or humiliated, especially if it comes from someone higher up.",
+        "Damages trust across the organization.",
+        "Sustains a culture of gossip and back-channeling."
+      ],
+      "aka": [
+        "The escalator",
+        "The sidewinder"
+      ],
+      "whythisanimal": "Crabs move sideways, representing indirect communication and addressing issues by talking around the person involved rather than directly.  Their hard shell is symbolic of self preservation.",
       "image": "card numbers (6).png"
     },
     {
       "id": "card7",
-      "cardName": "Dog",
-      "shortText": "I am loyal and supportive in my feedback.",
-      "cardSummary": "I focus on loyalty and encouragement.",
-      "pros": ["Supportive.", "Builds trust."],
-      "cons": ["May avoid negative feedback.", "Can be overly optimistic."],
-      "aka": ["Supporter"],
-      "whythisanimal": "Dogs are loyal and encouraging.",
+      "cardName": "Penguin",
+      "shortText": "I dump all my unfiltered thoughts at once without preparation.",
+      "cardSummary": "I put any and all of my thoughts and feelings on the table. I don't ask if it's a good time. I just open my mouth and whatever comes out, I'll call \"feedback\". I think it's helpful for a person to receive all the feedback in one go, so that they can reflect on what is useful for them. ",
+      "pros": [
+        "Hey, people know what I'm thinking! I'm an open book!",
+        "I provide comprehensive feedback.",
+        "People know what they're getting. No bullshit. It's authentic. Just the way I am."
+      ],
+      "cons": [
+        "I've noticed people start bracing for impact every time I speak. Over time, they avoid me, or withhold their own honesty.",
+        "People can get defensive when I'm \"transparent\" like this. It seems like they aren't listening.",
+        "The recipient may be overwhelmed and unable to process all the feedback at once. Important points get lost among less significant ones."
+      ],
+      "aka": [
+        "The Unfiltered",
+        "The Seagull",
+        "The Drive-by",
+        "The Dump truck"
+      ],
+      "whythisanimal": "Penguins spend days out at sea catching fish, then return to feed their young by regurgitating everything they've caught.",
       "image": "card numbers (7).png"
-    },
-    {
-      "id": "card8",
-      "cardName": "Parrot",
-      "shortText": "I repeat and reinforce key messages.",
-      "cardSummary": "I make sure important points are remembered.",
-      "pros": ["Ensures clarity.", "Reinforces learning."],
-      "cons": ["Can be repetitive.", "May seem patronizing."],
-      "aka": ["Repeater"],
-      "whythisanimal": "Parrots are known for repeating what they hear.",
-      "image": "card numbers (8).png"
     }
   ]
 }
