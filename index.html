@@ -1283,38 +1283,60 @@
       return result;
     }
 
-    // Disable all local JSON loading and replace with direct Google Sheet data
-    // On page load, fetch from Google Sheet
+    // On page load, fetch from static JSON instead of Google Sheet
     window.addEventListener("DOMContentLoaded", () => {
       // Display loading indicator
       const grid = document.getElementById("card-grid");
       if (grid) {
-        grid.innerHTML = '<div class="text-white text-2xl text-center w-full">Loading data from Google Sheet...</div>';
+        grid.innerHTML = '<div class="text-white text-2xl text-center w-full">Loading data from JSON...</div>';
       }
-      
-      // Completely bypass local JSON and only use Google Sheet data
-      loadDataFromGoogleSheet();
-      
+
+      // Fetch and load data from data.json
+      async function loadDataFromJson() {
+        try {
+          const response = await fetch('data.json');
+          const data = await response.json();
+
+          // Update instructions card
+          const instructionsCard = document.getElementById("instructions-card");
+          if (instructionsCard && data.instructions) {
+            const formattedBody = data.instructions.body.split(';').map(line => line.trim()).join('<br>');
+            instructionsCard.innerHTML = `<h3 class="text-center font-lobster text-xl mb-2">${data.instructions.heading}</h3><p class="text-sm">${formattedBody}</p>`;
+          }
+
+          // Load cards
+          loadCards({ cards: data.cards });
+        } catch (error) {
+          console.error("Could not load from data.json:", error);
+          const instructionsCard = document.getElementById("instructions-card");
+          if (instructionsCard) {
+            instructionsCard.innerHTML = `<h3>Error</h3><p>Could not load from data.json.</p>`;
+          }
+        }
+      }
+
+      loadDataFromJson();
+
       // Force reload function - completely clears browser cache and reloads page
       function forceHardReload() {
         console.log("PERFORMING HARD RELOAD");
         // Clear all browser storage
         if (window.localStorage) window.localStorage.clear();
         if (window.sessionStorage) window.sessionStorage.clear();
-        
+
         // Add cache-busting parameter and reload
         const reloadUrl = window.location.pathname + "?nocache=" + new Date().getTime();
         window.location.href = reloadUrl;
       }
-      
+
       // Add a force refresh button
       const badge = document.getElementById("badge");
       if (badge) {
         badge.style.cursor = 'pointer';
-        badge.title = "Click to FORCE HARD RELOAD from Google Sheet";
+        badge.title = "Click to FORCE HARD RELOAD from JSON";
         badge.addEventListener("click", forceHardReload);
       }
-      
+
       // Create visible refresh button
     });
   </script>

@@ -1,0 +1,40 @@
+{
+  "instructions": {
+    "heading": "Feedback Animal Cards Instructions",
+    "body": "Use the Feedback Animal Cards to better understand different feedback styles. Assume that everyone has good intentions at heart, we just have different feedback approaches.; 1. Read each of the Feedback Animal Cards.  Learn more about each animal by clicking on the card.; 2. Select and drag the Feedback Animal card onto the table. Choose the card that feels most like you in your current role; 3. Use these insights as part of team building, or start a conversation with your coach on how to grow your feedback skills. You'll find more information on how to use the Feedback Animal Cards here;  4. To reset, just refresh your screen."
+  },
+  "cards": [
+    {
+      "id": "card1",
+      "cardName": "Owl",
+      "shortText": "I provide clear step-by-step instructions based on my experience.",
+      "cardSummary": "I have experience and provide detailed task instructions, so no one wastes time. I offer prescriptive, step-by-step guidance. I know how to do this well and am clear on the expected outcomes. \"I'll tell you what to do\" approach.",
+      "pros": [
+        "I have experience doing this and provide detailed instructions, so that no one is wasting their time.",
+        "I provide clarity in what good looks like.",
+        "I make it easy to measure or review progress."
+      ],
+      "cons": [
+        "This style fails when there is no defined \"right way\" to proceed.",
+        "I can come across as condescending or assuming the receiver lacks knowledge.",
+        "It doesn't build the receiver's problem-solving capabilities, especially when the \"why\" is missing"
+      ],
+      "aka": [
+        "Instructor",
+        "Expert"
+      ],
+      "whythisanimal": "In many cultures the owl symbolises wisdom and knowledge.  They are perceived as having insight and keen powers of perception."
+    },
+    {
+      "id": "card2",
+      "cardName": "Lorikeet",
+      "shortText": "Feedback is a 2-way conversation where we can  both learn.",
+      "cardSummary": "Feedback is always a two-way conversation. I enter with curiosity and intent to learn, as well as advise. The best outcome is when the receiver finds their own solution.",
+      "pros": [
+        "The recipient owns the insight and is more likely to act on it.",
+        "I respect my team member's existing expertise.",
+        "My style builds long-term problem-solving capabilities."
+      ]
+    }
+  ]
+}
