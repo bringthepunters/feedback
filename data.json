@@ -1,7 +1,7 @@
 {
   "instructions": {
     "heading": "Feedback Animal Cards Instructions",
-    "body": "Use the Feedback Animal Cards to better understand different feedback styles. Assume that everyone has good intentions at heart, we just have different feedback approaches.; 1. Read each of the Feedback Animal Cards.  Learn more about each animal by clicking on the card.; 2. Select and drag the Feedback Animal card onto the table. Choose the card that feels most like you in your current role; 3. Use these insights as part of team building, or start a conversation with your coach on how to grow your feedback skills. You'll find more information on how to use the Feedback Animal Cards here;  4. To reset, just refresh your screen."
+    "body": "Use the Feedback Animal Cards to better understand different feedback styles. Assume that everyone has good intentions at heart, we just have different feedback approaches.; 1. Read each of the Feedback Animal Cards.  Learn more about each animal by clicking on the card.; 2. Select and drag the Feedback Animal card onto the table. Choose the card that feels most like you in your current role; 3. Use these insights as part of team building, or start a conversation with your coach on how to grow your feedback skills. You'll find more information on how to use the Feedback Animal Cards in the menu;  4. To reset, just refresh your screen."
   },
   "config": {
     "dropZone1Label": "The animal that feels most like the way I give feedback is....",
@@ -127,7 +127,7 @@
       "id": "card6",
       "cardName": "Crab",
       "shortText": "I tell others  my feedback instead of addressing you directly.",
-      "cardSummary": "When I need to give feedback, I'll talk to anyone but the person! Including their boss.",
+      "cardSummary": "When I need to give feedback, I'll talk to anyone but the person! Including their boss. Other people become a proxy to give feedback.",
       "pros": [
         "My style works well for me when I don't feel psychologically safe.",
         "I get the support of other leaders.",
@@ -135,14 +135,14 @@
         "I don't have to deal with potential negative reactions."
       ],
       "cons": [
-        "My style normalizes indirectness. Others start doing it too. Suddenly, feedback is whispered—not spoken.",
+        "My style normalizes indirectness. Others start doing it too. Suddenly, feedback is whispered\u2014not spoken.",
         "The person receiving secondhand feedback usually feels ambushed, defensive, or humiliated, especially if it comes from someone higher up.",
         "Damages trust across the organization.",
         "Sustains a culture of gossip and back-channeling."
       ],
       "aka": [
         "The escalator",
-        "The sidewinder"
+        "The sidestepper"
       ],
       "whythisanimal": "Crabs move sideways, representing indirect communication and addressing issues by talking around the person involved rather than directly.  Their hard shell is symbolic of self preservation.",
       "image": "card numbers (6).png"
