@@ -15,15 +15,36 @@ function getClientIp(req) {
   );
 }
 
-app.post('/log-drag', (req, res) => {
+app.post('/log-drag', async (req, res) => {
   const { cardName, dropZone, timestamp, sessionId } = req.body;
   const ip = getClientIp(req);
+
+  // Fetch general location from geolocation API
+  let city = "Unknown";
+  let region = "Unknown";
+  let country = "Unknown";
+  try {
+    if (ip) {
+      const geoRes = await fetch(`https://ipapi.co/${ip}/json/`);
+      if (geoRes.ok) {
+        const geoData = await geoRes.json();
+        city = geoData.city || "Unknown";
+        region = geoData.region || "Unknown";
+        country = geoData.country || "Unknown";
+      }
+    }
+  } catch (err) {
+    console.error('Geolocation lookup failed:', err);
+  }
+
   const logEntry = JSON.stringify({
     cardName,
     dropZone,
     timestamp,
     sessionId,
-    ip,
+    city,
+    region,
+    country
   }) + '\\n';
 
   const logPath = path.join(__dirname, 'drag_log.txt');
