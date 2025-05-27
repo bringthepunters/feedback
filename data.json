@@ -1,7 +1,7 @@
 {
   "instructions": {
     "heading": "Feedback Animal Cards Instructions",
-    "body": "Use the Feedback Animal Cards to better understand different feedback styles. Assume that everyone has good intentions at heart, we just have different feedback approaches.; 1. Read each of the Feedback Animal Cards.  Learn more about each animal by clicking on the card.; 2. Select and drag the Feedback Animal card onto the table. Choose the card that feels most like you in your current role; 3. Use these insights as part of team building, or start a conversation with your coach on how to grow your feedback skills. You'll find more information on how to use the Feedback Animal Cards in the menu;  4. To reset, just refresh your screen."
+    "body": "Use the Feedback Animal Cards to better understand different feedback styles. Assume that everyone has good intentions at heart, we just have different feedback approaches.; <ul><ol>Read each of the Feedback Animal Cards.  Learn more about each animal by clicking on the card.</ol><ol>Select and drag the Feedback Animal card onto the table. Choose the card that feels most like you in your current role </ol><ol>Use these insights as part of team building, or start a conversation with your coach on how to grow your feedback skills. You'll find more information on how to use the Feedback Animal Cards here</ol> <ol>To reset, just refresh your screen.</ol>"
   },
   "config": {
     "dropZone1Label": "The animal that feels most like the way I give feedback is....",
@@ -29,7 +29,7 @@
         "Expert"
       ],
       "whythisanimal": "In many cultures the owl symbolises wisdom and knowledge.  They are perceived as having insight and keen powers of perception.",
-      "image": "card numbers (1).png"
+      "image": "card-owl.jpg"
     },
     {
       "id": "card2",
@@ -52,7 +52,7 @@
         "Conversationalist"
       ],
       "whythisanimal": "Lorikeets are talkative, gregarious birds. They are curious and form lasting social bonds in their flock.",
-      "image": "card numbers (2).png"
+      "image": "card-lorikeet.jpg"
     },
     {
       "id": "card3",
@@ -77,7 +77,7 @@
         "Harmonizer"
       ],
       "whythisanimal": "Meerkats are super-social,  prioritizing group harmony.  They avoid conflict and foster cooperation.",
-      "image": "card numbers (3).png"
+      "image": "card-meerkat.jpg"
     },
     {
       "id": "card4",
@@ -99,7 +99,7 @@
         "The Challenger"
       ],
       "whythisanimal": "The Lioness is seen as strong and direct: unafraid to challenge. She cares about her pride's success",
-      "image": "card numbers (4).png"
+      "image": "card-lioness.jpg"
     },
     {
       "id": "card5",
@@ -121,7 +121,7 @@
         "More than my job's worth"
       ],
       "whythisanimal": "Turtles retreat into their shells when threatened or uncomfortable, symbolizing avoidance of difficult feedback conversations.",
-      "image": "card numbers (5).png"
+      "image": "card-turtle.jpg"
     },
     {
       "id": "card6",
@@ -145,7 +145,7 @@
         "The sidestepper"
       ],
       "whythisanimal": "Crabs move sideways, representing indirect communication and addressing issues by talking around the person involved rather than directly.  Their hard shell is symbolic of self preservation.",
-      "image": "card numbers (6).png"
+      "image": "card-crab.jpg"
     },
     {
       "id": "card7",
@@ -169,7 +169,7 @@
         "The Dump truck"
       ],
       "whythisanimal": "Penguins spend days out at sea catching fish, then return to feed their young by regurgitating everything they've caught.",
-      "image": "card numbers (7).png"
+      "image": "card-penguin.jpg"
     }
   ]
 }
