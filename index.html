@@ -30,15 +30,6 @@
 
 
   <!-- Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
-    rel="stylesheet"
-
-  />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap"
-    rel="stylesheet"
-  />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -46,6 +37,7 @@
 
   <!-- Tailwind CSS CDN (development only, remove for production) -->
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     /* .main-grid migrated to Tailwind below */
   
@@ -72,19 +64,6 @@
   
    
   
-  
-    .grid {
-      grid-column: 1 / span 3;
-      grid-row: 3;
-      display: grid;
-      grid-template-columns: repeat(7, auto);
-      gap: 10px;
-      justify-content: center;
-      align-items: flex-start;
-      padding-top: 20px;
-      overflow-y: auto; /* Ensure cards don't go off the screen */
-    }
-  
     .drop-zones-row {
       grid-column: 2 / span 2;
       grid-row: 2;
@@ -96,8 +75,7 @@
       height: 100%;
     }
   
-    
-
+  
     /* Overall Styling */
     body {
       margin: 0;
@@ -113,8 +91,15 @@
 
     h1, h2, h3, h4, h5, h6 {font-family:"Montserrat Alternates", sans-serif;line-height: 1.2em}
 
+    body ul,body ol {margin-left: 18px;}
+    body ul {list-style: disc!important; }
+    body ol {list-style: decimal!important;}
+    body nav ul {list-style: none!important; margin-left:10px;margin-right:10px;}
+
     #hamburger-btn {background: #3a6575;width: 50px;height: 50px;}
     #hamburger-menu {background: #fff; width:20%}
+
+    nav li a:hover {background:#dedede}
 
     /* Main grid layout - original definition kept for compatibility with JS */
     /* The div now uses Tailwind classes for the grid */
@@ -134,20 +119,21 @@
       align-items: flex-end;
       height: 100%;
     }
-    
+
 
     /* Badge styling moved to Tailwind classes on the img tag */
 
     /* Main grid of bottom cards - aligned with bottom of instruction box */
-    .grid {
+
+     .grid {
       grid-column: 1 / span 3;
       grid-row: 3;
       display: grid;
       grid-template-columns: repeat(7, auto);
       gap: 10px;
       justify-content: center;
-      align-items: flex-start;
       padding-top: 20px;
+      overflow-y: auto; /* Ensure cards don't go off the screen */
     }
 
     /* Container for each bottom card + label */
@@ -156,7 +142,7 @@
       flex-direction: column;
       align-items: center;
     }
-    /* Cinzel Bold label above card */
+    /* label above card */
     .bottom-card-label {
       font-family: "Montserrat Alternates", sans-serif;
       font-weight: 700;
@@ -188,7 +174,6 @@
     /* Slightly bigger initial cards, with box-sizing and rounded corners */
     .card {
       width: 100%;
-      /*height: 262px;*/
       box-sizing: border-box;
       border: 2px solid gold;
       border-radius: 16px;
@@ -304,8 +289,8 @@
       height: 100%;
     }
     .drop-zone {
-      width: 242px;
-      height: 352px;
+      width: 220px;
+      height: 320px;
       box-sizing: border-box;
       border: 2px dashed #ccc;
       border-radius: 16px;
@@ -348,8 +333,8 @@
     /* Dropped card: fill zone exactly, keep corners rounded */
 
     .card.card-drop-animation, .drop-zone .card {
-      width: 240px;
-      height: 350px;
+      width: 220px;
+      height: 320px;
       box-sizing: border-box;
       border-radius: 16px;
     }
@@ -394,7 +379,7 @@
  
    
     .card-title {
-      font-family: "Lobster", cursive;
+      font-family:"Montserrat Alternates", sans-serif;
       color: #8B6B3D;
       font-size: 42px; /* Increased by 20% from 35px */
       margin-bottom: 20px;
@@ -418,8 +403,7 @@
       margin-bottom: 5px;
     }
     /* HEADINGS in brown; bullet text is black */
-    .pros-section .section-title,
-    .cons-section .section-title {
+    .section-title {
       color: #6a4f2a; 
       font-weight: bold;
       margin-top: 10px;
@@ -434,67 +418,37 @@
       position: absolute;
       top: 10px;
       right: 10px;
-      font-size: 24px;
+      font-size: 28px;
       cursor: pointer;
       color: #666;
       z-index: 1001;
     }
 
-    /* Instructions Card Styling
-    #instructions-card {
-      width: 30%;
-      height: 500px;
-      position:absolute;
-      top:15px;
-      left:80px;
-      background-color: #166a24; 
-      border: 2px solid gold; 
-      border-radius: 10px; 
-      padding: 15px;
-      box-sizing: border-box;
-      color: white;
-      overflow-y: auto; 
-      z-index: 9999999; 
-    }
-    #instructions-card h3 {
-      margin: 0 0 10px 0;
-      padding: 0;
-      font-size: 23px; 
-      font-weight: bold;
-      text-align: center;
-    }
-     #instructions-card p {
-      margin: 0;
-      font-size: 12px; 
-      line-height: 1.4;
-    }
-
-    .instructions-cell {
-      grid-row: 2 / span 2;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      height: 100%;
-    }*/
+    /* Instructions Card Styling*/
 
  #instructions-container{
     position: absolute;
-    width: 300px;
+    width: 500px;
     top: 15px;
     left: 80px;
     z-index: 9;}
 
-    .instructions-content{
+  #instructions-card h3 {font-weight:600; font-size:20px}
+
+
+  .instructions-content{
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
             opacity: 0;
         }
 
-   .instructions-content.open {
+  .instructions-content.open {
         max-height: 500px; /* Adjust based on expected content height */
+        overflow: scroll;
         opacity: 1;
     }
+
 
   #toggleButton {background: #3a6575;color:#fff; border-radius:10px;padding:13px; width:300px}
     
@@ -520,9 +474,9 @@
     </button>
     <nav id="hamburger-menu" class="fixed top-0 left-0 h-full shadow-lg z-40 transform -translate-x-full transition-transform duration-300">
       <ul class="flex flex-col mt-20 space-y-6 ">
-        <li><a href="1.html" class="block px-6 py-2 hover:bg-green-700 rounded">About Us</a></li>
-        <li><a href="2.html" class="block px-6 py-2 hover:bg-green-700 rounded">About Feedback Animals</a></li>
-        <li><a href="3.html" class="block px-6 py-2 hover:bg-green-700 rounded">We Want your feedback!</a></li>
+        <li><a href="1.html" class="block px-6 py-2 rounded">About Us</a></li>
+        <li><a href="2.html" class="block px-6 py-2 rounded">About Feedback Animals</a></li>
+        <li><a href="3.html" class="block px-6 py-2 rounded">We Want your feedback!</a></li>
       </ul>
     </nav>
     <!-- Modals for 1, 2, 3 -->
@@ -549,12 +503,14 @@
       <div id="splash-box" style="width:660px;height:440px;background:white;box-shadow:0 0 40px rgba(0,0,0,0.2);border-radius:32px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
         <span style="
           position: absolute;
-          top: 3%;
-          left: 40%;
+          top: 45%;
+          left: 50%;
           transform: translate(-50%, 0);
           font-size: 2.66rem;
           font-weight: 700;
-          color: #111;
+          font-family: 'Montserrat Alternates', sans-serif;
+          text-transform: uppercase;
+          color: #2a301c;
           letter-spacing: 1.8px;
           z-index: 2;
           text-shadow: 0 2px 8px rgba(255,255,255,0.7);
@@ -564,7 +520,7 @@
           text-align: center;
           line-height: 0.89;
         ">Feedback<br>Animals</span>
-        <img src="splash.png" alt="Splash" style="max-width:100%;max-height:100%;object-fit:contain;z-index:1;"/>
+        <img src="splash.jpg" alt="Multiple animals in a natural setting" style="max-width:100%;max-height:100%;object-fit:contain;z-index:1;"/>
       </div>
     </div>
 
@@ -577,17 +533,9 @@
       </div>
     </div>
 
-    <!-- Column 1: Instructions only 
-    <div class="col-span-1 row-span-3 flex flex-col p-4 border-r border-green-600">
-      <!-- Instructions below 
-      <div class="flex items-start justify-center">
-        <div id="instructions-card" class="bg-green-800 border-2 border-yellow-400 rounded-lg p-4 w-full max-w-[180px]"></div>
-      </div>
-    </div>-->
-
     <!-- Columns 1-6: Drop Zones -->
-    <div class="col-start-1 col-span-6 row-span-2 flex justify-center items-center">
-      <div class="flex space-x-36 mb-8 pt-10">
+    <div class="col-start-1 col-span-6 row-span-1 flex justify-center items-center">
+      <div class="flex space-x-36 pt-10">
         <div class="flex flex-col items-center tilt-left">
           <div
             class="drop-zone    border-2 border-dashed border-gray-300 rounded-xl flex justify-center items-center transition-transform"
@@ -606,18 +554,19 @@
             ondragenter="dragEnter(event)"
             ondragleave="dragLeave(event)"
           ></div>
-          <span class="drop-zone-label    mt-2">I like to receive feedback from this archetype...</span>
+          <span class="drop-zone-label mt-2">I like to receive feedback from this archetype...</span>
         </div>
       </div>
     </div>
     
     <!-- Columns 1-6: Card Grid (bottom row) -->
-    <div class="col-start-1 col-span-6 row-start-3 px-4">
+    <div class="col-start-1 col-span-6 row-start-2 px-4">
       <div class="grid grid-cols-7 gap-4 justify-center items-start pt-6 overflow-y-auto" id="card-grid"></div>
     </div>
 
 
   <div class="popup" id="popup">
+    <div class="popup-close" onclick="closePopup()">&times;</div>
     <div class="popup-image" id="popup-image"></div>
     <div class="popup-content">
       <div class="card-title"></div>
@@ -630,13 +579,18 @@
         <div class="section-title">Cons:</div>
         <ul class="cons-list"></ul>
       </div>
-      <div class="popup-aka"></div>      <!-- Moved element for AKA -->
-      <div class="popup-animal-explanation"></div> <!-- Moved element for Animal Explanation -->
+      <div class="aka-section">
+        <div class="section-title">AKA:</div>
+        <ul class="aka-list"></ul>
+      </div>      
+      <div class="animal-explanation-section">
+        <div class="section-title">Why this animal?:</div>
+        <ul class="explanation-list"></ul>
+      </div> <!-- Moved element for Animal Explanation -->
       </div>
     </div>
-    <div class="popup-close" onclick="closePopup()">&times;</div>
   </div>
-  </div>
+
 
   <script>
     // Hamburger menu toggle
@@ -834,8 +788,8 @@
 
       const popupImage = popup.querySelector(".popup-image");
       const cardTitle = popup.querySelector(".card-title");
-      const popupAka = popup.querySelector(".popup-aka"); // Select new AKA element
-      const popupAnimalExplanation = popup.querySelector(".popup-animal-explanation"); // Select new Animal Explanation element
+      const popupAka = popup.querySelector(".aka-list"); // Select new AKA element
+      const popupAnimalExplanation = popup.querySelector(".explanation-list"); // Select new Animal Explanation element
       const cardSummary = popup.querySelector(".card-summary");
       const prosList = popup.querySelector(".pros-list");
       const consList = popup.querySelector(".cons-list");
@@ -860,16 +814,25 @@
       consList.innerHTML = consHTML;
       popup.querySelector('.cons-section').style.display = consHTML ? 'block' : 'none';
 
-      // Populate AKA - check if exists and is a non-empty array
+      const akaHTML = (card.aka && Array.isArray(card.aka) && card.aka.length > 0) ? card.aka.map((z) => `<li>${z}</li>`).join("") : '';
+      popupAka.innerHTML = akaHTML;
+      popup.querySelector('.aka-section').style.display = akaHTML ? 'block' : 'none';
+
+      const animalExplanationHTML = (card.animalExplanation && Array.isArray(card.animalExplanation) && card.animalExplanation.length > 0) ? card.animalExplanation.map((e) => `<li>${e}</li>`).join("") : '';
+      popupAnimalExplanation.innerHTML = animalExplanationHTML;
+      popup.querySelector('.animal-explanation-section').style.display = animalExplanationHTML ? 'block' : 'none';
+
+
+      /* Populate AKA - check if exists and is a non-empty array
       if (card.aka && Array.isArray(card.aka) && card.aka.length > 0) {
-          popupAka.innerHTML = `<strong>AKA:</strong> ${card.aka.join(', ')}`;
+          popupAka.innerHTML = `AKA ${card.aka.join(', ')}`;
           popupAka.style.display = 'block';
       } else {
           popupAka.innerHTML = '';
           popupAka.style.display = 'none';
-      }
+      }*/
 
-      // Populate Animal Explanation - check if exists and is a non-empty string
+      /* Populate Animal Explanation - check if exists and is a non-empty string
       if (card.animalExplanation && typeof card.animalExplanation === 'string' && card.animalExplanation.trim() !== '') {
           popupAnimalExplanation.innerHTML = `<strong>${card.cardName}</strong> ${card.animalExplanation}`;
           popupAnimalExplanation.style.display = 'block';
@@ -877,7 +840,7 @@
       } else {
           popupAnimalExplanation.innerHTML = '';
           popupAnimalExplanation.style.display = 'none';
-      }
+      }*/
 
       popup.style.display = "flex";
     }
@@ -920,7 +883,7 @@
       // Remove perspective transforms
       dragImage.style.transform = "none";
       dragImage.style.perspective = "none";
-      dragImage.style.width = "240px";
+      dragImage.style.width = "220px";
 
       // Copy 3D transform
       const originalInner = card.querySelector(".card-inner");
@@ -1194,10 +1157,8 @@
             else if (field === "pros") cardMap[id].pros = value ? value.split(";").map(s => s.trim()) : [];
             else if (field === "cons") cardMap[id].cons = value ? value.split(";").map(s => s.trim()) : [];
             else if (field === "aka") cardMap[id].aka = value ? value.split(";").map(s => s.trim()) : [];
-            else if (field === "animalExplanation" || field === "whythisanimal" || field === "TheParrot" || field === "TheLion") {
-              cardMap[id].animalExplanation = value;
-              console.log(`Set animal explanation for ${id}`);
-            }
+            else if (field === "animalExplanation") cardMap[id].animalExplanation = value;           
+            
           }
         }
 
