@@ -1,7 +1,7 @@
 {
   "instructions": {
     "heading": "Feedback Animal Cards Instructions",
-    "body": "Use the Feedback Animal Cards to better understand different feedback styles. Assume that everyone has good intentions at heart, we just have different feedback approaches.; <ul><ol>Read each of the Feedback Animal Cards.  Learn more about each animal by clicking on the card.</ol><ol>Select and drag the Feedback Animal card onto the table. Choose the card that feels most like you in your current role </ol><ol>Use these insights as part of team building, or start a conversation with your coach on how to grow your feedback skills. You'll find more information on how to use the Feedback Animal Cards here</ol> <ol>To reset, just refresh your screen.</ol>"
+    "body": "<p>Use the Feedback Animal Cards to better understand different feedback styles. Assume that everyone has good intentions at heart, we just have different feedback approaches.</p> <ol><li>Read each of the Feedback Animal Cards.  Learn more about each animal by clicking on the card.</li><li>Select and drag the Feedback Animal card onto the table. Choose the card that feels most like you in your current role. </li><li>Use these insights as part of team building, or start a conversation with your coach on how to grow your feedback skills. You'll find more information on how to use the Feedback Animal Cards here.</li> <li>To reset, just refresh your screen.</li></ol>"
   },
   "config": {
     "dropZone1Label": "The animal that feels most like the way I give feedback is....",
@@ -28,7 +28,10 @@
         "Instructor",
         "Expert"
       ],
-      "whythisanimal": "In many cultures the owl symbolises wisdom and knowledge.  They are perceived as having insight and keen powers of perception.",
+      "animalExplanation": [
+        "In many cultures the owl symbolises wisdom and knowledge.",
+        "They are perceived as having insight and keen powers of perception."
+      ],
       "image": "card-owl.jpg"
     },
     {
@@ -51,7 +54,10 @@
         "Guide",
         "Conversationalist"
       ],
-      "whythisanimal": "Lorikeets are talkative, gregarious birds. They are curious and form lasting social bonds in their flock.",
+      "animalExplanation": [
+        "Lorikeets are talkative, gregarious birds.",
+        "They are curious and form lasting social bonds in their flock."
+      ],
       "image": "card-lorikeet.jpg"
     },
     {
@@ -76,7 +82,10 @@
         "Indirect",
         "Harmonizer"
       ],
-      "whythisanimal": "Meerkats are super-social,  prioritizing group harmony.  They avoid conflict and foster cooperation.",
+      "animalExplanation": [
+        "Meerkats are super-social,  prioritizing group harmony.",
+        "They avoid conflict and foster cooperation."
+      ],
       "image": "card-meerkat.jpg"
     },
     {
@@ -98,7 +107,10 @@
         "Radical Candor",
         "The Challenger"
       ],
-      "whythisanimal": "The Lioness is seen as strong and direct: unafraid to challenge. She cares about her pride's success",
+      "animalExplanation": [
+        "The Lioness is seen as strong and direct: unafraid to challenge.",
+        "She cares about her pride's success"
+      ],
       "image": "card-lioness.jpg"
     },
     {
@@ -120,7 +132,9 @@
         "The \"never a good time\"",
         "More than my job's worth"
       ],
-      "whythisanimal": "Turtles retreat into their shells when threatened or uncomfortable, symbolizing avoidance of difficult feedback conversations.",
+      "animalExplanation": [
+        "Turtles retreat into their shells when threatened or uncomfortable, symbolizing avoidance of difficult feedback conversations."
+      ],
       "image": "card-turtle.jpg"
     },
     {
@@ -144,7 +158,10 @@
         "The escalator",
         "The sidestepper"
       ],
-      "whythisanimal": "Crabs move sideways, representing indirect communication and addressing issues by talking around the person involved rather than directly.  Their hard shell is symbolic of self preservation.",
+      "animalExplanation": [
+        "Crabs move sideways, representing indirect communication and addressing issues by talking around the person involved rather than directly.",
+        "Their hard shell is symbolic of self preservation."
+      ],
       "image": "card-crab.jpg"
     },
     {
@@ -168,7 +185,9 @@
         "The Drive-by",
         "The Dump truck"
       ],
-      "whythisanimal": "Penguins spend days out at sea catching fish, then return to feed their young by regurgitating everything they've caught.",
+      "animalExplanation": [
+        "Penguins spend days out at sea catching fish, then return to feed their young by regurgitating everything they've caught."
+      ],
       "image": "card-penguin.jpg"
     }
   ]
