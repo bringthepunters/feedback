@@ -1,7 +1,7 @@
 {
   "instructions": {
     "heading": "Feedback Animal Cards Instructions",
-    "body": "<p>Use the Feedback Animal Cards to better understand different feedback styles. Assume that everyone has good intentions at heart, we just have different feedback approaches.</p> <ol><li>Read each of the Feedback Animal Cards.  Learn more about each animal by clicking on the card.</li><li>Select and drag the Feedback Animal card onto the table. Choose the card that feels most like you in your current role. </li><li>Use these insights as part of team building, or start a conversation with your coach on how to grow your feedback skills. You'll find more information on how to use the Feedback Animal Cards here.</li> <li>To reset, just refresh your screen.</li></ol>"
+    "body": "Use the Feedback Animal Cards to better understand different feedback styles. Assume that everyone has good intentions at heart, we just have different feedback approaches.; 1. Read each of the Feedback Animal Cards.  Learn more about each animal by clicking on the card.; 2. Select and drag the Feedback Animal card onto the table. Choose the card that feels most like you in your current role; 3. Use these insights as part of team building, or start a conversation with your coach on how to grow your feedback skills. You'll find more information on how to use the Feedback Animal Cards in the menu;  4. To reset, just refresh your screen."
   },
   "config": {
     "dropZone1Label": "The animal that feels most like the way I give feedback is....",
@@ -137,11 +137,8 @@
 	"My style normalizes indirectness. Others start doing it too and suddenly, feedback is whispered, not spoken.",
         "It promotes a culture of gossip and back-channeling that undermines trust across the organization."
       ],
-      "animalExplanation": [
-        "Crabs move sideways, representing indirect communication and addressing issues by talking around the person involved rather than directly.",
-        "Their hard shell is symbolic of self preservation."
-      ],
-      "image": "card-crab.jpg"
+      "whythisanimal": "Crabs move sideways, representing indirect communication and addressing issues by talking around the person involved rather than directly.  Their hard shell is symbolic of self preservation.",
+      "image": "card numbers (6).png"
     },
     {
       "id": "card7",
@@ -161,10 +158,8 @@
         "The recipient may be overwhelmed and unable to process all the feedback at once. Important points get lost among less significant ones.",
 	"I've noticed people start bracing for impact every time I speak. Over time, they avoid me, or withhold their own honesty."
       ],
-      "animalExplanation": [
-        "Penguins spend days out at sea catching fish, then return to feed their young by regurgitating everything they've caught."
-      ],
-      "image": "card-penguin.jpg"
+      "whythisanimal": "Penguins spend days out at sea catching fish, then return to feed their young by regurgitating everything they've caught.",
+      "image": "card numbers (7).png"
     }
   ]
 }

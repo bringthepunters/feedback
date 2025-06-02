@@ -992,29 +992,49 @@
           dropZoneLabel = 'unknown-drop-zone';
         }
 
-        // Prepare log data as an array matching the sheet columns
-        const logData = [
-          new Date().toISOString(),         // Timestamp
-          cardData.cardName,                // Card Name
-          dropZoneLabel,                    // Drop Zone
-          getSessionId(),                   // Session ID
-          navigator.userAgent               // User Agent
-        ];
-
-        // NoCodeAPI endpoint for logging tab
-        const GOOGLE_SHEETS_WEBHOOK_URL = 'https://v1.nocodeapi.com/feedbackanimals/google_sheets/wlYguQngXUOgaSbq?tabId=logging';
-
-        fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify([logData])
-        }).then(res => {
-          if (!res.ok) {
-            console.error('Failed to log drag event');
+        // Prepare log data as an array matching the sheet columns, including city/region/country
+        (async () => {
+          let city = "Unknown";
+          let region = "Unknown";
+          let country = "Unknown";
+          try {
+            const geoRes = await fetch('https://ipapi.co/json/');
+            if (geoRes.ok) {
+              const geoData = await geoRes.json();
+              city = geoData.city || "Unknown";
+              region = geoData.region || "Unknown";
+              country = geoData.country || "Unknown";
+            }
+          } catch (err) {
+            // If geolocation fails, keep "Unknown"
           }
-        }).catch(err => {
-          console.error('Error logging drag event:', err);
-        });
+
+          const logData = [
+            new Date().toISOString(),         // Timestamp
+            cardData.cardName,                // Card Name
+            dropZoneLabel,                    // Drop Zone
+            getSessionId(),                   // Session ID
+            navigator.userAgent,              // User Agent
+            city,                             // City
+            region,                           // Region
+            country                           // Country
+          ];
+
+          // NoCodeAPI endpoint for logging tab
+          const GOOGLE_SHEETS_WEBHOOK_URL = 'https://v1.nocodeapi.com/feedbackanimals/google_sheets/wlYguQngXUOgaSbq?tabId=logging';
+
+          fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify([logData])
+          }).then(res => {
+            if (!res.ok) {
+              console.error('Failed to log drag event');
+            }
+          }).catch(err => {
+            console.error('Error logging drag event:', err);
+          });
+        })();
         // --- END LOGGING ---
 
         // Clear old, keep label
