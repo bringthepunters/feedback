@@ -474,28 +474,49 @@
     </button>
     <nav id="hamburger-menu" class="fixed top-0 left-0 h-full shadow-lg z-40 transform -translate-x-full transition-transform duration-300">
       <ul class="flex flex-col mt-20 space-y-6 ">
-        <li><a href="1.html" class="block px-6 py-2 rounded">About Us</a></li>
-        <li><a href="2.html" class="block px-6 py-2 rounded">About Feedback Animals</a></li>
-        <li><a href="3.html" class="block px-6 py-2 rounded">We Want your feedback!</a></li>
+        <li><a href="#" data-modal="1" class="block px-6 py-2 rounded">1</a></li>
+        <li><a href="#" data-modal="2" class="block px-6 py-2 rounded">2</a></li>
+        <li><a href="#" data-modal="3" class="block px-6 py-2 rounded">3</a></li>
+        <li><a href="#" data-modal="4" class="block px-6 py-2 rounded">4</a></li>
+        <li><a href="#" data-modal="5" class="block px-6 py-2 rounded">5</a></li>
+        <li><a href="#" data-modal="6" class="block px-6 py-2 rounded">6</a></li>
       </ul>
     </nav>
-    <!-- Modals for 1, 2, 3 -->
+    <!-- Modals for 1-6 -->
     <div id="modal-1" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 hidden">
-      <div class="bg-white rounded-lg shadow-lg w-[400px] h-[300px] flex flex-col items-center justify-center relative overflow-auto">
+      <div class="bg-white rounded-lg shadow-lg w-[1000px] h-[600px] flex flex-col items-center justify-center relative overflow-auto">
         <button onclick="closeModal(1)" class="absolute top-2 right-4   ">&times;</button>
-        <div class="font-bold">This is Page 1</div>
+        <div class="font-bold text-2xl">This is Page 1</div>
       </div>
     </div>
     <div id="modal-2" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 hidden">
-      <div class="bg-white rounded-lg shadow-lg w-[400px] h-[300px] flex flex-col items-center justify-center relative overflow-auto">
+      <div class="bg-white rounded-lg shadow-lg w-[1000px] h-[600px] flex flex-col items-center justify-center relative overflow-auto">
         <button onclick="closeModal(2)" class="absolute top-2 right-4   ">&times;</button>
-        <div class="font-bold">This is Page 2</div>
+        <div class="font-bold text-2xl">This is Page 2</div>
       </div>
     </div>
     <div id="modal-3" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 hidden">
-      <div class="bg-white rounded-lg shadow-lg w-[400px] h-[300px] flex flex-col items-center justify-center relative overflow-auto">
+      <div class="bg-white rounded-lg shadow-lg w-[1000px] h-[600px] flex flex-col items-center justify-center relative overflow-auto">
         <button onclick="closeModal(3)" class="absolute top-2 right-4   ">&times;</button>
-        <div class="font-bold">This is Page 3</div>
+        <div class="font-bold text-2xl">This is Page 3</div>
+      </div>
+    </div>
+    <div id="modal-4" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 hidden">
+      <div class="bg-white rounded-lg shadow-lg w-[1000px] h-[600px] flex flex-col items-center justify-center relative overflow-auto">
+        <button onclick="closeModal(4)" class="absolute top-2 right-4   ">&times;</button>
+        <div class="font-bold text-2xl">This is Page 4</div>
+      </div>
+    </div>
+    <div id="modal-5" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 hidden">
+      <div class="bg-white rounded-lg shadow-lg w-[1000px] h-[600px] flex flex-col items-center justify-center relative overflow-auto">
+        <button onclick="closeModal(5)" class="absolute top-2 right-4   ">&times;</button>
+        <div class="font-bold text-2xl">This is Page 5</div>
+      </div>
+    </div>
+    <div id="modal-6" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 hidden">
+      <div class="bg-white rounded-lg shadow-lg w-[1000px] h-[600px] flex flex-col items-center justify-center relative overflow-auto">
+        <button onclick="closeModal(6)" class="absolute top-2 right-4   ">&times;</button>
+        <div class="font-bold text-2xl">This is Page 6</div>
       </div>
     </div>
     <!-- Splash Screen -->
@@ -639,11 +660,14 @@
     }
     // Attach modal openers to menu items
     document.addEventListener('DOMContentLoaded', () => {
-      const menuLinks = hamburgerMenu.querySelectorAll('a');
-      menuLinks.forEach((link, idx) => {
+      const menuLinks = hamburgerMenu.querySelectorAll('a[data-modal]');
+      menuLinks.forEach((link) => {
         link.addEventListener('click', (e) => {
           e.preventDefault();
-          openModal(idx + 1);
+          const modalNum = link.getAttribute('data-modal');
+          if (modalNum) {
+            openModal(modalNum);
+          }
         });
       });
       // Splash screen logic
