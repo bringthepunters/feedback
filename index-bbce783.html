@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Feedback Game – Team Feedback Tool & Exercises</title>
+  <meta name="description" content="A fun, interactive team feedback tool and game. Improve team communication and feedback skills with engaging exercises and activities." />
+  <meta name="keywords" content="team feedback tool, feedback game, team exercises to improve feedback, team communication, feedback activities, feedback exercises, team building, feedback style quiz, feedback style assessment, animal feedback archetypes, feedback animals tool, understanding feedback styles, team feedback exercise, feedback communication workshop, improve feedback skills, give feedback effectively, receive feedback effectively, feedback styles test, feedback feedbackstyles quiz, feedback style animal quiz, feedback style exercise for teams, feedback skills training, feedback style personality test, feedback archetype assessment, building trust through feedback, optimizing team communication, feedback culture workshop" />
+  <link rel="canonical" href="https://feedback.bringthepunters.com/" />
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://feedback.bringthepunters.com/" />
+  <meta property="og:title" content="Feedback Game – Team Feedback Tool & Exercises" />
+  <meta property="og:description" content="A fun, interactive team feedback tool and game. Improve team communication and feedback skills with engaging exercises and activities." />
+  <meta property="og:image" content="https://feedback.bringthepunters.com/badge.png" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://feedback.bringthepunters.com/" />
+  <meta name="twitter:title" content="Feedback Game – Team Feedback Tool & Exercises" />
+  <meta name="twitter:description" content="A fun, interactive team feedback tool and game. Improve team communication and feedback skills with engaging exercises and activities." />
+  <meta name="twitter:image" content="https://feedback.bringthepunters.com/badge.png" />
+
+  
+  <!-- Favicon - using an existing image file -->
+  <link rel="icon" type="image/png" href="badge.png" />
+
+
+  <!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN (development only, remove for production) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* .main-grid migrated to Tailwind below */
+  
+    .first-column {
+      grid-column: 1;
+      grid-row: 1 / span 3;
+      display: grid;
+      grid-template-rows: 1fr 1fr 1fr;
+      height: 100%;
+    }
+  
+    .title-cell,
+    .instructions-cell {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%; /* Ensure consistent width */
+    }
+  
+    .title-cell {
+      grid-row: 1;
+      align-items: flex-end;
+    }
+  
+   
+  
+    .drop-zones-row {
+      grid-column: 2 / span 2;
+      grid-row: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      justify-items: center;
+      height: 100%;
+    }
+  
+  
+    /* Overall Styling */
+    body {
+      margin: 0;
+      background-color: #1b822c;
+      /* The cloth texture (ensure green-fabric.png is present) */
+      background-image: url("blue-bg.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      font-family: "Montserrat", sans-serif;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {font-family:"Montserrat Alternates", sans-serif;line-height: 1.2em}
+
+    body ul,body ol {margin-left: 18px;}
+    body ul {list-style: disc!important; }
+    body ol {list-style: decimal!important;}
+    body nav ul {list-style: none!important; margin-left:10px;margin-right:10px;}
+
+    #hamburger-btn {background: #3a6575;width: 50px;height: 50px;}
+    #hamburger-menu {background: #fff; width:20%}
+
+    nav li a:hover {background:#dedede}
+
+    /* Main grid layout - original definition kept for compatibility with JS */
+    /* The div now uses Tailwind classes for the grid */
+
+    /* First column: exactly 1/3 width, two stacked panels */
+    .first-column {
+      grid-column: 1;
+      grid-row: 1 / span 3;
+      display: grid;
+      grid-template-rows: 1fr 1fr 1fr;
+      height: 100%;
+    }
+    .title-cell {
+      grid-row: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      height: 100%;
+    }
+
+
+    /* Badge styling moved to Tailwind classes on the img tag */
+
+    /* Main grid of bottom cards - aligned with bottom of instruction box */
+
+     .grid {
+      grid-column: 1 / span 3;
+      grid-row: 3;
+      display: grid;
+      grid-template-columns: repeat(7, auto);
+      gap: 10px;
+      justify-content: center;
+      padding-top: 20px;
+      overflow-y: auto; /* Ensure cards don't go off the screen */
+    }
+
+    /* Container for each bottom card + label */
+    .card-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    /* label above card */
+    .bottom-card-label {
+      font-family: "Montserrat Alternates", sans-serif;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 5px;
+      text-align: center;
+      font-size: 126%; /* Increased by 5% from 120% */
+    }
+
+    /*Aspect Ratio for divs with backgeound images*/
+    [style*="--aspect-ratio"] > :first-child {width: 100%;}
+    [style*="--aspect-ratio"] > img {height: auto;} 
+    @supports (--custom:property) {
+      [style*="--aspect-ratio"] {
+        position: relative;
+      }
+    [style*="--aspect-ratio"]::before {
+      content: "";
+      display: block;
+      padding-bottom: calc(100% / (var(--aspect-ratio)));
+    }  
+    [style*="--aspect-ratio"] > :first-child {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+    }  
+
+    /* Slightly bigger initial cards, with box-sizing and rounded corners */
+    .card {
+      width: 100%;
+      box-sizing: border-box;
+      border: 2px solid gold;
+      border-radius: 16px;
+      perspective: 1000px;
+      cursor: grab;
+      transition: transform 0.3s ease, width 0.3s, height 0.3s;
+      z-index: 2;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      border-radius: 10px;
+    }
+
+    .card.flipped .card-inner {
+      -webkit-transform: rotateY(180deg);
+      transform: rotateY(180deg);
+    }
+
+  .card-front,
+    .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+   /* front should be at rotateY(0deg) */
+   .card-front {
+    background-size: cover;
+    background-position: center;
+    transform: rotateY(0deg);
+    -webkit-transform: rotateY(0deg);
+    z-index: 2;
+  }
+
+  .card-back {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    background: url('back.png') center center/cover no-repeat, white;
+    color: black;
+    text-align: left;
+    padding: 15px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  .back-title {
+    font-size: 19px; /* Increased by ~20% from 16px */
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .back-text {
+    font-size: 14px;
+    line-height: 1.4;
+    flex-grow: 1;
+  }
+  
+  .more {
+    align-self: flex-end;
+    margin-top: auto; /* Pushes to the bottom */
+    font-size: 16px;
+    color: #007bff; /* Blue color for link indication */
+    text-decoration: underline; /* Underline for link indication */
+    cursor: pointer; /* Pointer cursor on hover */
+    padding: 10px 18px 8px 18px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 12px;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: background 0.2s, color 0.2s;
+  }
+  .more:hover {
+    color: #0056b3; /* Darker blue on hover */
+    background: rgba(255,255,255,0.7);
+  }
+
+    /* Drop zones in the middle row, columns 2 and 3 */
+    .drop-zones-row {
+      grid-column: 2 / span 2;
+      grid-row: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      justify-items: center;
+      height: 100%;
+    }
+    .drop-zone {
+      width: 220px;
+      height: 320px;
+      box-sizing: border-box;
+      border: 2px dashed #ccc;
+      border-radius: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: none;
+      transition: transform 0.3s, background-color 0.3s;
+      position: relative;
+      margin-bottom: 0;
+    }
+    .tilt-left {
+      transform: rotate(-10deg);
+    }
+    .tilt-right {
+      transform: rotate(8deg);
+    }
+    .drop-zone.dragover {
+      border-color: #fff;
+      background-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    .drop-zone-label {
+      margin-top: 10px;
+      font-family: Arial, sans-serif;
+      font-size: 17px;
+      white-space: pre-line;
+      text-align: center;
+      color: #fff;
+      pointer-events: none;
+      width: 180px;
+      line-height: 1.2em;
+      display: block;
+    
+    }
+    /*.drop-zone-label {
+      position: static;
+    }*/
+
+    /* Dropped card: fill zone exactly, keep corners rounded */
+
+    .card.card-drop-animation, .drop-zone .card {
+      width: 220px;
+      height: 320px;
+      box-sizing: border-box;
+      border-radius: 16px;
+    }
+
+    /* Popup styling */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 80%;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.4);
+      z-index: 1000;
+      overflow: hidden;
+    }
+
+    .popup-image {
+      width: 50%;
+      /* height: 100%; Removed to allow padding to create space */
+      float: left;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-origin: content-box; /* Make background respect padding */
+      padding: 10px;
+      box-sizing: border-box;
+      /* border-right: 1px solid #dee2e6; */
+    }
+
+    .popup-content {
+      float: right;
+      width: 50%;
+      height: 100%;
+      padding: 10px 40px 40px 40px; /* Adjusted padding (top 10px, others 40px) */
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+ 
+   
+    .card-title {
+      font-family:"Montserrat Alternates", sans-serif;
+      color: #8B6B3D;
+      font-size: 42px; /* Increased by 20% from 35px */
+      margin-bottom: 20px;
+    }
+    .card-summary {
+      margin-bottom: 15px; /* Reduced margin */
+      color: #333;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    /* Styling for new popup sections */
+    .popup-aka, .popup-animal-explanation {
+      margin-bottom: 15px;
+      color: #333;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .popup-aka strong, .popup-animal-explanation strong {
+      color: #6a4f2a; /* Brown color for heading */
+      display: block; /* Make heading appear on its own line */
+      margin-bottom: 5px;
+    }
+    /* HEADINGS in brown; bullet text is black */
+    .section-title {
+      color: #6a4f2a; 
+      font-weight: bold;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+    .pros-list li,
+    .cons-list li {
+      color: #333;
+      font-size: 1em;
+    }
+    .popup-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 28px;
+      cursor: pointer;
+      color: #666;
+      z-index: 1001;
+    }
+
+    /* Instructions Card Styling*/
+
+ #instructions-container{
+    position: absolute;
+    width: 500px;
+    top: 15px;
+    left: 80px;
+    z-index: 9;}
+
+  #instructions-card h3 {font-weight:600; font-size:20px}
+
+
+  .instructions-content{
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            opacity: 0;
+        }
+
+  .instructions-content.open {
+        max-height: 500px; /* Adjust based on expected content height */
+        overflow: scroll;
+        opacity: 1;
+    }
+
+
+  #toggleButton {background: #3a6575;color:#fff; border-radius:10px;padding:13px; width:300px}
+    
+
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-590KFWHM71"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-590KFWHM71');
+  </script>
+</head>
+<body class=" min-h-screen overflow-hidden">
+  <div class="grid grid-cols-6 min-h-screen w-full">
+    <!-- Hamburger Menu -->
+    <button id="hamburger-btn" class="fixed top-4 left-4 z-50 flex flex-col justify-center items-center rounded-lg shadow-lg focus:outline-none">
+      <span class="block w-8 h-1 bg-white mb-1 rounded"></span>
+      <span class="block w-8 h-1 bg-white mb-1 rounded"></span>
+      <span class="block w-8 h-1 bg-white rounded"></span>
+    </button>
+    <nav id="hamburger-menu" class="fixed top-0 left-0 h-full shadow-lg z-40 transform -translate-x-full transition-transform duration-300">
+      <ul class="flex flex-col mt-20 space-y-6 ">
+        <li><a href="1.html" class="block px-6 py-2 rounded">About Us</a></li>
+        <li><a href="2.html" class="block px-6 py-2 rounded">About Feedback Animals</a></li>
+        <li><a href="3.html" class="block px-6 py-2 rounded">We Want your feedback!</a></li>
+      </ul>
+    </nav>
+    <!-- Modals for 1, 2, 3 -->
+    <div id="modal-1" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 hidden">
+      <div class="bg-white rounded-lg shadow-lg w-[400px] h-[300px] flex flex-col items-center justify-center relative overflow-auto">
+        <button onclick="closeModal(1)" class="absolute top-2 right-4   ">&times;</button>
+        <div class="font-bold">This is Page 1</div>
+      </div>
+    </div>
+    <div id="modal-2" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 hidden">
+      <div class="bg-white rounded-lg shadow-lg w-[400px] h-[300px] flex flex-col items-center justify-center relative overflow-auto">
+        <button onclick="closeModal(2)" class="absolute top-2 right-4   ">&times;</button>
+        <div class="font-bold">This is Page 2</div>
+      </div>
+    </div>
+    <div id="modal-3" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 hidden">
+      <div class="bg-white rounded-lg shadow-lg w-[400px] h-[300px] flex flex-col items-center justify-center relative overflow-auto">
+        <button onclick="closeModal(3)" class="absolute top-2 right-4   ">&times;</button>
+        <div class="font-bold">This is Page 3</div>
+      </div>
+    </div>
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-60" style="width:100vw;height:100vh;opacity:0;transition:opacity 1.5s;">
+      <div id="splash-box" style="width:660px;height:440px;background:white;box-shadow:0 0 40px rgba(0,0,0,0.2);border-radius:32px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+        <span style="
+          position: absolute;
+          top: 45%;
+          left: 50%;
+          transform: translate(-50%, 0);
+          font-size: 2.66rem;
+          font-weight: 700;
+          font-family: 'Montserrat Alternates', sans-serif;
+          text-transform: uppercase;
+          color: #2a301c;
+          letter-spacing: 1.8px;
+          z-index: 2;
+          text-shadow: 0 2px 8px rgba(255,255,255,0.7);
+          pointer-events: none;
+          user-select: none;
+          width: 100%;
+          text-align: center;
+          line-height: 0.89;
+        ">Feedback<br>Animals</span>
+        <img src="splash.jpg" alt="Multiple animals in a natural setting" style="max-width:100%;max-height:100%;object-fit:contain;z-index:1;"/>
+      </div>
+    </div>
+
+    <div id="instructions-container">
+      <button id="toggleButton">
+            View Instructions
+      </button>
+
+      <div id="instructions-card" class="instructions-content mt-6 p-4 border border-gray-200 rounded-lg bg-gray-50 text-gray-700">
+      </div>
+    </div>
+
+    <!-- Columns 1-6: Drop Zones -->
+    <div class="col-start-1 col-span-6 row-span-1 flex justify-center items-center">
+      <div class="flex space-x-36 pt-10">
+        <div class="flex flex-col items-center tilt-left">
+          <div
+            class="drop-zone    border-2 border-dashed border-gray-300 rounded-xl flex justify-center items-center transition-transform"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event)"
+            ondragenter="dragEnter(event)"
+            ondragleave="dragLeave(event)"
+          ></div>
+          <span class="drop-zone-label  mt-2">My default archetype for giving feedback is....</span>
+        </div>
+        <div class="flex flex-col items-center tilt-right">
+          <div
+            class="drop-zone   border-2 border-dashed border-gray-300 rounded-xl flex justify-center items-center transition-transform"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event)"
+            ondragenter="dragEnter(event)"
+            ondragleave="dragLeave(event)"
+          ></div>
+          <span class="drop-zone-label mt-2">I like to receive feedback from this archetype...</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Columns 1-6: Card Grid (bottom row) -->
+    <div class="col-start-1 col-span-6 row-start-2 px-4">
+      <div class="grid grid-cols-7 gap-4 justify-center items-start pt-6 overflow-y-auto" id="card-grid"></div>
+    </div>
+
+
+  <div class="popup" id="popup">
+    <div class="popup-close" onclick="closePopup()">&times;</div>
+    <div class="popup-image" id="popup-image"></div>
+    <div class="popup-content">
+      <div class="card-title"></div>
+      <div class="card-summary"></div>
+      <div class="pros-section">
+        <div class="section-title">Pros:</div>
+        <ul class="pros-list"></ul>
+      </div>
+      <div class="cons-section">
+        <div class="section-title">Cons:</div>
+        <ul class="cons-list"></ul>
+      </div>
+      <div class="aka-section">
+        <div class="section-title">AKA:</div>
+        <ul class="aka-list"></ul>
+      </div>      
+      <div class="animal-explanation-section">
+        <div class="section-title">Why this animal?:</div>
+        <ul class="explanation-list"></ul>
+      </div> <!-- Moved element for Animal Explanation -->
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    // Hamburger menu toggle
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    let menuOpen = false;
+    hamburgerBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      if (menuOpen) {
+        hamburgerMenu.classList.remove('-translate-x-full');
+      } else {
+        hamburgerMenu.classList.add('-translate-x-full');
+      }
+    });
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (
+        menuOpen &&
+        !hamburgerMenu.contains(e.target) &&
+        !hamburgerBtn.contains(e.target)
+      ) {
+        hamburgerMenu.classList.add('-translate-x-full');
+        menuOpen = false;
+      }
+    });
+
+    // Modal logic for 1, 2, 3
+    function openModal(num) {
+      const modal = document.getElementById(`modal-${num}`);
+      modal.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+      // Close menu if open
+      hamburgerMenu.classList.add('-translate-x-full');
+      menuOpen = false;
+      // Add overlay click to close
+      modal.addEventListener('click', function handler(e) {
+        if (e.target === modal) {
+          closeModal(num);
+          modal.removeEventListener('click', handler);
+        }
+      });
+    }
+    function closeModal(num) {
+      document.getElementById(`modal-${num}`).classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+    // Attach modal openers to menu items
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuLinks = hamburgerMenu.querySelectorAll('a');
+      menuLinks.forEach((link, idx) => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          openModal(idx + 1);
+        });
+      });
+      // Splash screen logic
+      const splash = document.getElementById('splash-screen');
+      const splashBox = document.getElementById('splash-box');
+      // Fade in splash
+      setTimeout(() => {
+        splash.style.opacity = '1';
+      }, 50);
+      let splashTimeout = setTimeout(() => {
+        splash.style.display = 'none';
+      }, 10000);
+      splash.addEventListener('click', (e) => {
+        if (e.target === splash) {
+          splash.style.display = 'none';
+          clearTimeout(splashTimeout);
+        }
+      });
+    });
+
+    console.log("JS loaded - script is running");
+    // Make the card data globally accessible
+    window.cardData = null;
+
+    // Remove reliance on local JSON file completely
+    let originalPositions = {};
+
+    async function loadCards(cardsData) {
+      console.log("loadCards called with data:", cardsData);
+      
+      if (!cardsData || !cardsData.cards || !Array.isArray(cardsData.cards)) {
+        console.error("Invalid cards data:", cardsData);
+        return;
+      }
+
+      // Store the data globally
+      window.cardData = cardsData;
+      
+      // Clear existing grid first
+      const grid = document.getElementById("card-grid");
+      grid.innerHTML = '';
+
+      console.log("Building cards with data:", cardsData.cards);
+      
+      cardsData.cards.forEach((card) => {
+        // Container for label + card
+        const cardContainer = document.createElement("div");
+        cardContainer.className = "card-container";
+        cardContainer.dataset.cardId = card.id;
+
+       /* const cardLabel = document.createElement("div");
+        cardLabel.className = "bottom-card-label";
+        cardLabel.textContent = card.cardName;
+        console.log(`Setting label for ${card.id} to "${card.cardName}"`);
+        cardContainer.appendChild(cardLabel);*/
+
+        const cardElement = document.createElement("div");
+        cardElement.className = "card";
+        cardElement.id = card.id;
+        cardElement.setAttribute("draggable", "true");
+        cardElement.setAttribute("ondragstart", "drag(event)");
+        cardElement.setAttribute("ondragend", "dragEnd(event)");
+        cardElement.setAttribute("style", "--aspect-ratio:5/7.3");
+
+        // Hover tooltip
+        cardElement.title = `${card.cardName} - ${card.shortText}`;
+
+        // --- DEBUGGING START ---
+        if (card.cardName === "Parent") {
+          console.log("loadCards - Parent card data for innerHTML:", card);
+        }
+        // --- DEBUGGING END ---
+        // Explicitly setting simple card back HTML
+        cardElement.innerHTML = `
+          <div class="card-inner">
+            <div class="card-front" style="background-image:url('${encodeURI(card.image)}')"></div>
+            <div class="card-back">
+              <div class="back-title">${card.cardName}</div>
+              <div class="more">Click here for full card details</div>
+            </div>
+          </div>
+        `; // Ensure template literal ends correctly
+
+        // --- Force correct card back structure ---
+        const cardBack = cardElement.querySelector('.card-back');
+        if (cardBack) {
+          const allowedClasses = ['back-title', 'back-text', 'more'];
+          Array.from(cardBack.children).forEach(child => {
+            if (!allowedClasses.some(cls => child.classList.contains(cls))) {
+              cardBack.removeChild(child);
+              console.warn(`Removed unexpected element from card back: ${child.outerHTML}`); // Log removal
+            }
+          });
+        }
+        // --- End force structure ---
+
+        // "more" => popup
+        const moreLink = cardElement.querySelector(".more");
+        moreLink.addEventListener("click", (evt) => {
+          evt.stopPropagation();
+          showPopup(card);
+        });
+
+        // Enable flipping on click
+        cardElement.addEventListener("click", () => {
+          cardElement.classList.toggle("flipped");
+        });
+
+        cardContainer.appendChild(cardElement);
+        grid.appendChild(cardContainer);
+      });
+    }
+
+    function showPopup(cardObj) {
+      // CRITICAL FIX: If we're given a card ID, get fresh data from window.cardData
+      if (typeof cardObj === "string") {
+        try {
+          // Try to parse it as JSON first
+          const parsed = JSON.parse(cardObj);
+          cardObj = parsed;
+        } catch (e) {
+          // If not valid JSON, it might be a card ID
+          if (window.cardData && window.cardData.cards) {
+            const freshCard = window.cardData.cards.find(c => c.id === cardObj);
+            if (freshCard) {
+              cardObj = freshCard;
+            }
+          }
+        }
+      } else if (cardObj && cardObj.id && window.cardData && window.cardData.cards) {
+        // If it's an object with an ID, get fresh data to ensure we have latest names
+        const freshCard = window.cardData.cards.find(c => c.id === cardObj.id);
+        if (freshCard) {
+          cardObj = freshCard;
+          console.log("POPUP - Using fresh card data:", freshCard);
+        }
+      }
+      
+      const card = cardObj;
+      const popup = document.getElementById("popup");
+      if (!popup) return;
+
+      const popupImage = popup.querySelector(".popup-image");
+      const cardTitle = popup.querySelector(".card-title");
+      const popupAka = popup.querySelector(".aka-list"); // Select new AKA element
+      const popupAnimalExplanation = popup.querySelector(".explanation-list"); // Select new Animal Explanation element
+      const cardSummary = popup.querySelector(".card-summary");
+      const prosList = popup.querySelector(".pros-list");
+      const consList = popup.querySelector(".cons-list");
+
+      const encodedImageUrl = encodeURI(card.image);
+      popupImage.style.setProperty('background-image', `url('${encodedImageUrl}')`);
+      // Log the card data being displayed
+      console.log("POPUP - Card data being displayed:", card);
+      console.log("POPUP - Card name:", card.cardName);
+      
+      // Ensure card name is displayed correctly
+      cardTitle.textContent = card.cardName;
+      cardSummary.textContent = card.cardSummary;
+
+      // Populate Pros and Cons, hide section if list is empty/missing
+      // Added checks for array existence and length
+      const prosHTML = (card.pros && Array.isArray(card.pros) && card.pros.length > 0) ? card.pros.map((p) => `<li>${p}</li>`).join("") : '';
+      prosList.innerHTML = prosHTML;
+      popup.querySelector('.pros-section').style.display = prosHTML ? 'block' : 'none';
+
+      const consHTML = (card.cons && Array.isArray(card.cons) && card.cons.length > 0) ? card.cons.map((c) => `<li>${c}</li>`).join("") : '';
+      consList.innerHTML = consHTML;
+      popup.querySelector('.cons-section').style.display = consHTML ? 'block' : 'none';
+
+      const akaHTML = (card.aka && Array.isArray(card.aka) && card.aka.length > 0) ? card.aka.map((z) => `<li>${z}</li>`).join("") : '';
+      popupAka.innerHTML = akaHTML;
+      popup.querySelector('.aka-section').style.display = akaHTML ? 'block' : 'none';
+
+      const animalExplanationHTML = (card.animalExplanation && Array.isArray(card.animalExplanation) && card.animalExplanation.length > 0) ? card.animalExplanation.map((e) => `<li>${e}</li>`).join("") : '';
+      popupAnimalExplanation.innerHTML = animalExplanationHTML;
+      popup.querySelector('.animal-explanation-section').style.display = animalExplanationHTML ? 'block' : 'none';
+
+
+      /* Populate AKA - check if exists and is a non-empty array
+      if (card.aka && Array.isArray(card.aka) && card.aka.length > 0) {
+          popupAka.innerHTML = `AKA ${card.aka.join(', ')}`;
+          popupAka.style.display = 'block';
+      } else {
+          popupAka.innerHTML = '';
+          popupAka.style.display = 'none';
+      }*/
+
+      /* Populate Animal Explanation - check if exists and is a non-empty string
+      if (card.animalExplanation && typeof card.animalExplanation === 'string' && card.animalExplanation.trim() !== '') {
+          popupAnimalExplanation.innerHTML = `<strong>${card.cardName}</strong> ${card.animalExplanation}`;
+          popupAnimalExplanation.style.display = 'block';
+          console.log(`POPUP - Animal explanation heading set to: ${card.cardName}`);
+      } else {
+          popupAnimalExplanation.innerHTML = '';
+          popupAnimalExplanation.style.display = 'none';
+      }*/
+
+      popup.style.display = "flex";
+    }
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+
+    // Close popup if user clicks outside
+    window.addEventListener("click", (event) => {
+      const popup = document.getElementById("popup");
+      if (popup.style.display !== "flex") return;
+
+      const popupContent = popup.querySelector(".popup-content");
+      const popupImage = popup.querySelector(".popup-image");
+      const closeBtn = popup.querySelector(".popup-close");
+      if (
+        !popupContent.contains(event.target) &&
+        !popupImage.contains(event.target) &&
+        event.target !== closeBtn
+      ) {
+        popup.style.display = "none";
+      }
+    });
+
+    function drag(event) {
+      const card = event.target.closest(".card");
+      if (!card) return;
+
+      originalPositions[card.id] = card.getBoundingClientRect();
+
+      // Clone card for drag image
+      const dragImage = card.cloneNode(true);
+      dragImage.classList.toggle("flipped", card.classList.contains("flipped"));
+
+      dragImage.style.position = "absolute";
+      dragImage.style.top = "-1000px";
+      document.body.appendChild(dragImage);
+
+      // Remove perspective transforms
+      dragImage.style.transform = "none";
+      dragImage.style.perspective = "none";
+      dragImage.style.width = "220px";
+
+      // Copy 3D transform
+      const originalInner = card.querySelector(".card-inner");
+      const cloneInner = dragImage.querySelector(".card-inner");
+      if (originalInner && cloneInner) {
+        const computedTransform = window.getComputedStyle(originalInner).transform;
+        cloneInner.style.transform = computedTransform;
+      }
+
+      event.dataTransfer.setDragImage(dragImage, 75, 125);
+
+      const isFlipped = card.classList.contains("flipped");
+      
+      // CRITICAL FIX: Always get the most up-to-date card data from window.cardData
+      // instead of using potentially stale references
+      const freshCardData = window.cardData.cards.find((c) => c.id === card.id);
+      
+      // Log all card data for debugging
+      console.log(`DRAG - Card ID ${card.id} data:`, freshCardData);
+      console.log(`DRAG - Card name from dataset: ${freshCardData.cardName}`);
+      
+      event.dataTransfer.setData(
+        "text/plain",
+        JSON.stringify({
+          cardId: card.id,
+          flipped: isFlipped,
+          cardData: freshCardData,
+        })
+      );
+
+      card.style.opacity = "0.6";
+
+      setTimeout(() => {
+        document.body.removeChild(dragImage);
+      }, 0);
+    }
+
+    function dragEnd(event) {
+      const card = event.target.closest(".card");
+      if (card) card.style.opacity = "1";
+
+      document.querySelectorAll(".drop-zone").forEach((zone) => {
+        zone.classList.remove("dragover");
+      });
+    }
+
+    function allowDrop(event) {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = "copy";
+    }
+
+    function dragEnter(event) {
+      event.preventDefault();
+      const dropZone = event.target.closest(".drop-zone");
+      if (dropZone) dropZone.classList.add("dragover");
+    }
+
+
+    // Session ID utility for logging
+    function getSessionId() {
+      let sessionId = localStorage.getItem('sessionId');
+      if (!sessionId) {
+        sessionId = 'sess-' + Math.random().toString(36).substr(2, 9) + '-' + Date.now();
+        localStorage.setItem('sessionId', sessionId);
+      }
+      return sessionId;
+    }
+
+    function dragLeave(event) {
+      event.preventDefault();
+      const dropZone = event.target.closest(".drop-zone");
+      if (dropZone) dropZone.classList.remove("dragover");
+    }
+
+    function drop(event) {
+      event.preventDefault();
+      const dropZone = event.target.closest(".drop-zone");
+      if (!dropZone) return;
+      dropZone.classList.remove("dragover");
+
+      try {
+        const dataString = event.dataTransfer.getData("text/plain");
+        const data = JSON.parse(dataString);
+        const { cardId, flipped, cardData } = data;
+        
+        // Log all card data after parsing for debugging
+        console.log("DROP - Card data after parse:", cardData);
+        console.log("DROP - Card Name:", cardData.cardName);
+        console.log("DROP - Card AKA:", cardData.aka);
+        console.log("DROP - Card Explanation:", cardData.animalExplanation);
+        
+        const originalCard = document.getElementById(cardId);
+        if (!originalCard) return;
+
+
+        // --- LOGGING TO GOOGLE SHEETS ---
+        // Get drop zone label (assume label is next sibling with class 'drop-zone-label')
+        let dropZoneLabel = '';
+        if (dropZone && dropZone.nextElementSibling && dropZone.nextElementSibling.classList.contains('drop-zone-label')) {
+          dropZoneLabel = dropZone.nextElementSibling.textContent.trim();
+        } else if (dropZone && dropZone.previousElementSibling && dropZone.previousElementSibling.classList.contains('drop-zone-label')) {
+          dropZoneLabel = dropZone.previousElementSibling.textContent.trim();
+        } else if (dropZone && dropZone.getAttribute('id')) {
+          dropZoneLabel = dropZone.getAttribute('id');
+        } else {
+          dropZoneLabel = 'unknown-drop-zone';
+        }
+
+        // Prepare log data as an array matching the sheet columns
+        const logData = [
+          new Date().toISOString(),         // Timestamp
+          cardData.cardName,                // Card Name
+          dropZoneLabel,                    // Drop Zone
+          getSessionId(),                   // Session ID
+          navigator.userAgent               // User Agent
+        ];
+
+        // NoCodeAPI endpoint for logging tab
+        const GOOGLE_SHEETS_WEBHOOK_URL = 'https://v1.nocodeapi.com/feedbackanimals/google_sheets/wlYguQngXUOgaSbq?tabId=logging';
+
+        fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify([logData])
+        }).then(res => {
+          if (!res.ok) {
+            console.error('Failed to log drag event');
+          }
+        }).catch(err => {
+          console.error('Error logging drag event:', err);
+        });
+        // --- END LOGGING ---
+
+        // Clear old, keep label
+        [...dropZone.children].forEach((child) => {
+          if (!child.classList.contains("drop-zone-label")) {
+            dropZone.removeChild(child);
+          }
+        });
+
+        // New dropped card
+        const clonedCard = document.createElement("div");
+        clonedCard.className = "card card-drop-animation";
+        // Regenerate innerHTML based on cardData, similar to loadCards
+        clonedCard.innerHTML = `
+          <div class="card-inner">
+            <div class="card-front" style="background-image:url('${encodeURI(cardData.image)}')"></div>
+            <div class="card-back">
+              <div class="back-title">${cardData.cardName}</div>
+              <div class="more">Click here for full card details</div>
+            </div>
+          </div>
+        `;
+
+        // flipping
+        clonedCard.addEventListener("click", () => {
+          clonedCard.classList.toggle("flipped");
+        });
+
+        // reattach "more"
+        const moreLink = clonedCard.querySelector(".more");
+        if (moreLink) {
+          moreLink.addEventListener("click", (evt) => {
+            evt.stopPropagation();
+            // Log dropped card data when more is clicked
+            console.log("Attaching popup to DROPPED card. Card data:", cardData);
+            console.log("DROPPED Card Name:", cardData.cardName);
+            console.log("DROPPED Card AKA:", cardData.aka);
+            console.log("DROPPED Card Explanation:", cardData.animalExplanation);
+            
+            showPopup(cardData);
+          });
+        }
+
+        if (flipped) clonedCard.classList.add("flipped");
+
+        dropZone.appendChild(clonedCard);
+
+        // animate to fill zone (154×220)
+        setTimeout(() => {
+          clonedCard.classList.remove("card-drop-animation");
+        }, 400);
+
+        // restore original
+        originalCard.style.opacity = "1";
+      } catch (error) {
+        console.error("Error in drop handler:", error);
+      }
+    }
+
+    // --- Load Instructions ---
+    // Replace local loadInstructions + loadCards with Google Sheets CSV approach
+    async function loadDataFromGoogleSheet() {
+      // Add more aggressive cache-busting with random component + timestamp
+      const timestamp = new Date().getTime();
+      const random = Math.floor(Math.random() * 1000000);
+      const sheetCsvUrl = `https://docs.google.com/spreadsheets/d/1iliN5ukkqErDS4dR-ripsL0kmC1FVTfjye8E39NNTH0/export?format=csv&nocache=${timestamp}-${random}`;
+      
+      console.log("Fetching data from Google Sheet with URL:", sheetCsvUrl);
+      
+      try {
+        console.log("Attempting to fetch from Google Sheet:", sheetCsvUrl);
+        // Prevent caching with simpler fetch options to avoid CORS issues
+        const response = await fetch(sheetCsvUrl, {
+          method: 'GET',
+          cache: 'no-store',
+          credentials: 'omit',
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache'
+            // Removed 'Expires' header which was causing CORS issues
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error("HTTP error! status: " + response.status);
+        }
+        
+        const csvText = await response.text();
+        console.log("CSV data received, length:", csvText.length);
+        console.log("First 100 characters of CSV:", csvText.substring(0, 100));
+        
+        // Parse CSV
+        // Format: type,id,field,value
+        const lines = csvText.split(/\r?\n/).filter(line => line.trim());
+        // Remove header
+        lines.shift();
+
+        console.log("Parsed CSV lines:", lines.length);
+        const instructions = { heading: "", body: "" };
+        const cardMap = {};
+        // Add configuration for drop zone labels with defaults
+        const config = {
+          dropZone1Label: "How I like to receive feedback...",
+          dropZone2Label: "My Own Feedback Style is...",
+          dropZone3Label: "I aspire to..."
+        };
+
+
+        // Process CSV data
+        for (const row of lines) {
+          const cells = parseCsvRow(row);
+          if (cells.length < 4) {
+            console.warn("Skipping incomplete row:", row);
+            continue;
+          }
+          
+          const [type, id, field, value] = cells;
+          console.log(`Processing row: type=${type}, id=${id}, field=${field}, value=${value.substring(0, 30)}...`);
+
+          if (type === "instructions" && id === "instructions") {
+            if (field === "heading") instructions.heading = value;
+            else if (field === "body") instructions.body = value;
+          } else if (type === "config" && id === "dropZones") {
+            // Process configuration for drop zone labels
+            if (field === "dropZone1Label") config.dropZone1Label = value;
+            else if (field === "dropZone2Label") config.dropZone2Label = value;
+            else if (field === "dropZone3Label") config.dropZone3Label = value;
+          } else if (type === "card") {
+            if (!cardMap[id]) {
+              cardMap[id] = { id };
+              console.log(`Created new card with id ${id}`);
+            }
+            
+            if (field === "cardName") {
+              cardMap[id].cardName = value;
+              console.log(`SET CARD NAME: ${id} = "${value}"`);
+            }
+            else if (field === "shortText") cardMap[id].shortText = value;
+            else if (field === "cardSummary") cardMap[id].cardSummary = value;
+            else if (field === "pros") cardMap[id].pros = value ? value.split(";").map(s => s.trim()) : [];
+            else if (field === "cons") cardMap[id].cons = value ? value.split(";").map(s => s.trim()) : [];
+            else if (field === "aka") cardMap[id].aka = value ? value.split(";").map(s => s.trim()) : [];
+            else if (field === "animalExplanation") cardMap[id].animalExplanation = value;           
+            
+          }
+        }
+
+        // Apply instructions with Tailwind classes
+        const instructionsCard = document.getElementById("instructions-card");
+        if (instructionsCard) {
+          // Convert semicolons to line breaks in the instructions body
+          const formattedBody = instructions.body.split(';').map(line => line.trim()).join('<br>');
+          instructionsCard.innerHTML = `<h3 class=" mb-2">${instructions.heading}</h3><p class="">${formattedBody}</p>`;
+        }
+
+        // Apply drop zone labels from configuration
+        const dropZoneLabels = document.querySelectorAll('.drop-zone-label');
+        if (dropZoneLabels.length >= 2) {
+          // Force update the labels
+          dropZoneLabels[0].textContent = config.dropZone1Label || "My default archetype for giving feedback is....";
+          dropZoneLabels[1].textContent = config.dropZone2Label || "I like to receive feedback from this archetype...";
+          if (dropZoneLabels.length >= 3 && config.dropZone3Label) {
+            dropZoneLabels[2].textContent = config.dropZone3Label;
+          }
+          console.log("Updated drop zone labels from configuration:", config);
+        }
+
+        // Debug: Log all cards in cardMap
+        console.log("Final cardMap:", cardMap);
+        Object.values(cardMap).forEach(card => {
+          console.log(`Card ${card.id} final name: ${card.cardName}`);
+        });
+
+        // Convert cardMap to array
+        const finalCards = Object.values(cardMap);
+        
+        // Add card images based on numeric ID
+        finalCards.forEach(card => {
+          const cardNumber = card.id.replace('card', '');
+          card.image = `card numbers (${cardNumber}).png`;
+          
+          // CRITICAL FIX: Ensure card names are properly set
+          if (!card.cardName) {
+            console.error(`ERROR: Missing cardName for ${card.id}!`);
+          } else {
+            // Force proper capitalization
+            card.cardName = card.cardName.trim();
+            card.cardName = card.cardName.charAt(0).toUpperCase() + card.cardName.slice(1);
+            console.log(`FINAL CARD NAME: ${card.id} = "${card.cardName}"`);
+          }
+        });
+
+        // Create the final data structure
+        const cardsData = { cards: finalCards };
+        
+        // Display a message about the data being loaded
+        console.log(`LOADED ${finalCards.length} CARDS FROM GOOGLE SHEET`);
+        
+        // Now build the UI with the data we just loaded
+        console.log("About to call loadCards with data:", cardsData);
+        loadCards(cardsData);
+
+      } catch (error) {
+        console.error("Could not load from Google Sheet:", error);
+        const instructionsCard = document.getElementById("instructions-card");
+        if (instructionsCard) {
+          instructionsCard.innerHTML = `<h3>Error</h3><p>Could not load from Google Sheet.</p>`;
+        }
+      }
+    }
+
+    function parseCsvRow(row) {
+      const result = [];
+      let current = "";
+      let inQuotes = false;
+
+      for (let i = 0; i < row.length; i++) {
+        const char = row[i];
+        if (char === '"') {
+          if (inQuotes && row[i + 1] === '"') {
+            current += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (char === "," && !inQuotes) {
+          result.push(current);
+          current = "";
+        } else {
+          current += char;
+        }
+      }
+      if (current) result.push(current);
+      return result;
+    }
+
+    // On page load, fetch from static JSON instead of Google Sheet
+    window.addEventListener("DOMContentLoaded", () => {
+      // Display loading indicator
+      const grid = document.getElementById("card-grid");
+      if (grid) {
+        grid.innerHTML = '<div class="w-full">Loading data from JSON...</div>';
+      }
+
+      // Fetch and load data from data.json
+      async function loadDataFromJson() {
+        try {
+          const response = await fetch('data.json');
+          const data = await response.json();
+
+          // Update instructions card
+          const instructionsCard = document.getElementById("instructions-card");
+          if (instructionsCard && data.instructions) {
+            const formattedBody = data.instructions.body.split(';').map(line => line.trim()).join('<br>');
+            instructionsCard.innerHTML = `<h3 class="  mb-2">${data.instructions.heading}</h3><p class="">${formattedBody}</p>`;
+          }
+
+          // Load cards
+          loadCards({ cards: data.cards });
+        } catch (error) {
+          console.error("Could not load from data.json:", error);
+          const instructionsCard = document.getElementById("instructions-card");
+          if (instructionsCard) {
+            instructionsCard.innerHTML = `<h3>Error</h3><p>Could not load from data.json.</p>`;
+          }
+        }
+      }
+
+      loadDataFromJson();
+
+      // Force reload function - completely clears browser cache and reloads page
+      function forceHardReload() {
+        console.log("PERFORMING HARD RELOAD");
+        // Clear all browser storage
+        if (window.localStorage) window.localStorage.clear();
+        if (window.sessionStorage) window.sessionStorage.clear();
+
+        // Add cache-busting parameter and reload
+        const reloadUrl = window.location.pathname + "?nocache=" + new Date().getTime();
+        window.location.href = reloadUrl;
+      }
+
+      // Add a force refresh button
+      const badge = document.getElementById("badge");
+      if (badge) {
+        badge.style.cursor = 'pointer';
+        badge.title = "Click to FORCE HARD RELOAD from JSON";
+        badge.addEventListener("click", forceHardReload);
+      }
+
+      // Create visible refresh button
+    });
+  </script>
+  <script>
+        // Toggle instructions
+        const toggleButton = document.getElementById('toggleButton');
+        const contentDiv = document.getElementById('instructions-card');
+
+        // Add an event listener to the button
+        toggleButton.addEventListener('click', () => {
+            // Toggle the 'open' class on the content div
+            contentDiv.classList.toggle('open');
+
+            // Update the button text based on the div's state
+            if (contentDiv.classList.contains('open')) {
+                toggleButton.textContent = 'Hide Instructions';
+            } else {
+                toggleButton.textContent = 'View Instructions';
+            }
+        });
+    </script>
+</body>
+</html>
