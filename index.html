@@ -1238,8 +1238,8 @@
         // Add card images based on numeric ID
         finalCards.forEach(card => {
           const cardNumber = card.id.replace('card', '');
-          card.image = `card numbers (${cardNumber}).png`;
-          
+          console.log("✅ PNG override NOT active");
+        });
           // CRITICAL FIX: Ensure card names are properly set
           if (!card.cardName) {
             console.error(`ERROR: Missing cardName for ${card.id}!`);
