@@ -1232,29 +1232,11 @@
           console.log(`Card ${card.id} final name: ${card.cardName}`);
         });
 
-        // Convert cardMap to array
-        const finalCards = Object.values(cardMap);
-        
-        // Add card images based on numeric ID
-  finalCards.forEach(card => {
-  const cardNumber = card.id.replace('card', '');
-  console.log("✅ PNG override NOT active");
+// Convert cardMap to array
+const finalCards = Object.values(cardMap);
 
-  
-  // CRITICAL FIX: Ensure card names are properly set
-  if (!card.cardName) {
-    console.error(`ERROR: Missing cardName for ${card.id}!`);
-  } else {
-    // Force proper capitalization
-    card.cardName = card.cardName.trim();
-    card.cardName = card.cardName.charAt(0).toUpperCase() + card.cardName.slice(1);
-    console.log(`FINAL CARD NAME: ${card.id} = "${card.cardName}"`);
-  }
-});
-
-
-        // Create the final data structure
-        const cardsData = { cards: finalCards };
+// Create the final data structure
+const cardsData = { cards: finalCards };
         
         // Display a message about the data being loaded
         console.log(`LOADED ${finalCards.length} CARDS FROM GOOGLE SHEET`);
