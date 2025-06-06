@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://feedback.bringthepunters.com/</loc>
+    <loc>https://feedbackanimals.com/</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://feedback.bringthepunters.com/card.html</loc>
+    <loc>https://feedbackanimals.com/card.html</loc>
     <priority>0.8</priority>
   </url>
+
+
+
+  <url>
+    <loc>https://feedbackanimals.bringthepunters.com/1.html</loc>
+
+    <priority>0.8</priority>
+  </url>
+ <url>
+    <loc>https://feedbackanimals.bringthepunters.com/2.html</loc>
+
+    <priority>0.8</priority>
+  </url> <url>
+    <loc>https://feedbackanimals.bringthepunters.com/3.html</loc>
+
+    <priority>0.8</priority>
+
 </urlset>
+
