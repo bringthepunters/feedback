@@ -464,6 +464,50 @@
   </script>
 </head>
 <body class=" min-h-screen overflow-hidden">
+<!-- Mobile Warning Modal -->
+<div id="mobile-warning-modal" style="
+  display:none;
+  position:fixed;
+  z-index:9999;
+  top:0; left:0;
+  width:100vw; height:100vh;
+  background:rgba(30,41,59,0.97);
+  color:#fff;
+  text-align:center;
+  overflow:hidden;
+  box-sizing:border-box;
+  padding:0;
+  margin:0;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+">
+  <img src="crabtop.png" alt="Crab using a laptop" style="max-width:160px;width:60vw;margin-bottom:18px;border-radius:16px;box-shadow:0 4px 24px #0003;">
+  <div style="font-size:1.3em;font-weight:700;margin-bottom:10px;line-height:1.1;max-width:90vw;">We're sorry!</div>
+  <div style="font-size:1em;max-width:92vw;padding:0 6px 0 6px;line-height:1.4;word-break:break-word;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+    <span style="display:block;">This site is designed for use on laptops.</span>
+    <span style="display:block;">It's just not going to work well on a phone.</span>
+  </div>
+</div>
+<script>
+  // Show modal if on a phone (basic check: width or user agent)
+  function isMobileDevice() {
+  var ua = navigator.userAgent;
+  // Only match iPhone and Android Mobile, NOT iPad or Android Tablet
+  var isPhone = /iPhone|Android.*Mobile|Windows Phone|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+  return isPhone;
+}
+  window.addEventListener('DOMContentLoaded', function() {
+    if (isMobileDevice()) {
+      var modal = document.getElementById('mobile-warning-modal');
+      if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        console.log("Mobile phone detected, showing modal");
+      }
+    }
+  });
+</script>
   <div class="grid grid-cols-6 min-h-screen w-full">
     <!-- Hamburger Menu -->
     <button id="hamburger-btn" class="fixed top-4 left-4 z-50 flex flex-col justify-center items-center rounded-lg shadow-lg focus:outline-none">
@@ -557,7 +601,15 @@
             ondragenter="dragEnter(event)"
             ondragleave="dragLeave(event)"
           ></div>
-          <span class="drop-zone-label  mt-2">My default archetype for giving feedback is....</span>
+          <div class="drop-zone-label-container mt-2 flex items-center space-x-2">
+            <span class="drop-zone-label">My default archetype for giving feedback is....</span>
+            <button class="edit-label-btn" aria-label="Edit label 1" onclick="editDropZoneLabel(0)" style="background:none;border:none;cursor:pointer;font-size:1.1em;">✏️</button>
+            <form class="edit-label-form" style="display:none;" onsubmit="saveDropZoneLabel(event,0)">
+              <input type="text" class="edit-label-input" style="font-size:1em;width:220px;" />
+              <button type="submit" style="margin-left:4px;">Save</button>
+              <button type="button" onclick="cancelEditDropZoneLabel(0)" style="margin-left:2px;">Cancel</button>
+            </form>
+          </div>
         </div>
         <div class="flex flex-col items-center tilt-right">
           <div
@@ -567,7 +619,15 @@
             ondragenter="dragEnter(event)"
             ondragleave="dragLeave(event)"
           ></div>
-          <span class="drop-zone-label mt-2">I like to receive feedback from this archetype...</span>
+          <div class="drop-zone-label-container mt-2 flex items-center space-x-2">
+            <span class="drop-zone-label">I like to receive feedback from this archetype...</span>
+            <button class="edit-label-btn" aria-label="Edit label 2" onclick="editDropZoneLabel(1)" style="background:none;border:none;cursor:pointer;font-size:1.1em;">✏️</button>
+            <form class="edit-label-form" style="display:none;" onsubmit="saveDropZoneLabel(event,1)">
+              <input type="text" class="edit-label-input" style="font-size:1em;width:220px;" />
+              <button type="submit" style="margin-left:4px;">Save</button>
+              <button type="button" onclick="cancelEditDropZoneLabel(1)" style="margin-left:2px;">Cancel</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -1011,12 +1071,15 @@
 
 
         // --- LOGGING TO GOOGLE SHEETS ---
-        // Get drop zone label (assume label is next sibling with class 'drop-zone-label')
+        // Get drop zone label from the container structure
         let dropZoneLabel = '';
-        if (dropZone && dropZone.nextElementSibling && dropZone.nextElementSibling.classList.contains('drop-zone-label')) {
-          dropZoneLabel = dropZone.nextElementSibling.textContent.trim();
-        } else if (dropZone && dropZone.previousElementSibling && dropZone.previousElementSibling.classList.contains('drop-zone-label')) {
-          dropZoneLabel = dropZone.previousElementSibling.textContent.trim();
+        // Look for label in the current DOM structure (parent container > label container > label span)
+        const dropZoneContainer = dropZone.closest('.flex.flex-col');
+        if (dropZoneContainer) {
+          const labelElement = dropZoneContainer.querySelector('.drop-zone-label');
+          if (labelElement) {
+            dropZoneLabel = labelElement.textContent.trim();
+          }
         } else if (dropZone && dropZone.getAttribute('id')) {
           dropZoneLabel = dropZone.getAttribute('id');
         } else {
@@ -1216,9 +1279,40 @@
         // Apply instructions with Tailwind classes
         const instructionsCard = document.getElementById("instructions-card");
         if (instructionsCard) {
-          // Convert semicolons to line breaks in the instructions body
-          const formattedBody = instructions.body.split(';').map(line => line.trim()).join('<br>');
-          instructionsCard.innerHTML = `<h3 class=" mb-2">${instructions.heading}</h3><p class="">${formattedBody}</p>`;
+          // Process instructions with half-line spacing between numbered paragraphs
+          const lines = instructions.body.split(';').map(line => line.trim());
+          
+          // Create HTML with half-line spacing between numbered paragraphs
+          let formattedHtml = '';
+          lines.forEach(line => {
+            // Check if line starts with a number (like "1.", "2.", etc.)
+            if (/^\d+\./.test(line)) {
+              // Extract the numbered part and make only that part bold
+              const numberMatch = line.match(/^(\d+\.\s*)(.*)/);
+              if (numberMatch && numberMatch.length >= 3) {
+                const [_, numberedPart, restOfLine] = numberMatch;
+                
+                // Make "writing your own questions" bold in instruction #2
+                let processedRestOfLine = restOfLine;
+                if (line.startsWith('2.') && restOfLine.includes('write your own questions')) {
+                  processedRestOfLine = restOfLine.replace(
+                    'write your own questions',
+                    '<span style="font-weight: bold;">write your own questions</span>'
+                  );
+                }
+                
+                // Add extra margin-bottom for numbered paragraphs, but only make the numbered part bold
+                formattedHtml += `<div style="margin-bottom: 0.5em;"><span style="font-weight: bold;">${numberedPart}</span>${processedRestOfLine}</div>`;
+              } else {
+                // Fallback if regex doesn't match as expected
+                formattedHtml += `<div style="margin-bottom: 0.5em;">${line}</div>`;
+              }
+            } else {
+              formattedHtml += `<div>${line}</div>`;
+            }
+          });
+          
+          instructionsCard.innerHTML = `<h3 class="mb-2">${instructions.heading}</h3><div class="">${formattedHtml}</div>`;
         }
 
         // Apply drop zone labels from configuration
@@ -1303,8 +1397,40 @@ const cardsData = { cards: finalCards };
           // Update instructions card
           const instructionsCard = document.getElementById("instructions-card");
           if (instructionsCard && data.instructions) {
-            const formattedBody = data.instructions.body.split(';').map(line => line.trim()).join('<br>');
-            instructionsCard.innerHTML = `<h3 class="  mb-2">${data.instructions.heading}</h3><p class="">${formattedBody}</p>`;
+            // Process instructions with half-line spacing between numbered paragraphs
+            const lines = data.instructions.body.split(';').map(line => line.trim());
+            
+            // Create HTML with half-line spacing between numbered paragraphs
+            let formattedHtml = '';
+            lines.forEach(line => {
+              // Check if line starts with a number (like "1.", "2.", etc.)
+              if (/^\d+\./.test(line)) {
+                // Extract the numbered part and make only that part bold
+                const numberMatch = line.match(/^(\d+\.\s*)(.*)/);
+                if (numberMatch && numberMatch.length >= 3) {
+                  const [_, numberedPart, restOfLine] = numberMatch;
+                  
+                  // Make "writing your own questions" bold in instruction #2
+                  let processedRestOfLine = restOfLine;
+                  if (line.startsWith('2.') && restOfLine.includes('write your own questions')) {
+                    processedRestOfLine = restOfLine.replace(
+                      'write your own questions',
+                      '<span style="font-weight: bold;">write your own questions</span>'
+                    );
+                  }
+                  
+                  // Add extra margin-bottom for numbered paragraphs, but only make the numbered part bold
+                  formattedHtml += `<div style="margin-bottom: 0.5em;"><span style="font-weight: bold;">${numberedPart}</span>${processedRestOfLine}</div>`;
+                } else {
+                  // Fallback if regex doesn't match as expected
+                  formattedHtml += `<div style="margin-bottom: 0.5em;">${line}</div>`;
+                }
+              } else {
+                formattedHtml += `<div>${line}</div>`;
+              }
+            });
+            
+            instructionsCard.innerHTML = `<h3 class="mb-2">${data.instructions.heading}</h3><div class="">${formattedHtml}</div>`;
           }
 
           // Load cards
@@ -1361,5 +1487,62 @@ const cardsData = { cards: finalCards };
             }
         });
     </script>
+  <script>
+    // Helper to get all drop zone label containers
+    function getDropZoneLabelContainers() {
+      return document.querySelectorAll('.drop-zone-label-container');
+    }
+
+    function editDropZoneLabel(idx) {
+      const containers = getDropZoneLabelContainers();
+      const container = containers[idx];
+      container.querySelector('.drop-zone-label').style.display = 'none';
+      container.querySelector('.edit-label-btn').style.display = 'none';
+      const form = container.querySelector('.edit-label-form');
+      const input = form.querySelector('.edit-label-input');
+      input.value = container.querySelector('.drop-zone-label').textContent;
+      form.style.display = '';
+      input.focus();
+    }
+
+    function saveDropZoneLabel(event, idx) {
+      event.preventDefault();
+      const containers = getDropZoneLabelContainers();
+      const container = containers[idx];
+      const form = container.querySelector('.edit-label-form');
+      const input = form.querySelector('.edit-label-input');
+      container.querySelector('.drop-zone-label').textContent = input.value;
+      container.querySelector('.drop-zone-label').style.display = '';
+      container.querySelector('.edit-label-btn').style.display = '';
+      form.style.display = 'none';
+      // Commented out for easy rollback if needed
+      /*
+      // Persistence with localStorage - uncomment to restore persistence
+      try {
+        localStorage.setItem('dropZoneLabel' + idx, input.value);
+      } catch (e) {}
+      */
+    }
+
+    function cancelEditDropZoneLabel(idx) {
+      const containers = getDropZoneLabelContainers();
+      const container = containers[idx];
+      container.querySelector('.drop-zone-label').style.display = '';
+      container.querySelector('.edit-label-btn').style.display = '';
+      container.querySelector('.edit-label-form').style.display = 'none';
+    }
+    /*
+    // On load, restore labels from localStorage - uncomment to restore persistence
+    window.addEventListener('DOMContentLoaded', function() {
+      const containers = getDropZoneLabelContainers();
+      containers.forEach((container, idx) => {
+        const saved = localStorage.getItem('dropZoneLabel' + idx);
+        if (saved) {
+          container.querySelector('.drop-zone-label').textContent = saved;
+        }
+      });
+    });
+    */
+  </script>
 </body>
 </html>

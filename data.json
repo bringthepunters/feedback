@@ -1,7 +1,7 @@
 {
   "instructions": {
     "heading": "Feedback Animal Cards Instructions",
-    "body": "Use the Feedback Animal Cards to better understand different feedback styles. Assume that everyone has good intentions at heart, we just have different feedback approaches.; 1. Read each of the Feedback Animal Cards.  Learn more about each animal by clicking on the card.; 2. Select and drag the Feedback Animal card onto the table. Choose the card that feels most like you in your current role; 3. Use these insights as part of team building, or start a conversation with your coach on how to grow your feedback skills. You'll find more information on how to use the Feedback Animal Cards in the menu;  4. To reset, just refresh your screen."
+    "body": "Use the Feedback Animal Cards to better understand different feedback styles. Assume that everyone has good intentions at heart, we just have different feedback approaches.; 1. Read each of the Feedback Animal Cards. Learn more about each animal by clicking on the card.; 2. Select and drag the Feedback Animal card onto the table. Choose the card that feels most like you in your current role. There is an option to customise the questions by clicking on the pencil icon under the card drop zone. You can write your own questions.; 3. Use these insights as part of team building, or start a conversation with your coach on how to grow your feedback skills. You'll find more information on how to use the Feedback Animal Cards in the menu.; 4. To reset, just refresh your screen."
   },
   "config": {
     "dropZone1Label": "The animal that feels most like the way I give feedback is....",
