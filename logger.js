@@ -42,6 +42,7 @@ app.post('/log-drag', async (req, res) => {
     dropZone,
     timestamp,
     sessionId,
+    ip,
     city,
     region,
     country

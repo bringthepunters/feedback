@@ -1098,9 +1098,22 @@
               city = geoData.city || "Unknown";
               region = geoData.region || "Unknown";
               country = geoData.country || "Unknown";
+            } else {
+               throw new Error('ipapi.co failed');
             }
           } catch (err) {
-            // If geolocation fails, keep "Unknown"
+            console.error('Geolocation lookup with ipapi.co failed:', err);
+            try {
+               const geoRes = await fetch('http://ip-api.com/json');
+               if (geoRes.ok) {
+                   const geoData = await geoRes.json();
+                   city = geoData.city || "Unknown";
+                   region = geoData.regionName || "Unknown";
+                   country = geoData.country || "Unknown";
+               }
+            } catch (err2) {
+               console.error('Fallback geolocation lookup with ip-api.com failed:', err2);
+            }
           }
 
           const logData = [
