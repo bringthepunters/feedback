@@ -95,10 +95,54 @@
     body ol {list-style: decimal!important;}
     body nav ul {list-style: none!important; margin-left:10px;margin-right:10px;}
 
-    #hamburger-btn {background: #3a6575;width: 50px;height: 50px;}
+    #hamburger-btn {
+      background: #3f6675;
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+    }
     #hamburger-menu {background: #fff; width:20%}
 
     nav li a:hover {background:#dedede}
+
+    /* Partner logos panel */
+    .partner-logos {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 40;
+      width: 110px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 10px;
+      background: #3f6675;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    .partner-logos p {
+      margin: 0;
+      font-family: "Montserrat", sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      color: #fff;
+      text-align: center;
+      line-height: 1.3;
+      width: 100%;
+      word-break: break-word;
+    }
+    .partner-logos a {
+      display: block;
+    }
+    .partner-logos img {
+      display: block;
+      width: 66px;
+      max-width: 66px;
+      height: auto;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
+    }
 
     /* Main grid layout - original definition kept for compatibility with JS */
     /* The div now uses Tailwind classes for the grid */
@@ -449,7 +493,7 @@
     }
 
 
-  #toggleButton {background: #3a6575;color:#fff; border-radius:10px;padding:13px; width:300px}
+  #toggleButton {background: #3f6675;color:#fff; border-radius:14px;padding:13px; width:300px}
     
 
   </style>
@@ -508,6 +552,18 @@
     }
   });
 </script>
+  <div class="partner-logos">
+    <p>Brought to you by...</p>
+    <a href="https://www.unfold-labs.com" target="_blank" rel="noopener noreferrer">
+      <img src="LOGO_UNFOLD_LABS_STACK_rev_NoBG.png" alt="Unfold Labs logo">
+    </a>
+    <a href="https://www.frankandeddy.com" target="_blank" rel="noopener noreferrer">
+      <img src="frankneddy.png" alt="Frank and Eddy logo">
+    </a>
+    <a href="https://www.melissajrosenthal.com" target="_blank" rel="noopener noreferrer">
+      <img src="MEL.png" alt="Melissa J. Rosenthal logo">
+    </a>
+  </div>
   <div class="grid grid-cols-6 min-h-screen w-full">
     <!-- Hamburger Menu -->
     <button id="hamburger-btn" class="fixed top-4 left-4 z-50 flex flex-col justify-center items-center rounded-lg shadow-lg focus:outline-none">
